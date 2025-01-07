@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.QuotesPage">
+    <Grid VerticalOptions="Fill">
+        <CarouselView x:Name="AffirmationsList"
+                      Loop="True"
+                      VerticalScrollBarVisibility="Never">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Label TextColor="#4f3422"
+                           Text="{Binding Text}"
+                           FontSize="26"
+                           Margin="32,32,32,32"
+                           HeightRequest="100"
+                           FontFamily="fredoka"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center"/>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </Grid>
+</ContentPage>
