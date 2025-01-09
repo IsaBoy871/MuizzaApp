@@ -1,23 +1,121 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MuizzaApp1.QuotesPage">
-    <Grid VerticalOptions="Fill">
-        <CarouselView x:Name="AffirmationsList"
-                      Loop="True"
-                      VerticalScrollBarVisibility="Never">
-            <CarouselView.ItemTemplate>
-                <DataTemplate>
-                    <Label TextColor="#4f3422"
-                           Text="{Binding Text}"
-                           FontSize="26"
-                           Margin="32,32,32,32"
-                           HeightRequest="100"
-                           FontFamily="fredoka"
-                           HorizontalTextAlignment="Center"
-                           VerticalOptions="Center"/>
-                </DataTemplate>
-            </CarouselView.ItemTemplate>
-        </CarouselView>
+
+    <Grid BackgroundColor="{StaticResource Secondary}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <Ellipse MinimumHeightRequest="900" HeightRequest="760" WidthRequest="3400" Margin="0,0,0,-580" Fill="white" Grid.Row="1" HorizontalOptions="FillAndExpand" />
+
+        <Ellipse/>
+
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                StrokeThickness="3"
+                Stroke="Black"
+                StrokeShape="RoundRectangle 20"
+                Margin="95,265,95,530">
+            <Grid ColumnDefinitions="Auto,*">
+                <Image Grid.Column="0"
+                       Source="search_icon.png"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       Margin="10,0,0,0"/>
+                <Entry Grid.Column="1"
+                       Placeholder="I am feeling?"
+                       PlaceholderColor="Grey"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="Never"
+                       HeightRequest="40"
+                       TextColor="Black"
+                       Margin="0,0,10,0"/>
+            </Grid>
+        </Border>
+
+        <BoxView Grid.Row="1"
+                 HeightRequest="4"
+                 Color="Black"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Center"
+                 Margin="0,-180,0,0"/>
+
+        <Grid Margin="0,70,0,0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+
+            <Image Grid.Row="1"
+                  Source="cat_search.png"
+                  SemanticProperties.Description="Cute cat being held by their owner"
+                  HeightRequest="55"
+                  VerticalOptions="Start"
+                  Margin="0,-215,0,0"
+                  HorizontalOptions="Center" />
+
+            <Grid VerticalOptions="Fill">
+                <CarouselView x:Name="AffirmationsList"
+                  Loop="True"
+                  VerticalScrollBarVisibility="Never">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Grid.Row="1"
+                                   TextColor="#4f3422"
+                                   Text="{Binding Text}"
+                                   FontSize="24"
+                                   Margin="20"
+                                   HeightRequest="320"
+                                   FontFamily="fredoka"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Start"/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <Image
+                    Grid.Row="1"
+                    Source="muizza_title.png"
+                    SemanticProperties.Description="Cute cat being held by their owner"
+                    Margin= "0,-60,0,0"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"/>
+            </Grid>
+
+            <Frame  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="End" CornerRadius="33" Margin="-10" BackgroundColor="White" HeightRequest="100">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Shadow>
+                        <Shadow Offset="10,10" Radius="30" Opacity="0.5" />
+                    </Grid.Shadow>
+                    <ImageButton Grid.Column="0" HeightRequest="50" WidthRequest="50" Source="quotes_icon" />
+                    <ImageButton Grid.Column="1" HeightRequest="35" WidthRequest="35" Command="{Binding NavigateToFavouritesPage}" Source="notes_icon" />
+                    <ImageButton Grid.Column="2" HeightRequest="50" WidthRequest="40" Command="{Binding NavigateToProfilePage}" Source="meditate_icon" />
+                </Grid>
+            </Frame>
+
+            <Frame  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="End" CornerRadius="33" Margin="15" BackgroundColor="#f6e5cb" HeightRequest="95" WidthRequest="100">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!--<Grid.Shadow>
+                        <Shadow Offset="10,10" Radius="30" Opacity="0.5" />
+                    </Grid.Shadow>-->
+                    <ImageButton Grid.Column="1" HeightRequest="65" WidthRequest="65" Command="{Binding NavigateToFavouritesPage}" Source="notes_icon" />
+                </Grid>
+            </Frame>
+        </Grid>
     </Grid>
 </ContentPage>

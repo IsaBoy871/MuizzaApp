@@ -39,7 +39,7 @@ public class AffirmationDatabase
         var affirmations = new List<Affirmation>
         {
             new Affirmation { Text = "I am capable of achieving great things", CreatedDate = DateTime.Now },
-            new Affirmation { Text = "I choose to be confident and self-assured", CreatedDate = DateTime.Now },
+            new Affirmation { Text = "I choose to be confident and self-assured and etc when the house", CreatedDate = DateTime.Now },
             new Affirmation { Text = "I am worthy of love and respect", CreatedDate = DateTime.Now },
             // Add more affirmations as needed
         };

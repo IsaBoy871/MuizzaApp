@@ -3,6 +3,7 @@ using MuizzaApp1.ViewModels;
 using CommunityToolkit.Maui;
 using MuizzaApp1.Contracts.Services;
 using MuizzaApp1.Services;
+using Microsoft.Maui.Handlers;
 
 namespace MuizzaApp1
 {

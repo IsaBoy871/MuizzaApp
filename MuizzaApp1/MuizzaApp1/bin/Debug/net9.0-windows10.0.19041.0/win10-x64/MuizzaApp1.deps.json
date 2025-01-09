@@ -15,6 +15,9 @@
           "SQLite": "3.13.0",
           "SQLitePCLRaw.bundle_green": "2.1.10",
           "sqlite-net-pcl": "1.9.172",
+          "Microsoft.Maui.Controls.HotReload.Forms": "17.0.0.0",
+          "Microsoft.VisualStudio.DesignTools.MobileTapContracts": "17.0.0.0",
+          "Microsoft.VisualStudio.DesignTools.TapContract": "17.0.0.0",
           "Microsoft.Web.WebView2.Core.Projection": "1.0.2792.45",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.54"
         },
@@ -540,6 +543,30 @@
           }
         }
       },
+      "Microsoft.Maui.Controls.HotReload.Forms/17.0.0.0": {
+        "runtime": {
+          "Microsoft.Maui.Controls.HotReload.Forms.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.12.40308.65294"
+          }
+        }
+      },
+      "Microsoft.VisualStudio.DesignTools.MobileTapContracts/17.0.0.0": {
+        "runtime": {
+          "Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.12.40308.65294"
+          }
+        }
+      },
+      "Microsoft.VisualStudio.DesignTools.TapContract/17.0.0.0": {
+        "runtime": {
+          "Microsoft.VisualStudio.DesignTools.TapContract.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.12.40308.65294"
+          }
+        }
+      },
       "Microsoft.Web.WebView2.Core.Projection/1.0.2792.45": {
         "runtime": {
           "Microsoft.Web.WebView2.Core.Projection.dll": {
@@ -791,6 +818,21 @@
       "sha512": "sha512-vWd/mmQQo2vXp5aDjwi/bj9DO4MABNMZtYpRhzYBFDzvDln68eZBgW+rYMT81egXmNcnt87+6+GbpZ8GW2VJ6w==",
       "path": "system.speech/8.0.0-rc.2.23479.6",
       "hashPath": "system.speech.8.0.0-rc.2.23479.6.nupkg.sha512"
+    },
+    "Microsoft.Maui.Controls.HotReload.Forms/17.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.VisualStudio.DesignTools.MobileTapContracts/17.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.VisualStudio.DesignTools.TapContract/17.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.Web.WebView2.Core.Projection/1.0.2792.45": {
       "type": "reference",

@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|c:\\users\\isa\\source\\repos\\muizzaapp\\muizzaapp1\\muizzaapp1\\services\\affirmationdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|solutionrelative:muizzaapp1\\services\\affirmationdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|c:\\users\\isa\\source\\repos\\muizzaapp\\muizzaapp1\\muizzaapp1\\views\\quotespage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|solutionrelative:muizzaapp1\\views\\quotespage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|c:\\users\\isa\\source\\repos\\muizzaapp\\muizzaapp1\\muizzaapp1\\views\\quotespage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|solutionrelative:muizzaapp1\\views\\quotespage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|c:\\users\\isa\\source\\repos\\muizzaapp\\muizzaapp1\\muizzaapp1\\resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|solutionrelative:muizzaapp1\\resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|c:\\users\\isa\\source\\repos\\muizzaapp\\muizzaapp1\\muizzaapp1\\views\\getstarted3.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4D3F15BA-F1B6-48C0-92CF-0B1536CDA813}|MuizzaApp1\\MuizzaApp1.csproj|solutionrelative:muizzaapp1\\views\\getstarted3.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{53d10d51-d2d8-3452-ab88-12f687ed0782}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{7d1a5679-04f2-3f4a-851f-855baa54731c}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AffirmationDatabase.cs",
+              "DocumentMoniker": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Services\\AffirmationDatabase.cs",
+              "RelativeDocumentMoniker": "MuizzaApp1\\Services\\AffirmationDatabase.cs",
+              "ToolTip": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Services\\AffirmationDatabase.cs",
+              "RelativeToolTip": "MuizzaApp1\\Services\\AffirmationDatabase.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAtwDAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T23:52:11.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QuotesPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\QuotesPage.xaml.cs",
+              "RelativeDocumentMoniker": "MuizzaApp1\\Views\\QuotesPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\QuotesPage.xaml.cs",
+              "RelativeToolTip": "MuizzaApp1\\Views\\QuotesPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T23:47:59.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuotesPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\QuotesPage.xaml",
+              "RelativeDocumentMoniker": "MuizzaApp1\\Views\\QuotesPage.xaml",
+              "ToolTip": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\QuotesPage.xaml",
+              "RelativeToolTip": "MuizzaApp1\\Views\\QuotesPage.xaml",
+              "ViewState": "AgIAADAAAAAAAAAAAAD4vzwAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-08T11:59:08.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Styles.xaml",
+              "DocumentMoniker": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Resources\\Styles\\Styles.xaml",
+              "RelativeDocumentMoniker": "MuizzaApp1\\Resources\\Styles\\Styles.xaml",
+              "ToolTip": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Resources\\Styles\\Styles.xaml",
+              "RelativeToolTip": "MuizzaApp1\\Resources\\Styles\\Styles.xaml",
+              "ViewState": "AgIAAHUBAAAAAAAAAAD4v30BAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-08T18:45:16.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetStarted3.xaml",
+              "DocumentMoniker": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\GetStarted3.xaml",
+              "RelativeDocumentMoniker": "MuizzaApp1\\Views\\GetStarted3.xaml",
+              "ToolTip": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\Views\\GetStarted3.xaml",
+              "RelativeToolTip": "MuizzaApp1\\Views\\GetStarted3.xaml",
+              "ViewState": "AgIAABEAAAAAAAAAAAD4vx4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-08T11:59:03.717Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
