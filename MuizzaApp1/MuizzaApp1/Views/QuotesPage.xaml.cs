@@ -1,19 +1,20 @@
+using MuizzaApp1.ViewModels;
+
 namespace MuizzaApp1;
 
 public partial class QuotesPage : ContentPage
 {
-    private readonly AffirmationDatabase _database;
-
-    public QuotesPage(AffirmationDatabase database)
+    public QuotesPage(QuotesPageViewModel viewModel)
     {
         InitializeComponent();
-        _database = database;
-        LoadAffirmations();
+        BindingContext = viewModel;
     }
 
-    private async void LoadAffirmations()
+    private void OnFeelingEntered(object sender, EventArgs e)
     {
-        var affirmations = await _database.GetAffirmationsAsync();
-        AffirmationsList.ItemsSource = affirmations;
+        if (BindingContext is QuotesPageViewModel viewModel)
+        {
+            viewModel.SubmitFeelingCommand.Execute(null);
+        }
     }
 }

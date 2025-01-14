@@ -4,7 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MuizzaApp1.QuotesPage">
 
-    <Grid BackgroundColor="{StaticResource Secondary}" >
+    <Grid BackgroundColor="#f6e5cb" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -35,9 +35,110 @@
                        ClearButtonVisibility="Never"
                        HeightRequest="40"
                        TextColor="Black"
-                       Margin="0,0,10,0"/>
+                       Margin="0,0,10,0"
+                       Completed="OnFeelingEntered"
+                       ReturnCommand="{Binding SubmitFeelingCommand}"
+                       Text="{Binding FeelingText}"/>
             </Grid>
         </Border>
+
+        <Image Grid.Row="1"
+               Source="cat_search.png"
+               SemanticProperties.Description="Cute cat being held by their owner"
+               HeightRequest="55"
+               VerticalOptions="Start"
+               Margin="0,215,0,0"
+               ZIndex="1"
+               HorizontalOptions="Center" />
+
+        <ScrollView Grid.Row="1" 
+                    Margin="20,330,20,95" 
+                    VerticalScrollBarVisibility="Never"
+                    ZIndex="0">
+            <FlexLayout Wrap="Wrap" 
+                        JustifyContent="SpaceBetween" 
+                        BindableLayout.ItemsSource="{Binding EmotionsList}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HeightRequest="160" WidthRequest="160" Margin="3,28,3,-10">
+                            <Frame BackgroundColor="{Binding Color}"
+                                   CornerRadius="15"
+                                   Padding="0"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   ZIndex="0"/>
+                            
+                            <Image Source="{Binding ImageSource}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   Margin="50,-3,0,0"
+                                   ZIndex="1">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Anxious">
+                                        <Setter Property="Margin"
+                                                Value="27,13,0,0"/>
+                                        <Setter Property="HeightRequest"
+                                                Value="145"/>
+                                        <Setter Property="WidthRequest"
+                                                Value="145"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Depressed">
+                                        <Setter Property="Margin"
+                                                Value="3,63,0,0"/>
+                                        <Setter Property="HeightRequest"
+                                                Value="140"/>
+                                        <Setter Property="WidthRequest"
+                                                 Value="140"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Bored">
+                                        <Setter Property="Margin"
+                                                Value="3,31,0,0"/>
+                                        <Setter Property="HeightRequest"
+                                                Value="140"/>
+                                        <Setter Property="WidthRequest"
+                                                Value="140"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                                   
+                            <Label Text="{Binding Name}"
+                                   Grid.Row="1"
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontFamily="fredoka"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End"
+                                   Margin="0,0,0,10"
+                                   ZIndex="1">
+                                <Label.Shadow>
+                                    <Shadow Brush="Black"
+                                            Offset="1.5,1.5"
+                                            Radius="2"
+                                            Opacity="1"/>
+                                </Label.Shadow>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+
+        <Image Grid.Row="1"
+               Source="swipe_icon.png"
+               SemanticProperties.Description="Swipe icon"
+               HeightRequest="30"
+               WidthRequest="30"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               Margin="0,155,0,15"
+               ZIndex="1"/>
 
         <BoxView Grid.Row="1"
                  HeightRequest="4"
@@ -53,22 +154,23 @@
             </Grid.RowDefinitions>
             
 
-            <Image Grid.Row="1"
-                  Source="cat_search.png"
-                  SemanticProperties.Description="Cute cat being held by their owner"
-                  HeightRequest="55"
-                  VerticalOptions="Start"
-                  Margin="0,-215,0,0"
-                  HorizontalOptions="Center" />
+            
 
             <Grid VerticalOptions="Fill">
                 <CarouselView x:Name="AffirmationsList"
+                  ItemsSource="{Binding Affirmations}"
                   Loop="True"
-                  VerticalScrollBarVisibility="Never">
+                  VerticalScrollBarVisibility="Never"
+                  IsBounceEnabled="True"
+                  PeekAreaInsets="0">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" 
+                                          SnapPointsType="MandatorySingle" 
+                                          SnapPointsAlignment="Center"/>
+                    </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <Label Grid.Row="1"
-                                   TextColor="#4f3422"
+                            <Label TextColor="#4f3422"
                                    Text="{Binding Text}"
                                    FontSize="24"
                                    Margin="20"
@@ -110,10 +212,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <!--<Grid.Shadow>
-                        <Shadow Offset="10,10" Radius="30" Opacity="0.5" />
-                    </Grid.Shadow>-->
-                    <ImageButton Grid.Column="1" HeightRequest="65" WidthRequest="65" Command="{Binding NavigateToFavouritesPage}" Source="notes_icon" />
+                    <ImageButton Grid.Column="1" 
+                                HeightRequest="65" 
+                                WidthRequest="65" 
+                                Command="{Binding NavigateToNotesPage}" 
+                                Source="notes_icon" />
                 </Grid>
             </Frame>
         </Grid>

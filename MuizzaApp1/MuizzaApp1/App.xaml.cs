@@ -2,77 +2,51 @@
 using System.Threading.Tasks;
 using System.Diagnostics;
 using SQLite;
+using MuizzaApp1.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MuizzaApp1
 {
     public partial class App : Application
     {
-        private readonly AffirmationDatabase _database;
-
-        public App(AffirmationDatabase database)
+        public App()
         {
-            try
-            {
-                InitializeComponent();
-                _database = database;
-                
-                // Switch to using Task.Run instead of MainThread
-                Task.Run(async () =>
-                {
-                    try
-                    {
-                        await InitializeDatabaseAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Fatal error during initialization: {ex.Message}");
-                        System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Constructor error: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-            }
+            InitializeComponent();
+            MainPage = new AppShell();
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        protected override async void OnStart()
         {
+            base.OnStart();
+            
+            /*
+#if DEBUG
             try
             {
-                return new Window(new AppShell());
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Window creation error: {ex.Message}");
-                throw;
-            }
-        }
-
-        private async Task InitializeDatabaseAsync()
-        {
-            try
-            {
-                var affirmations = await _database.GetAffirmationsAsync();
-                System.Diagnostics.Debug.WriteLine($"Found {affirmations?.Count ?? 0} existing affirmations");
+                Debug.WriteLine("Starting test training process...");
                 
-                if (!affirmations?.Any() ?? true)
+                var trainingService = IPlatformApplication.Current.Services.GetService<AITrainingService>();
+                if (trainingService == null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Seeding database...");
-                    await _database.SeedDatabaseAsync();
+                    Debug.WriteLine("ERROR: Training service is null!");
+                    return;
                 }
-            }
-            catch (SQLiteException ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"SQLite error: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                Debug.WriteLine("Running test training...");
+                await trainingService.RunTestTraining();
+                Debug.WriteLine("Test training completed successfully!");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"General error: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                Debug.WriteLine($"ERROR during training: {ex.Message}");
+                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
             }
+#endif
+            */
         }
     }
 }
+
+//    var cacheService = IPlatformApplication.Current.Services.GetService<ResponseCacheService>();
+        //    cacheService?.ClearAllCache();
+        //    // Remove this code after running once

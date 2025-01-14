@@ -1,10 +1,9 @@
-using System;
-using SQLite;
-
-public class Affirmation
+namespace MuizzaApp1.Models
 {
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
-    public string Text { get; set; }
-    public DateTime CreatedDate { get; set; }
-} 
+    public class Affirmation
+    {
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public string? Category { get; set; }
+    }
+}

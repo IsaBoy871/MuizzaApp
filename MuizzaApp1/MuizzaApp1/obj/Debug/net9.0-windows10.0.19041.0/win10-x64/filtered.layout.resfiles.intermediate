@@ -1,8 +1,12 @@
 runtimes\win-x64\native\WebView2Loader.dll
+appsettings.json
+etna.ttf
 FluentUI.cs
 fredoka.ttf
 OpenSans-Regular.ttf
 OpenSans-Semibold.ttf
+angry_woman.scale-100.png
+anxious_woman.scale-100.png
 appicon.ico
 appiconLargeTile.scale-100.png
 appiconLargeTile.scale-125.png
@@ -49,11 +53,14 @@ appiconWideTile.scale-125.png
 appiconWideTile.scale-150.png
 appiconWideTile.scale-200.png
 appiconWideTile.scale-400.png
+back_arrow.scale-100.png
 book_splash.scale-100.png
+bored_woman.scale-100.png
 cat_book.scale-100.png
 cat_meditate.scale-100.png
 cat_quotes.scale-100.png
 cat_search.scale-100.png
+depressed_woman.scale-100.png
 dotnet_bot.scale-100.png
 dotnet_bot.scale-125.png
 dotnet_bot.scale-150.png
@@ -73,6 +80,7 @@ quotes_icon.scale-100.png
 quotes_splash.scale-100.png
 search_icon.scale-100.png
 starter_image.scale-100.png
+swipe_icon.scale-100.png
 splashSplashScreen.scale-100.png
 splashSplashScreen.scale-125.png
 splashSplashScreen.scale-150.png

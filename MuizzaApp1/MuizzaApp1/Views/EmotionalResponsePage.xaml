@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.EmotionalResponsePage"
+             BackgroundColor="#f6e5cb">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back Button -->
+        <ImageButton 
+            Source="back_arrow.png"
+            HeightRequest="24"
+            WidthRequest="24"
+            Margin="20,40,0,20"
+            HorizontalOptions="Start"
+            Clicked="OnBackButtonClicked"/>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <!-- Loading indicator -->
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}"
+                                 Color="#4f3422"
+                                 HeightRequest="50"
+                                 WidthRequest="50"/>
+
+                <!-- Error message -->
+                <Label Text="{Binding ErrorMessage}"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotNullOrEmptyConverter}}"
+                       TextColor="Red"
+                       HorizontalTextAlignment="Center"/>
+
+                <!-- Content (only visible when not loading and no error) -->
+                <VerticalStackLayout IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                                   Spacing="10">
+                    <Label Text="{Binding Affirmation}"
+                           FontSize="24"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                    
+                    <!-- Separator Line -->
+                    <BoxView Color="#4f3422"
+                             HeightRequest="1"
+                             Opacity="0.3"
+                             Margin="0,20,0,20"/>
+                    
+                    <!-- Your Brain Title -->
+                    <Label Text="Your Brain"
+                           FontSize="20"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,10"/>
+                    
+                    <Label Text="{Binding Explanation}"
+                           FontSize="16"
+                           FontFamily="etna"
+                           TextColor="#4f3422"
+                           LineHeight="1.5"
+                           CharacterSpacing="0.5"
+                           LineBreakMode="WordWrap"
+                           MaxLines="0">
+                        <Label.Padding>
+                            <Thickness Top="5" Bottom="5"/>
+                        </Label.Padding>
+                    </Label>
+
+                    <Label Text="{Binding RemainingSearches, StringFormat='Remaining searches today: {0}'}"
+                           IsVisible="{Binding RemainingSearches, Converter={StaticResource GreaterThanZeroConverter}}"
+                           FontSize="14"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"
+                           Margin="0,20,0,0"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage> 

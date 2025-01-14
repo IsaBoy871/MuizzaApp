@@ -5,7 +5,7 @@ namespace MuizzaApp1.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        readonly INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
         public Command NavigateCommand => new(async () => await _navigationService.NavigateToPage<GetStarted2>());
 
