@@ -28,6 +28,8 @@ public partial class QuotesPageViewModel
     private string feelingText;
 
     public Command NavigateToNotesPage { get; }
+
+    public Command NavigateToBrainPage { get; }
     public ICommand SubmitFeelingCommand { get; }
 
     public QuotesPageViewModel(AffirmationsService affirmationsService, IServiceProvider serviceProvider)
@@ -40,6 +42,7 @@ public partial class QuotesPageViewModel
         Debug.WriteLine($"EmotionsList count: {EmotionsList?.Count ?? 0}");
         LoadAffirmationsAsync().ConfigureAwait(false);
         NavigateToNotesPage = new Command(async () => await OnNavigateToNotesPage());
+        NavigateToBrainPage =new Command(async () => await OnNavigateToBrainPage());
         SubmitFeelingCommand = new Command(async () => await OnFeelingSubmitted());
     }
 
@@ -87,6 +90,13 @@ public partial class QuotesPageViewModel
     {
         var notesPage = _serviceProvider.GetService<NotesPage>();
         await Shell.Current.Navigation.PushAsync(notesPage);
+    }
+
+    private async Task OnNavigateToBrainPage()
+    {
+
+        var brainPage = _serviceProvider.GetService<BrainPage>();
+        await Shell.Current.Navigation.PushAsync(brainPage);
     }
 
     private async Task OnFeelingSubmitted()

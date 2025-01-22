@@ -1,4 +1,6 @@
-﻿namespace MuizzaApp1;
+﻿using MuizzaApp1.Views;
+
+namespace MuizzaApp1;
 
 public partial class AppShell : Shell
 {

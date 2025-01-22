@@ -57,6 +57,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Resources.Style
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
+[C:/Users/Isa/source/repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/BrainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.BrainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\BrainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\BrainPage.xaml
+
 [C:/Users/Isa/source/repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/EmotionalResponsePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.EmotionalResponsePage.xaml

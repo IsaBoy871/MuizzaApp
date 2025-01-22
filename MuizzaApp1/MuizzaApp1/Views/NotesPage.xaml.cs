@@ -13,17 +13,6 @@ public partial class NotesPage : ContentPage
     {
         InitializeComponent();
         _notesService = notesService;
-        
-        // Initialize lines
-        for (int i = 0; i < 20; i++)
-        {
-            linesContainer.Children.Add(new BoxView
-            {
-                HeightRequest = 1,
-                Color = Colors.Black,
-                Opacity = 1
-            });
-        }
     }
 
     private async void OnDoneClicked(object sender, EventArgs e)
@@ -75,28 +64,14 @@ public partial class NotesPage : ContentPage
     }
 
     private async void OnQuotesClicked(object sender, EventArgs e)
-{
-    var quotesPage = Handler.MauiContext.Services.GetService<QuotesPage>();
-    await Shell.Current.Navigation.PushAsync(quotesPage);
-}
+    {
+        var quotesPage = Handler.MauiContext.Services.GetService<QuotesPage>();
+        await Shell.Current.Navigation.PushAsync(quotesPage);
+    }
 
     private void OnEditorTextChanged(object sender, TextChangedEventArgs e)
     {
-        // Calculate how many lines we need based on editor height
-        var editorHeight = editor.Height;
-        var lineSpacing = 30; // Same as in XAML
-        var numberOfLines = (int)(editorHeight / lineSpacing) + 5; // Add extra lines for scrolling
-
-        // Only add more lines if we need them
-        while (linesContainer.Children.Count < numberOfLines)
-        {
-            linesContainer.Children.Add(new BoxView
-            {
-                HeightRequest = 1,
-                Color = Colors.Black,
-                Opacity = 1
-            });
-        }
+        // Editor text changed event handler remains empty as we no longer need to manage lines
     }
 
     private void OnDonePressed(object sender, EventArgs e)

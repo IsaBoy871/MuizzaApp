@@ -4,8 +4,12 @@ obj\Debug\net9.0-android\resizetizer\r\drawable\back_arrow.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\book_splash.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\bored_woman.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\cat_book.png
+obj\Debug\net9.0-android\resizetizer\r\drawable\cat_brain.png
+obj\Debug\net9.0-android\resizetizer\r\drawable\cat_list.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\cat_meditate.png
+obj\Debug\net9.0-android\resizetizer\r\drawable\cat_note.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\cat_quotes.png
+obj\Debug\net9.0-android\resizetizer\r\drawable\cat_response.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\cat_search.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\depressed_woman.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\fav_icon.png
@@ -17,6 +21,7 @@ obj\Debug\net9.0-android\resizetizer\r\drawable\meditate_icon.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\meditate_splash.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\muizza_title.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\notes_icon.png
+obj\Debug\net9.0-android\resizetizer\r\drawable\paw_button.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\profile_icon.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\quotes_icon.png
 obj\Debug\net9.0-android\resizetizer\r\drawable\quotes_splash.png

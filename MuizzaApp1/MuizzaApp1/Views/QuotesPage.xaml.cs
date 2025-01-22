@@ -1,6 +1,7 @@
+using Microsoft.Maui.Controls;
 using MuizzaApp1.ViewModels;
 
-namespace MuizzaApp1;
+namespace MuizzaApp1.Views;
 
 public partial class QuotesPage : ContentPage
 {

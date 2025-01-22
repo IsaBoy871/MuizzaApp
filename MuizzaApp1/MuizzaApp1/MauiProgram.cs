@@ -96,6 +96,8 @@ namespace MuizzaApp1
             // Register HttpClient if not already registered
             builder.Services.AddHttpClient();
 
+            builder.Services.AddTransient<BrainPage>();
+
             return builder.Build();
         }
 
