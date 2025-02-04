@@ -10,6 +10,7 @@ using Microsoft.Extensions.Http;
 using System.Net.Http.Headers;
 using System.Net.Security;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace MuizzaApp1
 {
@@ -19,15 +20,6 @@ namespace MuizzaApp1
         {
             var builder = MauiApp.CreateBuilder();
             
-            // Load configuration
-            using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
-            using var reader = new StreamReader(stream);
-            var config = new ConfigurationBuilder()
-                .AddJsonStream(stream)
-                .Build();
-            
-            builder.Configuration.AddConfiguration(config);
-
             builder.UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
@@ -37,10 +29,40 @@ namespace MuizzaApp1
                 })
                 .UseMauiCommunityToolkit();
 
+            // Load configuration
+            try
+            {
+                var assembly = typeof(MauiProgram).Assembly;
+                var stream = assembly.GetManifestResourceStream("MuizzaApp1.appsettings.json");
+                
+                if (stream != null)
+                {
+                    var config = new ConfigurationBuilder()
+                        .AddJsonStream(stream)
+                        .Build();
+
+                    builder.Configuration.AddConfiguration(config);
+                }
+                else
+                {
+                    Debug.WriteLine("Warning: appsettings.json not found in embedded resources");
+                }
+
+                var resourceNames = assembly.GetManifestResourceNames();
+                foreach (var name in resourceNames)
+                {
+                    Debug.WriteLine($"Found resource: {name}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Warning: Could not load appsettings.json: {ex.Message}");
+            }
+
             // Add this right after ConfigureFonts but before registering services
             builder.Services.AddHttpClient("API", client =>
             {
-                client.BaseAddress = new Uri("https://10.0.2.2:7273/");
+                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             })
             .ConfigurePrimaryHttpMessageHandler(() =>
@@ -55,11 +77,9 @@ namespace MuizzaApp1
             // Register HttpClient and Services first
             builder.Services.AddHttpClient<AffirmationsService>(client =>
             {
-                client.BaseAddress = new Uri("https://10.0.2.2:7273/");
+                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
             })
             .ConfigurePrimaryHttpMessageHandler(() => new HttpsClientHandler());
-
-
 
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<NotesService>();
@@ -98,6 +118,10 @@ namespace MuizzaApp1
 
             builder.Services.AddTransient<BrainPage>();
 
+            // Register services
+            builder.Services.AddSingleton<AffirmationsService>();  // Concrete implementation
+            builder.Services.AddSingleton<IAffirmationsService>(sp => sp.GetRequiredService<AffirmationsService>()); // Interface mapping
+            
             return builder.Build();
         }
 

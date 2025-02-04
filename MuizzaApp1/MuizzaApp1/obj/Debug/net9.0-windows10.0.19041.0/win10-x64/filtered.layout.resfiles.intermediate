@@ -1,5 +1,4 @@
 runtimes\win-x64\native\WebView2Loader.dll
-appsettings.json
 etna.ttf
 FluentUI.cs
 fredoka.ttf
@@ -62,6 +61,7 @@ cat_list.scale-100.png
 cat_meditate.scale-100.png
 cat_note.scale-100.png
 cat_quotes.scale-100.png
+cat_quotesbackdrop.scale-100.png
 cat_response.scale-100.png
 cat_search.scale-100.png
 depressed_woman.scale-100.png
@@ -81,6 +81,7 @@ muizza_title.scale-100.png
 notes_icon.scale-100.png
 paw_button.scale-100.png
 profile_icon.scale-100.png
+quotes_backdrop.scale-100.png
 quotes_icon.scale-100.png
 quotes_splash.scale-100.png
 search_icon.scale-100.png
@@ -91,4 +92,6 @@ splashSplashScreen.scale-125.png
 splashSplashScreen.scale-150.png
 splashSplashScreen.scale-200.png
 splashSplashScreen.scale-400.png
+Platforms\iOS\Resources\Assets.xcassets\appicon.appiconset\icon-60@2x.png
+Platforms\iOS\Resources\Assets.xcassets\appicon.appiconset\icon-60@3x.png
 AboutAssets.txt

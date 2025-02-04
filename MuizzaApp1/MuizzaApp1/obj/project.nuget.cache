@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O0IgriWRVfI=",
+  "dgSpecHash": "u46tXr2wOUE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
+  "projectFilePath": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Isa\\.nuget\\packages\\communitytoolkit.maui\\7.0.1\\communitytoolkit.maui.7.0.1.nupkg.sha512",
     "C:\\Users\\Isa\\.nuget\\packages\\communitytoolkit.maui.core\\7.0.1\\communitytoolkit.maui.core.7.0.1.nupkg.sha512",

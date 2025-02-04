@@ -11,8 +11,15 @@ namespace MuizzaApp1
     {
         public App()
         {
-            InitializeComponent();
-            MainPage = new AppShell();
+            try
+            {
+                InitializeComponent();
+                MainPage = new AppShell();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"App initialization error: {ex.Message}\n{ex.StackTrace}");
+            }
         }
 
         protected override async void OnStart()

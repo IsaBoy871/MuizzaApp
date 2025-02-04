@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MuizzaApp1.Models;
 
-public class AffirmationsService
+public interface IAffirmationsService
+{
+    Task<List<Affirmation>> GetAffirmationsAsync();
+}
+
+public class AffirmationsService : IAffirmationsService
 {
     private readonly HttpClient _httpClient;
 
-    public AffirmationsService(HttpClient httpClient)
+    public AffirmationsService(IConfiguration configuration)
     {
-        _httpClient = httpClient;
-        var baseAddress = DeviceInfo.Platform == DevicePlatform.Android 
-            ? "https://10.0.2.2:7273/"
-            : "https://localhost:7273/";
-        _httpClient.BaseAddress = new Uri(baseAddress);
+        var baseUrl = configuration["ApiSettings:BaseUrl"] 
+            ?? throw new ArgumentNullException("ApiSettings:BaseUrl not found in configuration");
+            
+        _httpClient = new HttpClient
+        {
+            BaseAddress = new Uri(baseUrl)
+        };
     }
 
     public async Task<List<Affirmation>> GetAffirmationsAsync()
@@ -25,12 +32,12 @@ public class AffirmationsService
         {
             var response = await _httpClient.GetAsync("api/affirmations");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<List<Affirmation>>() ?? new List<Affirmation>();
+            return await response.Content.ReadFromJsonAsync<List<Affirmation>>();
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error fetching affirmations: {ex.Message}");
-            return new List<Affirmation>();
+            throw;
         }
     }
 }

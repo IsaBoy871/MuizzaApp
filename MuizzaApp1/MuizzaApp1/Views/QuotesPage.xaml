@@ -1,158 +1,368 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MuizzaApp1.Views.QuotesPage"
-             BackgroundColor="#f6e5cb">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MuizzaApp1.QuotesPage">
 
-    <Grid>
+    <Grid BackgroundColor="#f6e5cb">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Top section -->
-        <VerticalStackLayout Grid.Row="0" Spacing="10" Padding="20,40,20,20">
-            <Image Source="muizza_title.png"
+        
+
+        <!-- Backdrop Image -->
+        <Image Grid.Row="1"
+               Source="quotes_backdrop.png"
+               InputTransparent="True"
+               SemanticProperties.Description="Quotes Background">
+            <Image.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="570"/>
+                    <On Platform="Android" Value="760"/>
+                </OnPlatform>
+            </Image.HeightRequest>
+            <Image.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="440"/>
+                    <On Platform="Android" Value="450"/>
+                </OnPlatform>
+            </Image.WidthRequest>
+            <Image.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,-500,-30,0"/>
+                    <On Platform="Android" Value="0,-60,0,0"/>
+                </OnPlatform>
+            </Image.Margin>
+        </Image>
+
+        <!-- Cat Backdrop Image -->
+        <Image Grid.Row="1"
+               Source="cat_quotesbackdrop.png"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               InputTransparent="True"
+               SemanticProperties.Description="Cat Backdrop">
+            <Image.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="105"/>
+                    <On Platform="Android" Value="65"/>
+                </OnPlatform>
+            </Image.HeightRequest>
+            <Image.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="105"/>
+                    <On Platform="Android" Value="65"/>
+                </OnPlatform>
+            </Image.WidthRequest>
+            <Image.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="350,50,0,428"/>
+                    <On Platform="Android" Value="0,0,0,364"/>
+                </OnPlatform>
+            </Image.Margin>
+            <Image.ZIndex>1</Image.ZIndex>
+        </Image>
+
+        <!-- Title Image -->
+        <Image Grid.Row="0"
+       Source="muizza_title.png"
+       SemanticProperties.Description="Muizza Title"
+       HorizontalOptions="Center"
+       Aspect="AspectFit">
+            <Image.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="30"/>
+                    <On Platform="Android" Value="120"/>
+                </OnPlatform>
+            </Image.HeightRequest>
+            <Image.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0, 0,0,0"/>
+                    <On Platform="Android" Value="0,60,0,0"/>
+                </OnPlatform>
+            </Image.Margin>
+        </Image>
+
+        <!-- Add this right after your backdrop Image but before the Border (search section) -->
+        <Grid Grid.Row="1" 
+              HeightRequest="150"
+              Margin="{OnPlatform iOS='0,-50,0,535', Android='0,-50,0,535'}"
+              ZIndex="5">
+            
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                              IsVisible="{Binding IsLoading}"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"/>
+            
+            <!-- CollectionView for affirmations -->
+            <CollectionView ItemsSource="{Binding Affirmations}"
+                           IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                           HorizontalScrollBarVisibility="Never"
+                           ItemsUpdatingScrollMode="KeepItemsInView"
+                           Scrolled="OnCollectionViewScrolled">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                      ItemSpacing="0"
+                                      SnapPointsType="MandatorySingle"
+                                      SnapPointsAlignment="Center"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid WidthRequest="{OnPlatform iOS=414, Android=360}">
+                            <Frame BackgroundColor="Transparent"
+                                   BorderColor="Transparent"
+                                   CornerRadius="15"
+                                   Margin="20,-20,20,0"
+                                   Padding="20,10"
+                                   HeightRequest="100"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center">
+                                <Label Text="{Binding Text}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       FontSize="24"
+                                       TextColor="#4a3831"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="3"
+                                       Margin="0,-40,0,0"/>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <!-- Fixed swipe icon -->
+            <Image Source="swipe_icon.png"
                    HeightRequest="25"
-                   Margin="0,0,0,10"
-                   HorizontalOptions="Center"/>
-            
-            <Border BackgroundColor="White"
-                    StrokeThickness="1"
-                    Stroke="Black"
-                    StrokeShape="RoundRectangle 25"
-                    HeightRequest="45">
-                <Grid ColumnDefinitions="Auto,*">
-                    <Image Grid.Column="0"
-                           Source="search_icon.png"
-                           HeightRequest="20"
-                           Margin="15,0,5,0"/>
-                    <Entry Grid.Column="1"
-                           Placeholder="I am feeling?"
-                           PlaceholderColor="Gray"
-                           BackgroundColor="Transparent"
-                           VerticalOptions="Center"
-                           Margin="0,0,10,0"
-                           Text="{Binding FeelingText}"/>
-                </Grid>
-            </Border>
-            
-            <Image Source="cat_search.png"
-                   HeightRequest="70"
-                   Margin="0,-10,0,0"
-                   HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+                   WidthRequest="25"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="0,0,0,40"
+                   Opacity="0.7"/>
+        </Grid>
 
-        <!-- Emotion cards -->
-        <ScrollView Grid.Row="1" Margin="20,0,20,100">
-            <Grid ColumnDefinitions="*,*" 
-                  RowDefinitions="Auto,Auto" 
-                  RowSpacing="15" 
-                  ColumnSpacing="15">
-                
-                <Frame Grid.Row="0" Grid.Column="0"
-                       BackgroundColor="#FF6B6B"
-                       CornerRadius="20"
-                       HeightRequest="160">
-                    <Grid>
-                        <Image Source="angry.png"
-                               Aspect="AspectFit"
-                               HeightRequest="120"/>
-                        <Label Text="Angry"
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               VerticalOptions="End"/>
-                    </Grid>
-                </Frame>
+        <!-- Background Elements -->
+        <Ellipse Grid.Row="1"
+                 Fill="White"
+                 HorizontalOptions="FillAndExpand">
+            <Ellipse.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="680"/>
+                    <On Platform="Android" Value="760"/>
+                </OnPlatform>
+            </Ellipse.HeightRequest>
+            <Ellipse.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="5960"/>
+                    <On Platform="Android" Value="2160"/>
+                </OnPlatform>
+            </Ellipse.WidthRequest>
+            <Ellipse.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,0,0,-480"/>
+                    <On Platform="Android" Value="0,0,0,-580"/>
+                </OnPlatform>
+            </Ellipse.Margin>
+        </Ellipse>
 
-                <Frame Grid.Row="0" Grid.Column="1"
-                       BackgroundColor="#8B7BF7"
-                       CornerRadius="20"
-                       HeightRequest="160">
-                    <Grid>
-                        <Image Source="anxious.png"
-                               Aspect="AspectFit"
-                               HeightRequest="120"/>
-                        <Label Text="Anxious"
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               VerticalOptions="End"/>
-                    </Grid>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="0"
-                       BackgroundColor="#7B9FF7"
-                       CornerRadius="20"
-                       HeightRequest="160">
-                    <Grid>
-                        <Image Source="bored.png"
-                               Aspect="AspectFit"
-                               HeightRequest="120"/>
-                        <Label Text="Bored"
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               VerticalOptions="End"/>
-                    </Grid>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="1"
-                       BackgroundColor="#808080"
-                       CornerRadius="20"
-                       HeightRequest="160">
-                    <Grid>
-                        <Image Source="depressed.png"
-                               Aspect="AspectFit"
-                               HeightRequest="120"/>
-                        <Label Text="Depressed"
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               VerticalOptions="End"/>
-                    </Grid>
-                </Frame>
+        <!-- Search Section -->
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                StrokeThickness="3"
+                Stroke="Black"
+                StrokeShape="RoundRectangle 20">
+            <Border.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="95,200,95,535"/>
+                    <On Platform="Android" Value="95,260,95,535"/>
+                </OnPlatform>
+            </Border.Margin>
+            <Grid ColumnDefinitions="Auto,*">
+                <Image Grid.Column="0"
+                       Source="search_icon.png"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       Margin="10,0,0,0"/>
+                <Entry Grid.Column="1"
+                       Placeholder="I am feeling?"
+                       PlaceholderColor="Grey"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="Never"
+                       HeightRequest="40"
+                       TextColor="Black"
+                       Margin="0,0,10,0"
+                       Completed="OnFeelingEntered"
+                       ReturnCommand="{Binding SubmitFeelingCommand}"
+                       Text="{Binding FeelingText}"/>
             </Grid>
+        </Border>
+
+        <!-- Cat Image -->
+        <Image Grid.Row="1"
+               Source="cat_search.png"
+               HeightRequest="55"
+               ZIndex="1"
+               HorizontalOptions="Center">
+            <Image.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,0,0,428"/>
+                    <On Platform="Android" Value="0,0,0,364"/>
+                </OnPlatform>
+            </Image.Margin>
+        </Image>
+
+        <!-- Emotions Grid -->
+        <ScrollView Grid.Row="1" 
+                   VerticalScrollBarVisibility="Never"
+                   ZIndex="0">
+            <ScrollView.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="20,290,20,85"/>
+                    <On Platform="Android" Value="20,330,20,95"/>
+                </OnPlatform>
+            </ScrollView.Margin>
+            <FlexLayout Wrap="Wrap" 
+                       JustifyContent="SpaceBetween" 
+                       BindableLayout.ItemsSource="{Binding EmotionsList}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HeightRequest="160" 
+                              WidthRequest="160" 
+                              Margin="3,28,3,-10">
+                            <Frame BackgroundColor="{Binding Color}"
+                                   CornerRadius="15"
+                                   Padding="0"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   ZIndex="0"/>
+                            <Image Source="{Binding ImageSource}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   Margin="50,-3,0,0"
+                                   ZIndex="1">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image"
+                                                Binding="{Binding Name}"
+                                                Value="Anxious">
+                                        <Setter Property="Margin" Value="27,13,0,0"/>
+                                        <Setter Property="HeightRequest" Value="145"/>
+                                        <Setter Property="WidthRequest" Value="145"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                Binding="{Binding Name}"
+                                                Value="Depressed">
+                                        <Setter Property="Margin" Value="3,63,0,0"/>
+                                        <Setter Property="HeightRequest" Value="140"/>
+                                        <Setter Property="WidthRequest" Value="140"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                Binding="{Binding Name}"
+                                                Value="Bored">
+                                        <Setter Property="Margin" Value="3,31,0,0"/>
+                                        <Setter Property="HeightRequest" Value="140"/>
+                                        <Setter Property="WidthRequest" Value="140"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Label Text="{Binding Name}"
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontFamily="fredoka"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End"
+                                   Margin="0,0,0,10"
+                                   ZIndex="1">
+                                <Label.Shadow>
+                                    <Shadow Brush="Black"
+                                            Offset="1.5,1.5"
+                                            Radius="2"
+                                            Opacity="1"/>
+                                </Label.Shadow>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
         </ScrollView>
 
-        <!-- Navigation bar -->
-        <Frame Grid.Row="2" 
-               VerticalOptions="End" 
-               CornerRadius="33" 
-               Margin="-10" 
-               BackgroundColor="White" 
-               HeightRequest="100">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.Shadow>
-                    <Shadow Offset="10,10" Radius="30" Opacity="0.5" />
-                </Grid.Shadow>
-                <ImageButton Grid.Column="0" 
-                            HeightRequest="50" 
-                            WidthRequest="50" 
-                            Source="quotes_icon"
-                            Command="{Binding NavigateToQuotesPage}" />
-                <ImageButton Grid.Column="1" 
-                            HeightRequest="35" 
-                            WidthRequest="35" 
-                            Source="notes_icon"
-                            Command="{Binding NavigateToNotesPage}" />
-                <ImageButton Grid.Column="2" 
-                            HeightRequest="50" 
-                            WidthRequest="40" 
-                            Source="meditate_icon"
-                            Command="{Binding NavigateToBrainPage}" />
+        <!-- Horizontal Line -->
+        <BoxView Grid.Row="1"
+                 HeightRequest="4"
+                 Color="Black"
+                 HorizontalOptions="Fill">
+            <BoxView.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,-203,0,0"/>
+                    <On Platform="Android" Value="0,-173,0,0"/>
+                </OnPlatform>
+            </BoxView.Margin>
+        </BoxView>
+
+        <!-- Navigation Bar -->
+        <Grid Grid.Row="1">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,750,0,0"/>
+                    <On Platform="Android" Value="0,780,0,0"/>
+                </OnPlatform>
+            </Grid.Margin>
+
+            <!-- Main Navigation Frame -->
+            <Frame Grid.Row="3" 
+                   CornerRadius="33" 
+                   Margin="-10" 
+                   BackgroundColor="White" 
+                   HeightRequest="130">
+                <Grid ColumnDefinitions="*,*,*">
+                    <Grid.Shadow>
+                        <Shadow Offset="10,10" 
+                                Radius="30" 
+                                Opacity="0.5"/>
+                    </Grid.Shadow>
+                    <ImageButton Grid.Column="0" 
+                                HeightRequest="50" 
+                                WidthRequest="50"
+                                Margin="0,-20,0,0"
+                                Source="quotes_icon"/>
+                    <ImageButton Grid.Column="2" 
+                                HeightRequest="50" 
+                                WidthRequest="40" 
+                                Margin="0,-20,0,0"
+                                Command="{Binding NavigateToBrainPage}" 
+                                Source="meditate_icon"/>
+                </Grid>
+            </Frame>
+
+            <!-- Selected Tab Indicator -->
+            <Grid Grid.Row="3" 
+                  HeightRequest="95" 
+                  WidthRequest="100"
+                  Margin="{OnPlatform iOS='15,-30,15,35', Android='15,-30,15,35'}">
+
+                <!-- Background Frame -->
+                <Frame BackgroundColor="#f6e5cb"
+                       CornerRadius="33"
+                       IsClippedToBounds="False"
+                       InputTransparent="True"/>
+
+                <!-- Clickable Button -->
+                <Button Command="{Binding NavigateToNotesPage}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="95"
+                        WidthRequest="100"/>
+
+                <!-- Icon -->
+                <Image Source="notes_icon"
+                       HeightRequest="65" 
+                       WidthRequest="65"
+                       InputTransparent="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
             </Grid>
-        </Frame>
+        </Grid>
     </Grid>
 </ContentPage>

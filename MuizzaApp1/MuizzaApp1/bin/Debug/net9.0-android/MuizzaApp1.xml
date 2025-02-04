@@ -14,6 +14,7 @@
         <member name="T:MuizzaApp1.ViewModels.QuotesPageViewModel">
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="E:MuizzaApp1.ViewModels.QuotesPageViewModel.PropertyChanged">
             <inheritdoc cref = "E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/>
@@ -371,6 +372,18 @@
         <member name="P:MuizzaApp1.ViewModels.QuotesPageViewModel.FeelingText">
             <inheritdoc cref="F:MuizzaApp1.ViewModels.QuotesPageViewModel.feelingText"/>
         </member>
+        <member name="P:MuizzaApp1.ViewModels.QuotesPageViewModel.CurrentAffirmation">
+            <inheritdoc cref="F:MuizzaApp1.ViewModels.QuotesPageViewModel.currentAffirmation"/>
+        </member>
+        <member name="P:MuizzaApp1.ViewModels.QuotesPageViewModel.CurrentPosition">
+            <inheritdoc cref="F:MuizzaApp1.ViewModels.QuotesPageViewModel.currentPosition"/>
+        </member>
+        <member name="F:MuizzaApp1.ViewModels.QuotesPageViewModel.positionChangedCommand">
+            <summary>The backing field for <see cref="P:MuizzaApp1.ViewModels.QuotesPageViewModel.PositionChangedCommand"/>.</summary>
+        </member>
+        <member name="P:MuizzaApp1.ViewModels.QuotesPageViewModel.PositionChangedCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MuizzaApp1.ViewModels.QuotesPageViewModel.PositionChanged(System.Int32)"/>.</summary>
+        </member>
         <member name="T:MuizzaApp1.Resource">
             <summary>
             Android Resource Designer class.
@@ -515,6 +528,12 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.FeelingText">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "FeelingText" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentAffirmation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentAffirmation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentPosition">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentPosition" generated properties.</summary>
+        </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
             <summary>
             A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
@@ -532,6 +551,12 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.FeelingText">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "FeelingText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentAffirmation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentAffirmation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentPosition">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentPosition" generated properties.</summary>
         </member>
     </members>
 </doc>

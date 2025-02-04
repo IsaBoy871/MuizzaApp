@@ -6,14 +6,23 @@ using CommunityToolkit.Mvvm.Input;
 using MuizzaApp1.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace MuizzaApp1.ViewModels;
 
 [ObservableObject]
 public partial class QuotesPageViewModel
 {
-    private readonly AffirmationsService _affirmationsService;
+    private readonly IAffirmationsService _affirmationsService;
     private readonly IServiceProvider _serviceProvider;
+    private List<Affirmation> _allAffirmations;
+    private Random _random = new Random();
+    private const int BatchSize = 3;
+    private const int MaxVisibleItems = 10; // Reduced from 15
+    private int _currentIndex = 0;
     
     [ObservableProperty]
     private ObservableCollection<Affirmation> affirmations;
@@ -27,23 +36,36 @@ public partial class QuotesPageViewModel
     [ObservableProperty]
     private string feelingText;
 
+    [ObservableProperty]
+    private string currentAffirmation;
+
+    [ObservableProperty]
+    private int currentPosition;
+
+    private bool _isLoadingMore;
+
     public Command NavigateToNotesPage { get; }
 
     public Command NavigateToBrainPage { get; }
     public ICommand SubmitFeelingCommand { get; }
 
-    public QuotesPageViewModel(AffirmationsService affirmationsService, IServiceProvider serviceProvider)
+    public QuotesPageViewModel(IAffirmationsService affirmationsService, IServiceProvider serviceProvider)
     {
         Debug.WriteLine("ViewModel constructor started");
         _affirmationsService = affirmationsService;
         _serviceProvider = serviceProvider;
         Affirmations = new ObservableCollection<Affirmation>();
+        _allAffirmations = new List<Affirmation>();
         InitializeEmotions();
-        Debug.WriteLine($"EmotionsList count: {EmotionsList?.Count ?? 0}");
-        LoadAffirmationsAsync().ConfigureAwait(false);
+        
+        // Initialize commands
         NavigateToNotesPage = new Command(async () => await OnNavigateToNotesPage());
-        NavigateToBrainPage =new Command(async () => await OnNavigateToBrainPage());
+        NavigateToBrainPage = new Command(async () => await OnNavigateToBrainPage());
         SubmitFeelingCommand = new Command(async () => await OnFeelingSubmitted());
+        
+        // Remove any test data initialization
+        MainThread.BeginInvokeOnMainThread(async () => await LoadInitialAffirmationsAsync());
+        Debug.WriteLine("ViewModel constructor completed");
     }
 
     private void InitializeEmotions()
@@ -61,20 +83,20 @@ public partial class QuotesPageViewModel
         };
     }
 
-    public async Task LoadAffirmationsAsync()
+    private async Task LoadInitialAffirmationsAsync()
     {
-        if (IsLoading) return;
-
         try
         {
             IsLoading = true;
-            var loadedAffirmations = await _affirmationsService.GetAffirmationsAsync();
+            _allAffirmations = await _affirmationsService.GetAffirmationsAsync();
             
-            Affirmations.Clear();
-            foreach (var affirmation in loadedAffirmations)
-            {
-                Affirmations.Add(affirmation);
-            }
+            // Shuffle the list
+            _allAffirmations = _allAffirmations.OrderBy(x => _random.Next()).ToList();
+            
+            // Load initial batch
+            await LoadNextBatchAsync();
+            
+            Debug.WriteLine($"Loaded initial batch: {Affirmations.Count} affirmations");
         }
         catch (Exception ex)
         {
@@ -83,6 +105,88 @@ public partial class QuotesPageViewModel
         finally
         {
             IsLoading = false;
+        }
+    }
+
+    private async Task LoadNextBatchAsync()
+    {
+        try
+        {
+            var currentCount = Affirmations.Count;
+            var remainingItems = _allAffirmations.Skip(currentCount).Take(BatchSize);
+
+            if (!remainingItems.Any()) return;
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                foreach (var item in remainingItems)
+                {
+                    Affirmations.Add(item);
+                    Debug.WriteLine($"Added affirmation: {item.Text}");
+                }
+            });
+
+            // If we've used all items, reshuffle and start over
+            if (currentCount + BatchSize >= _allAffirmations.Count)
+            {
+                _allAffirmations = _allAffirmations.OrderBy(x => _random.Next()).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error in LoadNextBatchAsync: {ex.Message}");
+        }
+    }
+
+    private Task CleanupOldItemsAsync()
+    {
+        if (Affirmations.Count <= MaxVisibleItems) return Task.CompletedTask;
+
+        return MainThread.InvokeOnMainThreadAsync(() =>
+        {
+            try
+            {
+                var currentPos = CurrentPosition;
+                var itemsToRemove = new List<Affirmation>();
+                
+                // Keep a window of items around the current position
+                var minKeepIndex = Math.Max(0, currentPos - 3);
+                var maxKeepIndex = Math.Min(Affirmations.Count - 1, currentPos + 3);
+
+                for (int i = 0; i < Affirmations.Count; i++)
+                {
+                    if (i < minKeepIndex || i > maxKeepIndex)
+                    {
+                        itemsToRemove.Add(Affirmations[i]);
+                    }
+                }
+
+                foreach (var item in itemsToRemove)
+                {
+                    if (Affirmations.Contains(item))
+                    {
+                        Affirmations.Remove(item);
+                    }
+                }
+
+                Debug.WriteLine($"Cleaned up {itemsToRemove.Count} items. Current count: {Affirmations.Count}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error during cleanup: {ex.Message}");
+            }
+        });
+    }
+
+    [RelayCommand]
+    private async Task PositionChanged(int position)
+    {
+        CurrentPosition = position;
+        
+        // Load more items when we're near the end
+        if (position >= Affirmations.Count - 2)
+        {
+            await LoadNextBatchAsync();
         }
     }
 
@@ -101,10 +205,66 @@ public partial class QuotesPageViewModel
 
     private async Task OnFeelingSubmitted()
     {
-        if (!string.IsNullOrWhiteSpace(FeelingText))
+        try
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new EmotionalResponsePage(FeelingText));
-            FeelingText = string.Empty; // Clear the entry
+            if (string.IsNullOrWhiteSpace(FeelingText))
+                return;
+
+            var currentFeeling = FeelingText;
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                try
+                {
+                    if (Shell.Current?.Navigation == null)
+                    {
+                        Logger.Log("Shell.Current.Navigation is null");
+                        throw new InvalidOperationException("Navigation is not available");
+                    }
+
+                    var emotionalResponsePage = new EmotionalResponsePage(currentFeeling);
+                    await Shell.Current.Navigation.PushAsync(emotionalResponsePage);
+                    FeelingText = string.Empty;
+                }
+                catch (Exception innerEx)
+                {
+                    Logger.Log($"Navigation error: {innerEx.Message}\n{innerEx.StackTrace}");
+                    await Shell.Current.DisplayAlert(
+                        "Error",
+                        "Unable to process your request. Please restart the app.",
+                        "OK");
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Logger.Log($"Outer error in OnFeelingSubmitted: {ex.Message}\n{ex.StackTrace}");
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Shell.Current.DisplayAlert(
+                    "Error",
+                    "Something went wrong. Please try again.",
+                    "OK");
+            });
+        }
+    }
+
+    // Add a method to handle the scrolled event
+    public async Task OnScrolled(ItemsViewScrolledEventArgs args)
+    {
+        if (_isLoadingMore) return;
+
+        try
+        {
+            // Load more items when we're near the end
+            if (args.LastVisibleItemIndex >= Affirmations.Count - 2)
+            {
+                _isLoadingMore = true;
+                await LoadNextBatchAsync();
+            }
+        }
+        finally
+        {
+            _isLoadingMore = false;
         }
     }
 }

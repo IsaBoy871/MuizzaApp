@@ -35905,11 +35905,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
       "projectName": "MuizzaApp1",
-      "projectPath": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
+      "projectPath": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\MuizzaApp1.csproj",
       "packagesPath": "C:\\Users\\Isa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Isa\\source\\repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\obj\\",
+      "outputPath": "C:\\Users\\Isa\\Source\\Repos\\MuizzaApp\\MuizzaApp1\\MuizzaApp1\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
