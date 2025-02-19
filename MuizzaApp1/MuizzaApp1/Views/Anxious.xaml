@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.Anxious"
+             BackgroundColor="#f6e5cb">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header with Back Button and Title -->
+        <Grid Grid.Row="0" Padding="20,40,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Back Button -->
+            <ImageButton Grid.Column="0"
+                        Source="back_arrow.png"
+                        HeightRequest="24"
+                        WidthRequest="24"
+                        HorizontalOptions="Start"
+                        Clicked="OnBackButtonClicked"/>
+
+            <!-- Title -->
+            <Label Grid.Column="1"
+                   Text="Anxious"
+                   FontFamily="fredoka"
+                   FontSize="24"
+                   TextColor="#4A3831"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,0,20,0"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" 
+                    VerticalScrollBarVisibility="Never"
+                    HeightRequest="495"
+                    Margin="0,0,0,225">
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <!-- List Items -->
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I Am Safe"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I can handle it"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I Can Handle It"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="In My Control"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="My Breath Is My Anchor"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Stronger Than I Think"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="One Step At A Time"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Clear My Mind"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Release The Tension"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Learning To Cope"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Choose Love &amp; Patience"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Observe My Thoughts"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I Am Calm"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Overcome My Fears"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I Am Content"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Breathe Confidence"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Overcome anxiety"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I Welcome Peace"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Trust The Process"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Image -->
+        <Image Source="anxious_list.png"
+               HeightRequest="300"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               Margin="0,0,0,-1400"/>
+    </Grid>
+</ContentPage>  

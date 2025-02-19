@@ -16,4 +16,9 @@
         Title="Pets"
         ContentTemplate="{DataTemplate local:GetStarted2}"
         Route="GetStarted2" />
+
+    <ShellContent
+        Title="GetStarted4"
+        ContentTemplate="{DataTemplate local:GetStarted4}"
+        Route="GetStarted4" />
 </Shell>

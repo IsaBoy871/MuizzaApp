@@ -57,11 +57,47 @@ build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Resources.Style
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Angry.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Angry.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Angry.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Angry.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Anxious.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Anxious.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Anxious.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Anxious.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Bored.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Bored.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Bored.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Bored.xaml
+
 [C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/BrainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.BrainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\BrainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\BrainPage.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Confident.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Confident.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Confident.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Confident.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Content.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Content.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Content.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Content.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Depressed.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Depressed.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Depressed.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Depressed.xaml
 
 [C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/EmotionalResponsePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
@@ -81,14 +117,80 @@ build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.GetStarte
 build_metadata.AdditionalFiles.TargetPath = Views\GetStarted3.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\GetStarted3.xaml
 
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/GetStarted4.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.GetStarted4.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\GetStarted4.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\GetStarted4.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/GetStartedNamePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.GetStartedNamePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\GetStartedNamePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\GetStartedNamePage.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Grateful.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Grateful.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Grateful.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Grateful.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Hopeful.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Hopeful.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Hopeful.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Hopeful.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Insecure.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Insecure.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Insecure.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Insecure.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Inspired.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Inspired.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Inspired.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Inspired.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/ListChoice.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.ListChoice.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ListChoice.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ListChoice.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Motivated.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Motivated.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Motivated.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Motivated.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/NotesListPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.NotesListPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\NotesListPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\NotesListPage.xaml
+
 [C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/NotesPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.NotesPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\NotesPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\NotesPage.xaml
 
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/PremiumOnboard.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.PremiumOnboard.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\PremiumOnboard.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\PremiumOnboard.xaml
+
 [C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/QuotesPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.QuotesPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\QuotesPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\QuotesPage.xaml
+
+[C:/Users/Isa/Source/Repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Restless.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Restless.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Restless.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Restless.xaml

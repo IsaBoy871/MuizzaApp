@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MuizzaApp1.GetStarted4"
+             BackgroundColor="#FFF3E9">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Grid Grid.Row="0" Margin="20,40,20,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Cat Icon -->
+            <Image Grid.Column="0"
+                   Source="main_cat.png"
+                   HeightRequest="90"
+                   WidthRequest="90"
+                   VerticalOptions="Start"/>
+
+            <!-- Text -->
+            <Label Grid.Column="1"
+                   Margin="0,30"
+                   Text="Practice gratitude, intention &amp; affirmation"
+                   TextColor="#4f3422"
+                   FontFamily="fredoka"
+                   FontSize="20"/>
+        </Grid>
+
+        <!-- Background Elements -->
+        <Ellipse Grid.Row="1"
+                 Fill="White"
+                 HorizontalOptions="FillAndExpand">
+            <Ellipse.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="580"/>
+                    <On Platform="Android" Value="760"/>
+                </OnPlatform>
+            </Ellipse.HeightRequest>
+            <Ellipse.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="5960"/>
+                    <On Platform="Android" Value="2160"/>
+                </OnPlatform>
+            </Ellipse.WidthRequest>
+            <Ellipse.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,130,0,0"/>
+                    <On Platform="Android" Value="0,0,0,-580"/>
+                </OnPlatform>
+            </Ellipse.Margin>
+        </Ellipse>
+
+        <!-- Horizontal Line -->
+        <BoxView Grid.Row="1"
+                 HeightRequest="4"
+                 Color="Black"
+                 HorizontalOptions="Fill">
+            <BoxView.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,-453,0,0"/>
+                    <On Platform="Android" Value="0,-173,0,0"/>
+                </OnPlatform>
+            </BoxView.Margin>
+        </BoxView>
+
+        <!-- Arrow -->
+        <Image Grid.Row="1"
+               Source="onboard_next3.png"
+               HeightRequest="245"
+               WidthRequest="245"
+               HorizontalOptions="Center"
+               Margin="0,-620,0,0">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <!-- Main Image -->
+        <Image Grid.Row="2"
+               Source="onboard_screen3.png"
+               Aspect="AspectFit"
+               HeightRequest="650"
+               VerticalOptions="Start"
+               Margin="20,-540,20,0"/>
+    </Grid>
+</ContentPage> 

@@ -2,64 +2,93 @@ using MuizzaApp1.ViewModels;
 using MuizzaApp1.Services;
 using System.Net.Http;
 using System.Diagnostics;
+using MuizzaApp1.Models;
 
 namespace MuizzaApp1.Views;
 
 public partial class NotesPage : ContentPage
 {
     private readonly NotesService _notesService;
+    private readonly NotesPageViewModel _viewModel;
+    private bool _isSaving = false;
+    private Note _currentNote;
 
-    public NotesPage(NotesService notesService)
+    public NotesPage(NotesService notesService, NotesPageViewModel viewModel)
     {
         InitializeComponent();
         _notesService = notesService;
+        _viewModel = viewModel;
+        BindingContext = viewModel;
+        this.Opacity = 0;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await this.FadeTo(1, 500, Easing.CubicOut);
+    }
+
+    protected override async void OnDisappearing()
+    {
+        base.OnDisappearing();
+        await this.FadeTo(0, 500, Easing.CubicIn);
+    }
+
+    public void SetNote(Note note)
+    {
+        _currentNote = note;
+        editor.Text = note.Content;
+    }
+
+    private async void OnNotesClicked(object sender, EventArgs e)
+    {
+        var notesListPage = Handler.MauiContext.Services.GetService<NotesListPage>();
+        await Navigation.PushAsync(notesListPage);
     }
 
     private async void OnDoneClicked(object sender, EventArgs e)
     {
-        Debug.WriteLine("Done button clicked");
-
-        if (!string.IsNullOrWhiteSpace(editor.Text))
-        {
-            try
-            {
-                Debug.WriteLine($"Attempting to save note with content: {editor.Text}");
-                bool success = await _notesService.SaveNoteAsync(editor.Text);
-
-                if (success)
-                {
-                    await DisplayAlert("Success", "Note saved successfully!", "OK");
-                    Debug.WriteLine("Note saved successfully");
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Failed to save note. Please try again.", "OK");
-                    Debug.WriteLine("Failed to save note");
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", "Failed to save note. Please try again.", "OK");
-                Debug.WriteLine($"Error saving note: {ex.Message}");
-                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                return;
-            }
-        }
-        else
-        {
-            Debug.WriteLine("Editor text is empty");
-        }
-
+        if (_isSaving) return;
+        
         try
         {
-            Debug.WriteLine("Attempting to navigate back");
-            await Navigation.PopAsync();
+            _isSaving = true;
+            
+            if (string.IsNullOrWhiteSpace(editor.Text))
+            {
+                await Navigation.PopAsync();
+                return;
+            }
+
+            bool success;
+            if (_currentNote != null)
+            {
+                _currentNote.Content = editor.Text;
+                success = await _notesService.UpdateNoteAsync(_currentNote);
+            }
+            else
+            {
+                success = await _notesService.SaveNoteAsync(editor.Text);
+            }
+            
+            if (success)
+            {
+                await DisplayAlert("Success", "Note saved successfully!", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "Failed to save note. Please try again.", "OK");
+            }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Navigation error: {ex.Message}");
-            await Shell.Current.GoToAsync("..");
+            Debug.WriteLine($"Error saving note: {ex.Message}");
+            await DisplayAlert("Error", "An unexpected error occurred.", "OK");
+        }
+        finally
+        {
+            _isSaving = false;
         }
     }
 

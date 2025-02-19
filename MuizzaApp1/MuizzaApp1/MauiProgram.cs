@@ -117,11 +117,48 @@ namespace MuizzaApp1
             builder.Services.AddHttpClient();
 
             builder.Services.AddTransient<BrainPage>();
+            builder.Services.AddTransient<BrainPageViewModel>();
 
             // Register services
             builder.Services.AddSingleton<AffirmationsService>();  // Concrete implementation
             builder.Services.AddSingleton<IAffirmationsService>(sp => sp.GetRequiredService<AffirmationsService>()); // Interface mapping
             
+            builder.Services.AddTransient<NotesListPage>();
+            builder.Services.AddTransient<NotesListViewModel>();
+
+            builder.Services.AddTransient<NotesPageViewModel>();
+
+            builder.Services.AddSingleton<IAppleAuthService, AppleAuthService>();
+
+            // Register GetStarted4 and its ViewModel
+            builder.Services.AddTransient<GetStarted4>();
+            builder.Services.AddTransient<GetStarted4PageViewModel>();
+
+            // Register GetStartedName and its ViewModel
+            builder.Services.AddTransient<GetStartedNamePage>();
+            builder.Services.AddTransient<GetStartedNameViewModel>();
+
+            builder.Services.AddSingleton<IListChoiceService, ListChoiceService>();
+
+            // Add this after your existing service registrations
+            builder.Services.AddTransient<AngryViewModel>();
+            builder.Services.AddTransient<Angry>();
+            builder.Services.AddTransient<ListChoice>();
+            builder.Services.AddTransient<ListChoiceViewModel>();
+            builder.Services.AddTransient<PremiumOnboard>();
+
+            builder.Services.AddSingleton<IUserService>(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                var baseUrl = config["ApiSettings:BaseUrl"] ?? "https://affirmations-api-cdgsf0azgqhrf2cx.uksouth-01.azurewebsites.net/";
+                return new UserService(new ConfigurationBuilder()
+                    .AddInMemoryCollection(new Dictionary<string, string>
+                    {
+                        ["ApiSettings:BaseUrl"] = baseUrl
+                    })
+                    .Build());
+            });
+
             return builder.Build();
         }
 

@@ -44,6 +44,9 @@ public partial class QuotesPageViewModel
 
     private bool _isLoadingMore;
 
+    [ObservableProperty]
+    private bool isInitialized;
+
     public Command NavigateToNotesPage { get; }
 
     public Command NavigateToBrainPage { get; }
@@ -76,19 +79,25 @@ public partial class QuotesPageViewModel
             new Emotion { Name = "Anxious", ImageSource = "anxious_woman.png", Color = Color.FromArgb("#7d60cb") },
             new Emotion { Name = "Bored", ImageSource = "bored_woman.png", Color = Color.FromArgb("#7c82ff") },
             new Emotion { Name = "Depressed", ImageSource = "depressed_woman.png", Color = Color.FromArgb("#89888d") },
-            new Emotion { Name = "Stressed", ImageSource = "stressed.png", Color = Color.FromArgb("#FFA94D") },
-            new Emotion { Name = "Overwhelmed", ImageSource = "overwhelmed.png", Color = Color.FromArgb("#F783AC") },
-            new Emotion { Name = "Insecure", ImageSource = "insecure.png", Color = Color.FromArgb("#8E6B4E") },
-            new Emotion { Name = "Lonely", ImageSource = "lonely.png", Color = Color.FromArgb("#7950F2") },
+            new Emotion { Name = "Inspired", ImageSource = "inspired.png", Color = Color.FromArgb("#ff6fb0") },
+            new Emotion { Name = "Grateful", ImageSource = "grateful.png", Color = Color.FromArgb("#82b28d") },
+            new Emotion { Name = "Restless", ImageSource = "restless.png", Color = Color.FromArgb("#cda2a2") },
+            new Emotion { Name = "Insecure", ImageSource = "insecure.png", Color = Color.FromArgb("#9378ff") },
+            new Emotion { Name = "Hopeful", ImageSource = "hopeful.png", Color = Color.FromArgb("#ff6fb0") },
+            new Emotion { Name = "Content", ImageSource = "content.png", Color = Color.FromArgb("#ebd69a") },
+            new Emotion { Name = "Confident", ImageSource = "confident.png", Color = Color.FromArgb("#ffcb8d") },
+            new Emotion { Name = "Motivated", ImageSource = "motivated.png", Color = Color.FromArgb("#8aeaff") },
         };
     }
 
-    private async Task LoadInitialAffirmationsAsync()
+    public async Task LoadInitialAffirmationsAsync()
     {
+        if (IsInitialized) return;
+        
         try
         {
             IsLoading = true;
-            _allAffirmations = await _affirmationsService.GetAffirmationsAsync();
+            _allAffirmations = await Task.Run(() => _affirmationsService.GetAffirmationsAsync());
             
             // Shuffle the list
             _allAffirmations = _allAffirmations.OrderBy(x => _random.Next()).ToList();
@@ -96,6 +105,7 @@ public partial class QuotesPageViewModel
             // Load initial batch
             await LoadNextBatchAsync();
             
+            IsInitialized = true;
             Debug.WriteLine($"Loaded initial batch: {Affirmations.Count} affirmations");
         }
         catch (Exception ex)
@@ -265,6 +275,56 @@ public partial class QuotesPageViewModel
         finally
         {
             _isLoadingMore = false;
+        }
+    }
+
+    public async Task InitializeAsync()
+    {
+        // Load initial batch of affirmations
+        await LoadNextBatchAsync();
+    }
+
+    [RelayCommand]
+    private async Task NavigateToEmotion(string emotion)
+    {
+        switch (emotion.ToLower())
+        {
+            case "angry":
+                await Shell.Current.GoToAsync(nameof(Angry));
+                break;
+            case "anxious":
+                await Shell.Current.GoToAsync(nameof(Anxious));
+                break;
+            case "bored":
+                await Shell.Current.GoToAsync(nameof(Bored));
+                break;
+            case "depressed":
+                await Shell.Current.GoToAsync(nameof(Depressed));
+                break;
+            case "inspired":
+                await Shell.Current.GoToAsync(nameof(Inspired));
+                break;
+            case "grateful":
+                await Shell.Current.GoToAsync(nameof(Grateful));
+                break;
+            case "restless":
+                await Shell.Current.GoToAsync(nameof(Restless));
+                break;
+            case "insecure":
+                await Shell.Current.GoToAsync(nameof(Insecure));
+                break;
+            case "hopeful":
+                await Shell.Current.GoToAsync(nameof(Hopeful));
+                break;
+            case "content":
+                await Shell.Current.GoToAsync(nameof(Content));
+                break;
+            case "confident":
+                await Shell.Current.GoToAsync(nameof(Confident));
+                break;
+            case "motivated":
+                await Shell.Current.GoToAsync(nameof(Motivated));
+                break;
         }
     }
 }

@@ -7,7 +7,13 @@ namespace MuizzaApp1.ViewModels
     {
         readonly INavigationService _navigationService;
 
-        public Command NavigateCommand => new(async () => await _navigationService.NavigateToPage<GetStarted3>());
+        public Command NavigateCommand => new(async () => 
+        {
+            await Shell.Current.GoToAsync(nameof(GetStarted3), new Dictionary<string, object>
+            {
+                ["DisableTransition"] = true
+            });
+        });
 
         public GetStarted2PageViewModel(INavigationService navigationService)
         {

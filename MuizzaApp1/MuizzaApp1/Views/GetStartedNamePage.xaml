@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.GetStartedNamePage"
+             BackgroundColor="#FBE8D7">
+
+    <VerticalStackLayout Spacing="0">
+        <!-- Title -->
+        <Label Text="Last thing,"
+               TextColor="#4A3831"
+               FontSize="32"
+               FontFamily="fredoka"
+               HorizontalTextAlignment="Center"
+               Margin="0,60,0,0"/>
+        
+        <!-- Subtitle -->
+        <Label Text="Who are&#x0a;YOU?"
+               TextColor="#4A3831"
+               FontSize="40"
+               FontFamily="fredoka"
+               HorizontalTextAlignment="Center"
+               LineHeight="1.2"
+               Margin="0,5,0,0"/>
+
+        <!-- Cat Image -->
+        <Image Source="cat_writing.png"
+               HeightRequest="180"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0"/>
+
+        <!-- Name Entry Section -->
+        <HorizontalStackLayout Spacing="10" 
+                               Margin="40,50"
+                               HorizontalOptions="Center">
+            <Label Text="I am"
+                   TextColor="#4A3831"
+                   FontSize="35"
+                   FontFamily="fredoka"
+                   VerticalOptions="Center"/>
+            
+            <Entry x:Name="NameEntry"
+                   Text="{Binding Name}"
+                   TextColor="#4A3831"
+                   FontSize="35"
+                   FontFamily="fredoka"
+                   MaxLength="15"
+                   WidthRequest="300"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="________"
+                   PlaceholderColor="#4A3831"
+                   VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <!-- Note about nickname -->
+        <Label Text="p.s. use a nickname if your name is too long"
+               TextColor="#4A3831"
+               FontSize="14"
+               FontFamily="fredoka"
+               Opacity="0.7"
+               HorizontalOptions="Center"
+               Margin="0,5,0,0"/>
+
+        <!-- Get Started Button -->
+        <ImageButton Source="get_started.png"
+                    HeightRequest="120"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    Command="{Binding GetStartedCommand}"
+                    BackgroundColor="Transparent"
+                    Margin="0,70,0,0"/>
+    </VerticalStackLayout>
+</ContentPage> 

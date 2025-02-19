@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.Content"
+             BackgroundColor="#f6e5cb">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back Button -->
+        <ImageButton Source="back_arrow.png"
+                     HeightRequest="24"
+                     WidthRequest="24"
+                     Margin="20,40,0,20"
+                     HorizontalOptions="Start"
+                     Clicked="OnBackButtonClicked"/>
+
+        <!-- Content -->
+        <VerticalStackLayout Grid.Row="1"
+                            Spacing="20"
+                            Padding="20">
+            <!-- Add your content for the Content page here -->
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage> 

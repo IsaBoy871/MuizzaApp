@@ -43,7 +43,8 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
 	  <CodesignKey>Apple Development: Created via API (8P2L29K69L)</CodesignKey>
-	  <CodesignProvision>VS: WildCard Development</CodesignProvision>
+	  <CodesignProvision>VS: com.isa.muizzaapp Development</CodesignProvision>
+	  <CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -99,6 +100,8 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	
+	<ItemGroup>
+		<FrameworkReference Remove="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 </Project>

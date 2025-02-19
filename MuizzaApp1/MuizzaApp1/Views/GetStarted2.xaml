@@ -2,104 +2,95 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="MuizzaApp1.GetStarted2">
+             x:Class="MuizzaApp1.GetStarted2"
+             BackgroundColor="#FFF3E9">
 
-    <Grid BackgroundColor="{StaticResource Secondary}" >
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Header Section -->
+        <Grid Grid.Row="0" Margin="20,40,20,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <!-- Cat Icon -->
+            <Image Grid.Column="0"
+                   Source="main_cat.png"
+                   HeightRequest="90"
+                   WidthRequest="90"
+                   VerticalOptions="Start"/>
 
-        <Grid Margin="0,192,0,0" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Image
-                Grid.Row="0"
-            Source="cat_book.png"
-            SemanticProperties.Description="Cute cat being held by their owner"
-            HeightRequest="420"
-            HorizontalOptions="Center" />
-        </Grid>
-
-        <Grid Margin="0,-69,0,0" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Image
-         Grid.Row="0"
-         Source="book_splash.png"
-         SemanticProperties.Description="Cute cat being held by their owner"
-         HeightRequest="400"
-         HorizontalOptions="Center" />
-        </Grid>
-
-        <Ellipse MinimumHeightRequest="900" HeightRequest="960" WidthRequest="1200" Margin="0,0,0,-500" Fill="white" Grid.Row="1" HorizontalOptions="FillAndExpand" />
-
-        <!--<HorizontalStackLayout Grid.Row="1" VerticalOptions="Start" TranslationY="40" HorizontalOptions="Center" >
-            <Ellipse HeightRequest="10" Margin="2" WidthRequest="10" Fill="orange"/>
-            <Ellipse HeightRequest="10" Margin="2" WidthRequest="10" Fill="{StaticResource Tertiary}"/>
-            <Ellipse HeightRequest="10" Margin="2" WidthRequest="10" Fill="{StaticResource Tertiary}"/>
-        </HorizontalStackLayout>-->
-        <Ellipse/>
-
-        <Grid Margin="0,110,0,0" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!--<VerticalStackLayout Background="White" Grid.Row="0">
-                <Label HorizontalOptions="Center" Margin="0,16,0,0" FontFamily="PoetsenOne" FontSize="26" Grid.Row="1" Text="Adopt a Friend" />
-                <Label HorizontalOptions="Center" Margin="0,8,0,0" FontFamily="RobotoRegular" FontSize="Default" TextColor="{StaticResource FontSecondary}" Text="Adopt the cutest pet as" />
-                <Label HorizontalOptions="Center" Margin="0" FontFamily="RobotoRegular" FontSize="Default" TextColor="{StaticResource FontSecondary}" Text="your playmate" />
-            </VerticalStackLayout>-->
-
-            <Grid Margin="0,-172,0,0" Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image
-                 Grid.Row="0"
-                Source="loading_bar2.png"
-                SemanticProperties.Description="Cute cat being held by their owner"
-                HeightRequest="25"
-                HorizontalOptions="Center" />
-            </Grid>
-
-            <Label TextColor="#4f3422"
-                   Text="A Space To Express What's
-                   On Your Mind"
-                   FontSize="26"
-                   Margin="32,-107,32,32"
-                   HeightRequest="70"
+            <!-- Text -->
+            <Label Grid.Column="1"
+                   Margin="0,30"
+                   Text="Understand your feelings &amp; act on proven steps to help"
+                   TextColor="#4f3422"
                    FontFamily="fredoka"
-                   HorizontalTextAlignment="Center"/>
-
-            <Button Grid.Row="1"
-                x:Name="GetStartedBtn"
-                Text=">"
-                FontSize="26"
-                Margin="162,16,162,32"
-                HeightRequest="70"
-                Command="{x:Binding Path=NavigateCommand}"
-                CornerRadius="20"
-                VerticalOptions="End"
-                FontFamily="fredoka"
-                SemanticProperties.Hint="Loads into the app"
-                HorizontalOptions="FillAndExpand" >
-                <Button.Shadow>
-                    <Shadow Brush="Gray"
-                    Offset="00,20"
-                    Radius="20"
-                    Opacity="0.7" />
-                </Button.Shadow>
-            </Button>
-
-
-
+                   FontSize="20"/>
         </Grid>
+
+
+        <!-- Background Elements -->
+        <Ellipse Grid.Row="1"
+                 Fill="White"
+                 HorizontalOptions="FillAndExpand">
+            <Ellipse.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="580"/>
+                    <On Platform="Android" Value="760"/>
+                </OnPlatform>
+            </Ellipse.HeightRequest>
+            <Ellipse.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="5960"/>
+                    <On Platform="Android" Value="2160"/>
+                </OnPlatform>
+            </Ellipse.WidthRequest>
+            <Ellipse.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,130,0,0"/>
+                    <On Platform="Android" Value="0,0,0,-580"/>
+                </OnPlatform>
+            </Ellipse.Margin>
+        </Ellipse>
+
+        <!-- Horizontal Line -->
+        <BoxView Grid.Row="1"
+                 HeightRequest="4"
+                 Color="Black"
+                 HorizontalOptions="Fill">
+            <BoxView.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,-453,0,0"/>
+                    <On Platform="Android" Value="0,-173,0,0"/>
+                </OnPlatform>
+            </BoxView.Margin>
+        </BoxView>
+
+        <!-- Arrow -->
+        <Image Grid.Row="1"
+               Source="onboard_next.png"
+               HeightRequest="230"
+               WidthRequest="230"
+               HorizontalOptions="Center"
+               Margin="20,-600,0,0">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <!-- Main Image -->
+        <Image Grid.Row="2"
+               Source="onboard_screen1.png"
+               Aspect="AspectFit"
+               HeightRequest="650"
+               VerticalOptions="Start"
+               Margin="20,-540,20,0"/>
     </Grid>
 </ContentPage>

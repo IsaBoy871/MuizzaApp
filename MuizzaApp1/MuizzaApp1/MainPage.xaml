@@ -2,85 +2,113 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="MuizzaApp1.MainPage">
+             x:Class="MuizzaApp1.MainPage"
+             BackgroundColor="#f6e5cb">
 
-    <Grid BackgroundColor="{StaticResource Secondary}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Cat Image Section -->
-        <Image Grid.Row="0"
-               Source="cat_quotes.png"
-               SemanticProperties.Description="Cute cat being held by their owner"
-               HeightRequest="400"
-               HorizontalOptions="Center"
-               Margin="0,152,0,0"/>
-
-        <!-- Quotes Splash Image -->
-        <Image Grid.Row="0"
-               Source="quotes_splash.png"
-               SemanticProperties.Description="Quotes splash image"
-               HeightRequest="400"
-               HorizontalOptions="Center"
-               Margin="0,-139,0,0"/>
-
-        <!-- Background Ellipse -->
-        <Ellipse Grid.Row="1"
-                 Fill="White"
-                 MinimumHeightRequest="900"
-                 HeightRequest="900"
-                 WidthRequest="1200"
-                 Margin="0,0,0,-500"
-                 HorizontalOptions="FillAndExpand"/>
-
-        <!-- Content Section -->
-        <Grid Grid.Row="1" 
-              Margin="0,110,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Loading Bar -->
-            <Image Grid.Row="0"
-                   Source="loading_bar1.png"
-                   SemanticProperties.Description="Loading bar indicator"
-                   HeightRequest="25"
-                   HorizontalOptions="Center"
-                   Margin="0,-112,0,0"/>
-
-            <!-- Main Text -->
-            <Label Grid.Row="0"
-                   Text="Start Your Day With Affirmations, Gratitude...."
-                   TextColor="#4f3422"
-                   FontSize="26"
+    <Grid>
+        
+        
+        <!-- Main Content -->
+        <VerticalStackLayout Spacing="0"
+                            ZIndex="1">
+            
+            <!-- Welcome Text -->
+            <Label Text="Welcome To Muizza"
+                   TextColor="#4A3831"
+                   FontSize="32"
                    FontFamily="fredoka"
                    HorizontalTextAlignment="Center"
-                   Margin="32,-46,32,32"
-                   HeightRequest="70"/>
+                   Margin="0,40,0,0"/>
 
-            <!-- Get Started Button -->
-            <Button Grid.Row="1"
-                    x:Name="GetStartedBtn"
-                    Text="Get Started"
-                    Command="{Binding NavigateCommand}"
-                    FontFamily="fredoka"
-                    FontSize="26"
-                    CornerRadius="20"
-                    HeightRequest="70"
-                    Margin="32,16,32,32"
-                    VerticalOptions="End"
-                    HorizontalOptions="Fill"
-                    SemanticProperties.Hint="Loads into the app">
-                <Button.Shadow>
-                    <Shadow Brush="Gray"
-                            Offset="0,20"
-                            Radius="20"
-                            Opacity="0.7"/>
-                </Button.Shadow>
-            </Button>
-        </Grid>
+            <!-- Background Elements -->
+            <Ellipse Grid.Row="1"
+         Fill="White"
+         HorizontalOptions="FillAndExpand">
+                <Ellipse.HeightRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="580"/>
+                        <On Platform="Android" Value="760"/>
+                    </OnPlatform>
+                </Ellipse.HeightRequest>
+                <Ellipse.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="5960"/>
+                        <On Platform="Android" Value="2160"/>
+                    </OnPlatform>
+                </Ellipse.WidthRequest>
+                <Ellipse.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,200,0,0"/>
+                        <On Platform="Android" Value="0,0,0,-580"/>
+                    </OnPlatform>
+                </Ellipse.Margin>
+            </Ellipse>
+
+
+            <!-- Horizontal Line -->
+            <BoxView Grid.Row="1"
+                     HeightRequest="4"
+                     Color="#51463f"
+                     HorizontalOptions="Fill">
+                            <BoxView.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS" Value="0,-580,0,0"/>
+                                    <On Platform="Android" Value="0,-173,0,0"/>
+                                </OnPlatform>
+                            </BoxView.Margin>
+            </BoxView>
+            
+            <!-- Cats Image -->
+            <Image Source="welcome_cats.png"
+                   HeightRequest="190"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   Margin="0,-185,0,0"/>
+
+
+            <!-- Background Image - Moved to top of Grid -->
+            <Image Source="main_screen.png"
+                   InputTransparent="True">
+                            <Image.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <On Platform="iOS" Value="1000"/>
+                                    <On Platform="Android" Value="1200"/>
+                                </OnPlatform>
+                            </Image.HeightRequest>
+                            <Image.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS" Value="10,-350,10,-200"/>
+                                    <On Platform="Android" Value="0,-300,0,-300"/>
+                                </OnPlatform>
+                            </Image.Margin>
+            </Image>
+
+
+            <!-- Tagline -->
+            <Label Text="Step into a healthier&#x0a;mindset &amp; a better you"
+                   TextColor="#4A3831"
+                   FontSize="25"
+                   FontFamily="fredoka"
+                   HorizontalTextAlignment="Center"
+                   LineHeight="1.2"
+                   Margin="0,-425,0,0"/>
+
+            <!-- Women Image -->
+            <Image Source="women_main.png"
+                   HeightRequest="200"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   Margin="10,90,0,0"/>
+
+            <!-- Sign In Button -->
+            <ImageButton Source="apple_singin.png"
+                        HeightRequest="80"
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center"
+                        Margin="0,-13,0,0"
+                        Command="{Binding SignInWithAppleCommand}"
+                        BackgroundColor="Transparent"/>
+
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

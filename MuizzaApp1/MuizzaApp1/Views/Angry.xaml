@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.Angry"
+             BackgroundColor="#f6e5cb">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header with Back Button and Title -->
+        <Grid Grid.Row="0" Padding="20,40,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Back Button -->
+            <ImageButton Grid.Column="0"
+                        Source="back_arrow.png"
+                        HeightRequest="24"
+                        WidthRequest="24"
+                        HorizontalOptions="Start"
+                        Clicked="OnBackButtonClicked"/>
+            
+            <!-- Title -->
+            <Label Grid.Column="1"
+                   Text="Angry"
+                   FontFamily="fredoka"
+                   FontSize="24"
+                   TextColor="#4A3831"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,0,20,0"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" 
+                    VerticalScrollBarVisibility="Never"
+                    HeightRequest="495"
+                    Margin="0,0,0,225">
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <!-- List Items -->
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Let Go Of My Anger"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Let Go Of My Anger"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Anger is a Prison"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Anger is a Prison"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Clear My Mind"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Clear My Mind"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Calm &amp; At Peace"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Calm &amp; At Peace"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Strive For Peace"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Strive For Peace"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="My Actions &amp; Thoughts"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="My Actions &amp; Thoughts"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Refuse To Act"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Refuse To Act"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="I am in Control"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="I am in Control"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Forgiveness"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Forgiveness"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Peace &amp; Harmony"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Peace &amp; Harmony"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Love &amp; Patience"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Love &amp; Patience"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Reclaim Happiness"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Reclaim Happiness"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Express Anger"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Express Anger"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Talk It Out"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Talk It Out"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Positive Person"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Positive Person"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Embrace Joy"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Embrace Joy"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Transform Anger"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Transform Anger"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Peace Is Forever"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Peace Is Forever"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#FFD7CC" 
+                       CornerRadius="15" 
+                       Padding="15"
+                       HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Regulate My Emotions"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="paw_point.png"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="Regulate My Emotions"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"
+                               Margin="10,0,0,0"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Image -->
+        <Image Source="angry_list.png"
+               HeightRequest="300"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               Margin="0,0,0,-1400"/>
+    </Grid>
+</ContentPage> 

@@ -1,12 +1,14 @@
 using Microsoft.Maui.Controls;
+using MuizzaApp1.ViewModels;
 
 namespace MuizzaApp1.Views;
 
 public partial class BrainPage : ContentPage
 {
-    public BrainPage()
+    public BrainPage(BrainPageViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = viewModel;
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
@@ -21,11 +23,5 @@ public partial class BrainPage : ContentPage
             await Shell.Current.GoToAsync("..");
         });
         return true;
-    }
-
-    private async void OnQuotesClicked(object sender, EventArgs e)
-    {
-        var quotesPage = Handler.MauiContext.Services.GetService<QuotesPage>();
-        await Shell.Current.Navigation.PushAsync(quotesPage);
     }
 } 

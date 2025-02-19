@@ -16,7 +16,8 @@
         <Image Grid.Row="1"
                Source="quotes_backdrop.png"
                InputTransparent="True"
-               SemanticProperties.Description="Quotes Background">
+               SemanticProperties.Description="Quotes Background"
+               x:Name="BackdropImage">
             <Image.HeightRequest>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="iOS" Value="570"/>
@@ -43,7 +44,8 @@
                Aspect="AspectFit"
                HorizontalOptions="Center"
                InputTransparent="True"
-               SemanticProperties.Description="Cat Backdrop">
+               SemanticProperties.Description="Cat Backdrop"
+               x:Name="CatBackdropImage">
             <Image.HeightRequest>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="iOS" Value="105"/>
@@ -116,7 +118,7 @@
                                    CornerRadius="15"
                                    Margin="20,-20,20,0"
                                    Padding="20,10"
-                                   HeightRequest="100"
+                                   HeightRequest="130"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center">
                                 <Label Text="{Binding Text}"
@@ -205,7 +207,8 @@
                Source="cat_search.png"
                HeightRequest="55"
                ZIndex="1"
-               HorizontalOptions="Center">
+               HorizontalOptions="Center"
+               x:Name="CatImage">
             <Image.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="0,0,0,428"/>
@@ -217,7 +220,8 @@
         <!-- Emotions Grid -->
         <ScrollView Grid.Row="1" 
                    VerticalScrollBarVisibility="Never"
-                   ZIndex="0">
+                   ZIndex="0"
+                   x:Name="EmotionsScrollView">
             <ScrollView.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="20,290,20,85"/>
@@ -232,6 +236,12 @@
                         <Grid HeightRequest="160" 
                               WidthRequest="160" 
                               Margin="3,28,3,-10">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.NavigateToEmotionCommand}"
+                                    CommandParameter="{Binding Name}"/>
+                            </Grid.GestureRecognizers>
+                            
                             <Frame BackgroundColor="{Binding Color}"
                                    CornerRadius="15"
                                    Padding="0"
@@ -265,6 +275,62 @@
                                         <Setter Property="Margin" Value="3,31,0,0"/>
                                         <Setter Property="HeightRequest" Value="140"/>
                                         <Setter Property="WidthRequest" Value="140"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Inspired">
+                                        <Setter Property="Margin" Value="25,6,0,0"/>
+                                        <Setter Property="HeightRequest" Value="160"/>
+                                        <Setter Property="WidthRequest" Value="160"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Grateful">
+                                        <Setter Property="Margin" Value="0,8,95,0"/>
+                                        <Setter Property="HeightRequest" Value="150"/>
+                                        <Setter Property="WidthRequest" Value="150"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Restless">
+                                        <Setter Property="Margin" Value="10,45,0,0"/>
+                                        <Setter Property="HeightRequest" Value="150"/>
+                                        <Setter Property="WidthRequest" Value="150"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Insecure">
+                                        <Setter Property="Margin" Value="40,15,0,0"/>
+                                        <Setter Property="HeightRequest" Value="150"/>
+                                        <Setter Property="WidthRequest" Value="150"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Hopeful">
+                                        <Setter Property="Margin" Value="10,-10,0,0"/>
+                                        <Setter Property="HeightRequest" Value="170"/>
+                                        <Setter Property="WidthRequest" Value="170"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Content">
+                                        <Setter Property="Margin" Value="0,8,80,0"/>
+                                        <Setter Property="HeightRequest" Value="150"/>
+                                        <Setter Property="WidthRequest" Value="150"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Confident">
+                                        <Setter Property="Margin" Value="0,15,55,0"/>
+                                        <Setter Property="HeightRequest" Value="150"/>
+                                        <Setter Property="WidthRequest" Value="150"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Name}"
+                                                 Value="Motivated">
+                                        <Setter Property="Margin" Value="0,0,0,10"/>
+                                        <Setter Property="HeightRequest" Value="170"/>
+                                        <Setter Property="WidthRequest" Value="170"/>
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
@@ -303,7 +369,8 @@
         </BoxView>
 
         <!-- Navigation Bar -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              x:Name="NavigationBar">
             <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="0,750,0,0"/>

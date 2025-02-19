@@ -50,7 +50,7 @@ namespace MuizzaApp1.Services
                 toPage.NavigatedTo += Page_NavigatedTo;
 
                 //Get VM of the toPage
-                var toViewModel = GetPageViewModelBase(toPage);
+                var toViewModel = GetPageViewModelBase(toPage); 
 
                 //Call navigatingTo on VM, passing in the paramter
                 if (toViewModel is not null)

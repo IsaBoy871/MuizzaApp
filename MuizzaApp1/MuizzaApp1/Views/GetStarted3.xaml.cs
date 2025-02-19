@@ -10,5 +10,16 @@ public partial class GetStarted3 : ContentPage
     {
         InitializeComponent();
         BindingContext = ViewModel = viewModel;
+        
+        // Set initial opacity to 0
+        this.Opacity = 0;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        
+        // Animate to full opacity
+        await this.FadeTo(1, 500, Easing.CubicOut);
     }
 }
