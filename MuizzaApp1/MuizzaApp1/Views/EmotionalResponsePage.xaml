@@ -27,7 +27,6 @@
             HorizontalOptions="Center"
             VerticalOptions="Start"/>
 
-
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="20" Padding="20">
                 <!-- Loading indicator -->
@@ -95,6 +94,18 @@
                            TextColor="#4f3422"
                            Margin="0,20,0,0"
                            HorizontalTextAlignment="Center"/>
+
+                    <!-- Deep Dive Button -->
+                    <Button Text="Deep Dive"
+                            Command="{Binding DeepDiveCommand}"
+                            BackgroundColor="#4f3422"
+                            TextColor="White"
+                            FontFamily="fredoka"
+                            FontSize="16"
+                            CornerRadius="20"
+                            HeightRequest="50"
+                            Margin="0,20,0,0"
+                            IsVisible="{Binding HasResponse}"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>

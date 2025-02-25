@@ -6,6 +6,7 @@ using MuizzaApp1.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using MuizzaApp1.Views;
+using MuizzaApp1.Contracts.Services;
 
 namespace MuizzaApp1
 {
@@ -13,32 +14,57 @@ namespace MuizzaApp1
     {
         public App()
         {
-            InitializeComponent();
+            try
+            {
+                Console.WriteLine("[App] Constructor starting");
+                InitializeComponent();
+                Console.WriteLine("[App] InitializeComponent completed");
 
-            // Create and set MainPage before any other initialization
-            MainPage = new AppShell();
-
-            // Register routes after MainPage is set
-            Routing.RegisterRoute(nameof(GetStarted2), typeof(GetStarted2));
-            Routing.RegisterRoute(nameof(GetStarted3), typeof(GetStarted3));
-            Routing.RegisterRoute(nameof(GetStarted4), typeof(GetStarted4));
-            Routing.RegisterRoute(nameof(QuotesPage), typeof(QuotesPage));
-            Routing.RegisterRoute(nameof(BrainPage), typeof(BrainPage));
-            Routing.RegisterRoute(nameof(NotesPage), typeof(NotesPage));
-            Routing.RegisterRoute(nameof(NotesListPage), typeof(NotesListPage));
+                try
+                {
+                    // Get required services
+                    var navigationService = IPlatformApplication.Current.Services.GetRequiredService<INavigationService>();
+                    Console.WriteLine("[App] Navigation service retrieved");
+                    
+                    MainPage = IPlatformApplication.Current.Services.GetRequiredService<AppShell>();
+                    Console.WriteLine("[App] MainPage set to AppShell");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[App ERROR] Service resolution failed: {ex.Message}");
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[App ERROR] Constructor failed: {ex.Message}");
+                Console.WriteLine($"[App ERROR] Stack trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         protected override Window CreateWindow(IActivationState activationState)
         {
-            Window window = base.CreateWindow(activationState);
-            
-            // Ensure window is created with proper initialization
-            if (window != null)
+            try
             {
-                window.Page = MainPage;
+                Debug.WriteLine("[App] Creating Window");
+                var window = base.CreateWindow(activationState);
+                Debug.WriteLine("[App] Window created successfully");
+                
+                // Ensure window is created with proper initialization
+                if (window != null)
+                {
+                    window.Page = MainPage;
+                }
+                
+                return window;
             }
-            
-            return window;
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[App ERROR] Window creation failed: {ex.Message}");
+                Debug.WriteLine($"[App ERROR] Stack trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         protected override async void OnStart()

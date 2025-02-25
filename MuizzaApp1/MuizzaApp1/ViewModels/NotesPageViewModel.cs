@@ -13,13 +13,15 @@ public partial class NotesPageViewModel
     private bool isSaving;
 
     public ICommand NavigateToQuotesPage { get; }
+    public ICommand NavigateToNotesPage { get; }
     public ICommand NavigateToBrainPage { get; }
 
     public NotesPageViewModel(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
         
-        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(QuotesPage), false));
-        NavigateToBrainPage = new Command(async () => await Shell.Current.GoToAsync(nameof(BrainPage), false));
+        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(QuotesPage)));
+        NavigateToNotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(NotesPage)));
+        NavigateToBrainPage = new Command(async () => await Shell.Current.GoToAsync(nameof(BrainPage)));
     }
 } 

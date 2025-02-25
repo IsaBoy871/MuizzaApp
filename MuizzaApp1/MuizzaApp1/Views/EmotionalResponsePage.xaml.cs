@@ -7,11 +7,14 @@ namespace MuizzaApp1;
 
 public partial class EmotionalResponsePage : ContentPage
 {
+    private readonly EmotionalResponseViewModel _viewModel;
+
     public EmotionalResponsePage(
         string feeling, 
         IOpenAIService openAIService = null, 
         ResponseCacheService cacheService = null,
-        ILogger<EmotionalResponseViewModel> logger = null)
+        ILogger<EmotionalResponseViewModel> logger = null,
+        ISubscriptionService subscriptionService = null)
     {
         InitializeComponent();
         
@@ -19,10 +22,22 @@ public partial class EmotionalResponsePage : ContentPage
         openAIService ??= services.GetService<IOpenAIService>();
         cacheService ??= services.GetService<ResponseCacheService>();
         logger ??= services.GetService<ILogger<EmotionalResponseViewModel>>();
+        subscriptionService ??= services.GetService<ISubscriptionService>();
         
-        BindingContext = new EmotionalResponseViewModel(openAIService, cacheService, logger);
+        _viewModel = new EmotionalResponseViewModel(
+            openAIService, 
+            cacheService, 
+            logger,
+            subscriptionService);
         
-        Task.Run(async () => await ((EmotionalResponseViewModel)BindingContext).GenerateResponse(feeling));
+        BindingContext = _viewModel;
+        
+        // Store the feeling before generating response
+        _viewModel.CurrentFeeling = feeling;
+        
+        // Generate response
+        MainThread.BeginInvokeOnMainThread(async () => 
+            await _viewModel.GenerateResponse(feeling));
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)

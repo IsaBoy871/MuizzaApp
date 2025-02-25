@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.AdvisorSelectionPage"
+             BackgroundColor="#f5e4ca">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid BackgroundColor="#4f3422" Padding="20,40,20,20">
+            <Label Text="Choose Your Advisor"
+                   TextColor="White"
+                   FontFamily="fredoka"
+                   FontSize="20"
+                   HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Advisors List -->
+        <CollectionView Grid.Row="1" 
+                       ItemsSource="{Binding Advisors}"
+                       SelectionMode="Single"
+                       SelectionChanged="OnAdvisorSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="15,10" 
+                           Padding="15"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="True">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                            <!-- Advisor Image -->
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding ImagePath}"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   Margin="0,0,15,0"/>
+                            
+                            <!-- Advisor Name -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontFamily="fredoka"
+                                   FontSize="18"
+                                   TextColor="#4f3422"/>
+                            
+                            <!-- Advisor Description -->
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding Description}"
+                                   FontFamily="etna"
+                                   FontSize="14"
+                                   TextColor="#4f3422"
+                                   Opacity="0.8"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage> 

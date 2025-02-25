@@ -16,6 +16,7 @@ public partial class BrainPageViewModel
 
     public ICommand NavigateToQuotesPage { get; }
     public ICommand NavigateToNotesPage { get; }
+    public ICommand NavigateToBrainPage { get; }
 
     public BrainPageViewModel(IServiceProvider serviceProvider, IUserService userService)
     {
@@ -25,6 +26,7 @@ public partial class BrainPageViewModel
         
         NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(QuotesPage), false));
         NavigateToNotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(NotesPage), false));
+        NavigateToBrainPage = new Command(async () => await Shell.Current.GoToAsync(nameof(BrainPage), false));
     }
 
     private async Task LoadUserNameAsync()

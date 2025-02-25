@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using MuizzaApp1.Models;
 using System.Text.Json;
 using MuizzaApp1.Exceptions;
+using MuizzaApp1.Contracts.Services;
 
 namespace MuizzaApp1.Services
 {
@@ -16,7 +17,8 @@ namespace MuizzaApp1.Services
         private readonly string _apiKey;
         private readonly ILogger<OpenAIService> _logger;
         private readonly ResponseCacheService _cacheService;
-        private const string MODEL = "gpt-3.5-turbo";
+        private const string DEFAULT_MODEL = "gpt-3.5-turbo";
+        private const string LONG_RESPONSE_MODEL = "gpt-3.5-turbo-16k";
         private const int MAX_TOKENS = 150;
         private const int DailyFreeLimit = 50;
 
@@ -129,7 +131,7 @@ namespace MuizzaApp1.Services
         {
             var request = new
             {
-                model = MODEL,
+                model = DEFAULT_MODEL,
                 messages = new[]
                 {
                     new
@@ -142,7 +144,11 @@ namespace MuizzaApp1.Services
                            - First paragraph: 2-3 sentences (60-80 words) explaining what's happening 
                              in the brain using everyday language. Avoid technical terms - explain 
                              like you're talking to a friend.
-                           - Then 3 bullet points (10-12 words each) with clear, friendly advice.
+                           - Then 3 bullet points with SPECIFIC, ACTIONABLE advice (10-12 words each).
+                             Each bullet should:
+                             - Be directly related to the specific feeling they described
+                             - Include a concrete, doable action (not just 'try to...' or 'remember...')
+                             - Mention a specific time, place, or way to do it
                              IMPORTANT: Each bullet point MUST be separated by TWO newlines.
 
                         Keep tone warm and conversational throughout.
@@ -151,24 +157,24 @@ namespace MuizzaApp1.Services
                         AFFIRMATION: I [empowering statement]
                         EXPLANATION: [Friendly explanation about what's happening in your brain]
 
-                        • [Friendly advice with gentle encouragement]
+                        • [Specific action they can take right now or in a specific situation]
 
 
-                        • [Friendly advice with gentle encouragement]
+                        • [Concrete activity tied to their exact feeling]
 
 
-                        • [Friendly advice with gentle encouragement]
+                        • [Practical step they can take in a particular moment or place]
 
-                        Example:
-                        EXPLANATION: Hey, when you're feeling this way, your brain is like a protective friend who's being a bit too careful. It's releasing chemicals that make you feel alert and on edge, kind of like an overactive alarm system. This is your mind trying to keep you safe, even though it might not feel great right now.
+                        Example for someone feeling anxious about a presentation:
+                        EXPLANATION: When you're nervous about presenting, your brain is preparing you to do your best. It's releasing chemicals that make you extra alert and focused, though this might feel uncomfortable. Think of it as your mind's way of giving you an energy boost for something important.
 
-                        • Take three deep breaths and remind yourself you're safe
-
-
-                        • Step outside for a moment to give your mind space
+                        • Practice your presentation in front of a mirror for exactly 5 minutes
 
 
-                        • Write down one small thing you can do right now"
+                        • Write down three questions you're most worried about being asked
+
+
+                        • Take a 2-minute walk around your workspace before the presentation starts"
                     },
                     new
                     {
@@ -215,6 +221,50 @@ namespace MuizzaApp1.Services
             finally
             {
                 _throttler.Release();
+            }
+        }
+
+        public async Task<string> GenerateDeepDiveResponse(string feeling, string advisorSystemPrompt)
+        {
+            try
+            {
+                if (!await CheckDailyLimit())
+                {
+                    _logger.LogWarning("Daily API limit reached");
+                    throw new RateLimitExceededException("Daily limit reached");
+                }
+
+                await ApplyRateLimit();
+
+                var request = new
+                {
+                    model = LONG_RESPONSE_MODEL,
+                    messages = new[]
+                    {
+                        new
+                        {
+                            role = "system",
+                            content = advisorSystemPrompt
+                        },
+                        new
+                        {
+                            role = "user",
+                            content = $"I'm feeling: {feeling}"
+                        }
+                    },
+                    temperature = 0.8
+                };
+
+                var response = await _httpClient.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", request);
+                response.EnsureSuccessStatusCode();
+                
+                var result = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
+                return result.choices[0].message.content;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating deep dive response");
+                throw;
             }
         }
     }

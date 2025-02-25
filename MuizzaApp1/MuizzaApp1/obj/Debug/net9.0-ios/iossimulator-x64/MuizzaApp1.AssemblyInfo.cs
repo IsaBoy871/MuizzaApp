@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+1a55d2b120a870e8adcc7b504a9925ae3fd21f9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f1521a8097a893ed37d9b25499276b1b60d77294")]
 [assembly: System.Reflection.AssemblyProductAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

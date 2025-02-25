@@ -19,7 +19,7 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MuizzaApp1
 build_property.ProjectDir = C:\Users\Isa\source\repos\MuizzaApp\MuizzaApp1\MuizzaApp1\
 build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
@@ -88,6 +88,12 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.Content.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\Content.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\Content.xaml
+
+[C:/Users/Isa/source/repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/DeepDivePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MuizzaApp1.Views.DeepDivePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DeepDivePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DeepDivePage.xaml
 
 [C:/Users/Isa/source/repos/MuizzaApp/MuizzaApp1/MuizzaApp1/Views/Depressed.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

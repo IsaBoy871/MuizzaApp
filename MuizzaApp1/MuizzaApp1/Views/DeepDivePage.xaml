@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.DeepDivePage"
+             BackgroundColor="#f5e4ca">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Bar -->
+        <Grid BackgroundColor="#4f3422" Padding="20,40,20,20">
+            <ImageButton 
+                Source="back_arrow.png"
+                HeightRequest="24"
+                WidthRequest="24"
+                HorizontalOptions="Start"
+                Clicked="OnBackButtonClicked"/>
+            <Label 
+                Text="Deep Dive"
+                TextColor="White"
+                FontFamily="fredoka"
+                FontSize="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <Frame Margin="15,15,15,30" 
+                   Padding="20" 
+                   BackgroundColor="White" 
+                   CornerRadius="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="20">
+                    <!-- Loading indicator -->
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                     IsVisible="{Binding IsLoading}"
+                                     Color="#4f3422"
+                                     HeightRequest="50"
+                                     WidthRequest="50"/>
+
+                    <!-- Content -->
+                    <Label Text="{Binding Feeling, StringFormat='Feeling: {0}'}"
+                           FontSize="24"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"/>
+                           
+                    <BoxView HeightRequest="2" 
+                            BackgroundColor="#4f3422" 
+                            Opacity="0.1"/>
+                            
+                    <Label Text="{Binding DetailedResponse}"
+                           FontSize="16"
+                           FontFamily="etna"
+                           TextColor="#4f3422"
+                           LineHeight="1.5"
+                           CharacterSpacing="0.5"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+        </ScrollView>
+    </Grid>
+</ContentPage> 
