@@ -26,4 +26,13 @@ public class User
 
     [JsonPropertyName("createdAt")]
     public DateTime CreatedAt { get; set; }
+
+    [JsonPropertyName("hasTrial")]
+    public bool HasTrial { get; set; }
+
+    [JsonPropertyName("searchBalance")]
+    public int SearchBalance { get; set; }
+
+    [JsonPropertyName("deepDiveBalance")]
+    public int DeepDiveBalance { get; set; }
 } 

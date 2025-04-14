@@ -89,4 +89,9 @@ public partial class DeepDivePage : ContentPage
     {
         await Shell.Current.GoToAsync("..");
     }
+
+    private async void OnReturnToQuotesClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///QuotesPage");
+    }
 } 

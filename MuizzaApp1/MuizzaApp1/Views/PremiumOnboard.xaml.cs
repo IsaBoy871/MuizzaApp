@@ -16,7 +16,13 @@ public partial class PremiumOnboard : ContentPage
 
     private async void OnCancelClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("QuotesPage");
+        await Shell.Current.GoToAsync("///QuotesPage");
+    }
+
+    private async void OnSubscribeClicked(object sender, EventArgs e)
+    {
+        // Handle subscription logic here
+        await Shell.Current.GoToAsync("///QuotesPage");
     }
 
     protected override void OnAppearing()

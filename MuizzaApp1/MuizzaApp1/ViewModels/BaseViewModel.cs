@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using MuizzaApp1.Contracts.Services;
+using System.Diagnostics;
 
 namespace MuizzaApp1.ViewModels
 {
@@ -21,7 +22,16 @@ namespace MuizzaApp1.ViewModels
 
         public async Task CheckSubscriptionStatus()
         {
-            IsPremiumUser = await _subscriptionService.IsPremiumUser();
+            try
+            {
+                IsPremiumUser = await _subscriptionService.IsPremiumUser();
+                Debug.WriteLine($"CheckSubscriptionStatus - IsPremiumUser: {IsPremiumUser}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error checking subscription status: {ex.Message}");
+                IsPremiumUser = false;
+            }
         }
 
         protected async Task<bool> ValidatePremiumFeature()
@@ -40,6 +50,11 @@ namespace MuizzaApp1.ViewModels
                 await Shell.Current.GoToAsync("PremiumOnboard");
             }
             return false;
+        }
+
+        public virtual void Cleanup()
+        {
+            // Base implementation - can be empty
         }
     }
 } 

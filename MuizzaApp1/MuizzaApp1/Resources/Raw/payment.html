@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        #payment-request-button {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            min-height: 48px;
+        }
+        .payment-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4A3831;
+        }
+        .amount {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .status-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            color: #4A3831;
+        }
+        #error-message {
+            color: red;
+            margin: 10px;
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .amount-display {
+            text-align: center;
+            margin: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="amount-display">
+        <div id="amount"></div>
+        <div id="description"></div>
+    </div>
+    <div id="payment-request-button"></div>
+    <div id="error-message"></div>
+    <div id="status-message" class="status-message">Initializing payment...</div>
+    
+    <script>
+        function log(message) {
+            console.log(message);
+            document.getElementById('status-message').textContent = message;
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            log('Error: ' + message);
+        }
+
+        async function initializePayment() {
+            try {
+                // Get these values from your URL parameters or window object
+                const AMOUNT = parseFloat(new URLSearchParams(window.location.search).get('amount') || '0');
+                const DESCRIPTION = new URLSearchParams(window.location.search).get('description') || 'Payment';
+
+                // Initialize Stripe with your publishable key
+                const stripe = Stripe('pk_test_51O2EGqIFPJyarNj87kHmrexHCEsLaMzarHY6YBwyBVKCkKK4S70CRCgFJWCyaniMcIvb3XLswx83TbBH7UdlhOIU00OhCLcDcD', {
+                    apiVersion: '2023-10-16'
+                });
+
+                const paymentRequest = stripe.paymentRequest({
+                    country: 'GB',
+                    currency: 'gbp',
+                    total: {
+                        label: DESCRIPTION,
+                        amount: Math.round(AMOUNT * 100), // Convert to pence
+                    },
+                    requestPayerName: true,
+                    requestPayerEmail: true,
+                    supportedPaymentMethods: ['card', 'apple_pay', 'google_pay']
+                });
+
+                log('Checking payment capability...');
+                const result = await paymentRequest.canMakePayment();
+                log('Payment capability result:', result);
+
+                if (result) {
+                    const elements = stripe.elements();
+                    const prButton = elements.create('paymentRequestButton', {
+                        paymentRequest: paymentRequest,
+                        style: {
+                            paymentRequestButton: {
+                                type: 'default',
+                                theme: 'dark'
+                            }
+                        }
+                    });
+
+                    prButton.mount('#payment-request-button');
+                    document.getElementById('amount').textContent = `£${AMOUNT.toFixed(2)}`;
+                    document.getElementById('description').textContent = DESCRIPTION;
+                    
+                    log('Payment button mounted');
+
+                    paymentRequest.on('paymentmethod', function(ev) {
+                        log('Payment method received');
+                        window.location.href = `muizzaapp://payment-completed?paymentMethodId=${ev.paymentMethod.id}&email=${encodeURIComponent(ev.payerEmail)}&name=${encodeURIComponent(ev.payerName)}`;
+                    });
+                } else {
+                    const message = result === null 
+                        ? 'Digital wallet not available on this device'
+                        : 'Please ensure you have a card set up in your digital wallet';
+                    showError(message);
+                }
+            } catch (error) {
+                showError('Error setting up payment: ' + error.message);
+                log('Setup error:', error);
+            }
+        }
+
+        // Start initialization when page is loaded
+        document.addEventListener('DOMContentLoaded', initializePayment);
+    </script>
+</body>
+</html> 

@@ -252,7 +252,7 @@ namespace MuizzaApp1.Services
                             content = $"I'm feeling: {feeling}"
                         }
                     },
-                    temperature = 0.8
+                    temperature = 1.0
                 };
 
                 var response = await _httpClient.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", request);

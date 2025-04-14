@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using MuizzaApp1.Views;
 using MuizzaApp1.Contracts.Services;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.EventArgs;
 
 namespace MuizzaApp1
 {
@@ -19,20 +21,42 @@ namespace MuizzaApp1
                 Console.WriteLine("[App] Constructor starting");
                 InitializeComponent();
                 Console.WriteLine("[App] InitializeComponent completed");
+                
+                // Initialize notifications
+                InitializeNotifications();
+                
+                // Get required services first
+                var navigationService = IPlatformApplication.Current.Services.GetRequiredService<INavigationService>();
+                var appShell = IPlatformApplication.Current.Services.GetRequiredService<AppShell>();
+                
+                // Set MainPage to AppShell
+                MainPage = appShell;
 
-                try
+                // Check if this is first launch
+                bool hasCompletedOnboarding = Preferences.Default.Get("HasCompletedOnboarding", false);
+                Console.WriteLine($"[App] Has completed onboarding: {hasCompletedOnboarding}");
+
+                if (hasCompletedOnboarding)
                 {
-                    // Get required services
-                    var navigationService = IPlatformApplication.Current.Services.GetRequiredService<INavigationService>();
-                    Console.WriteLine("[App] Navigation service retrieved");
-                    
-                    MainPage = IPlatformApplication.Current.Services.GetRequiredService<AppShell>();
-                    Console.WriteLine("[App] MainPage set to AppShell");
+                    // Wait for shell to be ready before navigating
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        try
+                        {
+                            await Task.Delay(100);  // Give shell time to initialize
+                            Console.WriteLine("[App] Attempting navigation to QuotesPage");
+                            await Shell.Current.GoToAsync("//QuotesPage");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[App ERROR] Navigation failed: {ex.Message}");
+                            Console.WriteLine($"[App ERROR] Stack trace: {ex.StackTrace}");
+                        }
+                    });
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine($"[App ERROR] Service resolution failed: {ex.Message}");
-                    throw;
+                    Console.WriteLine("[App] Starting with MainPage for onboarding");
                 }
             }
             catch (Exception ex)
@@ -43,6 +67,38 @@ namespace MuizzaApp1
             }
         }
 
+        private async void InitializeNotifications()
+        {
+#if IOS
+            try
+            {
+                var notificationCenter = LocalNotificationCenter.Current;
+                
+                // Subscribe to notification events
+                notificationCenter.NotificationActionTapped += OnNotificationActionTapped;
+
+                // Request permission
+                var settings = await notificationCenter.RequestNotificationPermission();
+                Debug.WriteLine($"[App] Notification settings: {settings}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[App] Error initializing notifications: {ex.Message}");
+            }
+#endif
+        }
+
+        private void OnNotificationActionTapped(NotificationActionEventArgs e)
+        {
+            Debug.WriteLine($"[App] Notification tapped: {e.Request.NotificationId}");
+            
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                // Navigate to BrainPage when notification is tapped
+                await Shell.Current.GoToAsync("///BrainPage");
+            });
+        }
+
         protected override Window CreateWindow(IActivationState activationState)
         {
             try
@@ -51,7 +107,6 @@ namespace MuizzaApp1
                 var window = base.CreateWindow(activationState);
                 Debug.WriteLine("[App] Window created successfully");
                 
-                // Ensure window is created with proper initialization
                 if (window != null)
                 {
                     window.Page = MainPage;

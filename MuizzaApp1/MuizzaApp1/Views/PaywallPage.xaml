@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.PaywallPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#f6e5cb">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="20,10">
+          
+        <!-- Header with Back Button -->
+        <Grid ColumnDefinitions="Auto,*">
+            <ImageButton Source="back_arrow.png"
+                        HeightRequest="34"
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start"/>
+                        
+            <Label Grid.Column="1"
+                   Text="Payment Details"
+                   FontFamily="fredoka"
+                   FontSize="24"
+                   TextColor="#4A3831"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="20"
+                   Margin="0,20">
+                <VerticalStackLayout Spacing="20">
+                    <!-- Amount -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Purchase Details"
+                               FontFamily="fredoka"
+                               FontSize="16"
+                               TextColor="#4A3831"/>
+                        <Label Text="{Binding SearchAmount, StringFormat='{0} searches'}"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"/>
+                        <Label Text="{Binding DeepDiveAmount, StringFormat='{0} deep dives'}"
+                               FontFamily="fredoka"
+                               FontSize="18"
+                               TextColor="#4A3831"/>
+                        <Label Text="{Binding Amount, StringFormat='£{0:F2}'}"
+                               FontFamily="fredoka"
+                               FontSize="24"
+                               TextColor="#4A3831"
+                               Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+
+                    <!-- Card Details Form -->
+                    <VerticalStackLayout Spacing="15">
+                        <!-- Name on Card -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Name on Card"
+                                   FontFamily="fredoka"
+                                   FontSize="16"
+                                   TextColor="#4A3831"/>
+                            <Frame Padding="15,0"
+                                   CornerRadius="10"
+                                   BorderColor="#E0E0E0"
+                                   HasShadow="False">
+                                <Entry Text="{Binding CardName}"
+                                       HeightRequest="40"
+                                       FontFamily="fredoka"
+                                       Keyboard="Text"
+                                       MaxLength="50"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Card Number -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Card Number"
+                                   FontFamily="fredoka"
+                                   FontSize="16"
+                                   TextColor="#4A3831"/>
+                            <Frame Padding="15,0"
+                                   CornerRadius="10"
+                                   BorderColor="#E0E0E0"
+                                   HasShadow="False">
+                                <Entry Text="{Binding CardNumber}"
+                                       HeightRequest="40"
+                                       FontFamily="fredoka"
+                                       Keyboard="Numeric"
+                                       MaxLength="16"
+                                       ReturnType="Next"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Expiry and CVV -->
+                        <Grid ColumnDefinitions="*,*"
+                              ColumnSpacing="15">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Expiry Date"
+                                       FontFamily="fredoka"
+                                       FontSize="16"
+                                       TextColor="#4A3831"/>
+                                <Frame Padding="15,0"
+                                       CornerRadius="10"
+                                       BorderColor="#E0E0E0"
+                                       HasShadow="False">
+                                    <Entry Text="{Binding ExpiryDate}"
+                                           Placeholder="MM/YY"
+                                           MaxLength="5"
+                                           HeightRequest="40"
+                                           FontFamily="fredoka"/>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                               Spacing="5">
+                                <Label Text="Security Code"
+                                       FontFamily="fredoka"
+                                       FontSize="16"
+                                       TextColor="#4A3831"/>
+                                <Frame Padding="15,0"
+                                       CornerRadius="10"
+                                       BorderColor="#E0E0E0"
+                                       HasShadow="False">
+                                    <Entry Text="{Binding SecurityCode}"
+                                           MaxLength="4"
+                                           IsPassword="True"
+                                           HeightRequest="40"
+                                           FontFamily="fredoka"/>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </ScrollView>
+
+        <!-- Payment Buttons Container -->
+        <VerticalStackLayout Grid.Row="2" Spacing="10" Margin="0,10,0,20">
+            <!-- Apple Pay Button -->
+            <ImageButton Source="apple_pay.png"
+                        HeightRequest="50"
+                        BackgroundColor="White"
+                        CornerRadius="25"
+                        Command="{Binding ApplePayCommand}"
+                        IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBoolConverter}}">
+                <ImageButton.Shadow>
+                    <Shadow Brush="#4a3831"
+                            Offset="2,2"
+                            Radius="4"
+                            Opacity="0.3"/>
+                </ImageButton.Shadow>
+            </ImageButton>
+
+            <!-- Regular Pay Button -->
+            <Button Text="{Binding Amount, StringFormat='Pay £{0:F2}'}"
+                    FontFamily="fredoka"
+                    FontSize="20"
+                    TextColor="#4A3831"
+                    BackgroundColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBoolConverter}}"
+                    Command="{Binding PurchaseCommand}">
+                <Button.Shadow>
+                    <Shadow Brush="#4a3831"
+                            Offset="2,2"
+                            Radius="4"
+                            Opacity="0.3"/>
+                </Button.Shadow>
+            </Button>
+        </VerticalStackLayout>
+
+        <ActivityIndicator Grid.Row="2"
+                          IsVisible="{Binding IsProcessing}"
+                          IsRunning="{Binding IsProcessing}"
+                          Color="#4A3831"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+    </Grid>
+</ContentPage> 

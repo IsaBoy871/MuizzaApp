@@ -14,8 +14,10 @@ namespace MuizzaApp1.Services
     {
         private readonly HttpClient _httpClient;
         private readonly HttpClientHandler _handler;
+        private readonly string _baseUrl;
+        private readonly ISubscriptionService _subscriptionService;
 
-        public NotesService(IConfiguration configuration)
+        public NotesService(IConfiguration configuration, ISubscriptionService subscriptionService)
         {
             _handler = new HttpClientHandler
             {
@@ -23,11 +25,12 @@ namespace MuizzaApp1.Services
             };
 
             _httpClient = new HttpClient(_handler);
+            _subscriptionService = subscriptionService;
             
-            var baseUrl = configuration["ApiSettings:BaseUrl"] 
+            _baseUrl = configuration["ApiSettings:BaseUrl"] 
                 ?? throw new ArgumentNullException("ApiSettings:BaseUrl not found in configuration");
             
-            _httpClient.BaseAddress = new Uri(baseUrl);
+            _httpClient.BaseAddress = new Uri(_baseUrl);
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
             
             Console.WriteLine($"Platform: {DeviceInfo.Platform}");
@@ -38,37 +41,32 @@ namespace MuizzaApp1.Services
         {
             try
             {
-                var noteContent = new { Content = content };
-                Console.WriteLine($"Attempting to save note to: {_httpClient.BaseAddress}api/Notes");
+                var appleUserId = Preferences.Get("AppleUserId", string.Empty);
+                if (string.IsNullOrEmpty(appleUserId))
+                    return false;
                 
-                _httpClient.DefaultRequestHeaders.Accept.Clear();
-                _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                // Check if user has reached the note limit
+                var notes = await GetNotesAsync();
+                var subscriptionTier = await _subscriptionService.GetSubscriptionTier();
+                
+                if (subscriptionTier != "Premium" && notes.Count >= 20)
+                {
+                    return false;
+                }
+                
+                var noteContent = new { Content = content, UserId = appleUserId };
                 
                 using var request = new HttpRequestMessage(HttpMethod.Post, "api/Notes")
                 {
                     Content = JsonContent.Create(noteContent)
                 };
-
-                Console.WriteLine("Sending request...");
-                var response = await _httpClient.SendAsync(request);
-                var responseContent = await response.Content.ReadAsStringAsync();
                 
-                Console.WriteLine($"Response status: {response.StatusCode}");
-                Console.WriteLine($"Response content: {responseContent}");
-
+                var response = await _httpClient.SendAsync(request);
                 return response.IsSuccessStatusCode;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"HTTP Request Exception: {ex.Message}");
-                Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
-                return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception type: {ex.GetType().Name}");
-                Console.WriteLine($"Exception message: {ex.Message}");
-                Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
+                Debug.WriteLine($"Error saving note: {ex.Message}");
                 return false;
             }
         }
@@ -77,13 +75,22 @@ namespace MuizzaApp1.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync("api/Notes");
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<List<Note>>();
+                var appleUserId = Preferences.Get("AppleUserId", string.Empty);
+                if (string.IsNullOrEmpty(appleUserId))
+                    return new List<Note>();
+            
+                var response = await _httpClient.GetAsync($"api/Notes?userId={appleUserId}");
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<List<Note>>();
+                }
+                
+                return new List<Note>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error getting notes: {ex.Message}");
+                Debug.WriteLine($"Error getting notes: {ex.Message}");
                 return new List<Note>();
             }
         }
@@ -92,21 +99,41 @@ namespace MuizzaApp1.Services
         {
             try
             {
-                Console.WriteLine($"Attempting to update note with ID: {note.Id}");
+                var appleUserId = Preferences.Get("AppleUserId", string.Empty);
+                if (string.IsNullOrEmpty(appleUserId))
+                    return false;
+                    
+                var noteContent = new { Content = note.Content, UserId = appleUserId };
                 
-                var response = await _httpClient.PutAsJsonAsync($"api/Notes/{note.Id}", note);
-                var responseContent = await response.Content.ReadAsStringAsync();
+                using var request = new HttpRequestMessage(HttpMethod.Put, $"api/Notes/{note.Id}")
+                {
+                    Content = JsonContent.Create(noteContent)
+                };
                 
-                Console.WriteLine($"Response status: {response.StatusCode}");
-                Console.WriteLine($"Response content: {responseContent}");
-
+                var response = await _httpClient.SendAsync(request);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception type: {ex.GetType().Name}");
-                Console.WriteLine($"Exception message: {ex.Message}");
-                Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
+                Debug.WriteLine($"Error updating note: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteNoteAsync(int noteId)
+        {
+            try
+            {
+                var appleUserId = Preferences.Get("AppleUserId", string.Empty);
+                if (string.IsNullOrEmpty(appleUserId))
+                    return false;
+                    
+                var response = await _httpClient.DeleteAsync($"api/Notes/{noteId}?userId={appleUserId}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error deleting note: {ex.Message}");
                 return false;
             }
         }

@@ -23,170 +23,208 @@
                         HeightRequest="34"
                         Clicked="OnCancelClicked"
                         BackgroundColor="Transparent"
-                        HorizontalOptions="Start"/>
+                        HorizontalOptions="Start"
+                        Margin="0,10,0,0"/>
         </Grid>
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="15" Padding="0,10">
+            <VerticalStackLayout Spacing="10" Padding="0,20">
                 <!-- Title -->
-                <Image Source="muizza_title_prem.png"
-                       HeightRequest="100"
-                       HorizontalOptions="Center"/>
+                <Grid HorizontalOptions="Center" Margin="0,-70">
+                    <Image Source="muizza_title_prem.png"
+                           HeightRequest="80"
+                           HorizontalOptions="Center"/>
+                    <Image Source="deco1.png"
+                           HeightRequest="200"
+                           WidthRequest="200"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           Margin="20,-20,0,0"
+                           ZIndex="1"/>
+                </Grid>
 
                 <!-- Premium Features -->
-                <VerticalStackLayout Spacing="15" Margin="0,10">
+                <VerticalStackLayout Spacing="10" Margin="0,60">
                     <HorizontalStackLayout Spacing="10">
                         <Image Source="prem_icon1.png" 
-                               HeightRequest="30"/>
+                               HeightRequest="25"/>
                         <VerticalStackLayout>
                             <Label Text="More Daily Searches"
                                    FontFamily="fredoka"
-                                   FontSize="16"
+                                   FontSize="14"
                                    TextColor="#4A3831"/>
                             <Label Text="Understand your feelings and receive tailored advice"
                                    FontFamily="fredoka"
-                                   FontSize="14"
+                                   FontSize="12"
                                    TextColor="#8B7E77"/>
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="10">
                         <Image Source="prem_icon2.png" 
-                               HeightRequest="30"/>
+                               HeightRequest="25"/>
                         <VerticalStackLayout>
                             <Label Text="Unlimited Mind Bank"
                                    FontFamily="fredoka"
-                                   FontSize="16"
+                                   FontSize="14"
                                    TextColor="#4A3831"/>
                             <Label Text="Release your thoughts into your notepad without limit"
                                    FontFamily="fredoka"
-                                   FontSize="14"
+                                   FontSize="12"
                                    TextColor="#8B7E77"/>
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
                     <Label Text="&amp; MORE"
                            FontFamily="fredoka"
-                           FontSize="20"
+                           FontSize="16"
                            TextColor="#4A3831"
                            HorizontalOptions="Center"
-                           Margin="0,5"/>
+                           Margin="0,0"/>
                 </VerticalStackLayout>
 
                 <!-- Cat Image -->
                 <Image Source="prem_cat.png"
-                       HeightRequest="120"
+                       HeightRequest="90"
                        HorizontalOptions="Center"
-                       Margin="0,10,10,0"/>
+                       Margin="0,-40,10,0"/>
 
                 <!-- Subscription Options -->
-                <Border StrokeThickness="4"
-                        Stroke="{Binding IsMonthlySelected, Converter={StaticResource BoolToColorConverter}}"
-                        StrokeShape="RoundRectangle 30"
-                        Padding="0"
-                        Margin="45,-20">
-                    <Frame BackgroundColor="White"
-                           BorderColor="Transparent"
-                           CornerRadius="27"
-                           Padding="20,15"
-                           HeightRequest="100"
-                           WidthRequest="280"
-                           HorizontalOptions="Center"
-                           HasShadow="False"
-                           Margin="0">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectMonthlyCommand}"/>
-                        </Frame.GestureRecognizers>
+                <Frame BackgroundColor="Transparent"
+                       BorderColor="Transparent"
+                       CornerRadius="25"
+                       HasShadow="True"
+                       Padding="0"
+                       Margin="45,-10">
+                    <Border StrokeThickness="3"
+                           Stroke="{Binding IsMonthlySelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter=#c49c5f}"
+                           StrokeShape="RoundRectangle 25"
+                           BackgroundColor="White">
                         <Grid ColumnDefinitions="*,Auto" 
-                              VerticalOptions="Center">
+                             HeightRequest="65"
+                             Margin="25,10">
                             <Label Text="1 month"
                                    TextColor="#4A3831"
                                    FontFamily="fredoka"
-                                   FontSize="26"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
                                    VerticalOptions="Center"/>
                             <Label Grid.Column="1"
-                                   Text="$6.99 / MO"
+                                   Text="£6.99 / MO"
                                    TextColor="#4A3831"
                                    FontFamily="fredoka"
-                                   FontSize="16"
+                                   FontSize="18"
                                    VerticalOptions="Center"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectMonthlyCommand}"/>
+                            </Grid.GestureRecognizers>
                         </Grid>
-                    </Frame>
-                </Border>
+                    </Border>
+                </Frame>
 
-                <Border StrokeThickness="4"
-                        Stroke="{Binding IsMonthlySelected, Converter={StaticResource BoolToInverseColorConverter}}"
-                        StrokeShape="RoundRectangle 30"
-                        Padding="0"
-                        Margin="45,19">
-                    <Frame BackgroundColor="White"
-                           BorderColor="Transparent"
-                           CornerRadius="27"
-                           Padding="20,15"
-                           HeightRequest="100"
-                           WidthRequest="280"
-                           HorizontalOptions="Center"
-                           HasShadow="False"
-                           Margin="0">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectYearlyCommand}"/>
-                        </Frame.GestureRecognizers>
-                        <VerticalStackLayout Spacing="10">
-                            <!-- Yearly Option -->
-                            <Grid RowDefinitions="Auto,Auto,Auto">
+                <Frame BackgroundColor="Transparent"
+                       BorderColor="Transparent"
+                       CornerRadius="25"
+                       HasShadow="True"
+                       Padding="0"
+                       Margin="45,10">
+                    <Border StrokeThickness="3"
+                           Stroke="{Binding IsMonthlySelected, Converter={StaticResource BoolToInverseColorConverter}, ConverterParameter=#c49c5f}"
+                           StrokeShape="RoundRectangle 25"
+                           BackgroundColor="White">
+                        <Grid RowDefinitions="Auto,Auto"
+                             HeightRequest="75"
+                             Margin="25,10">
+                            <Frame BackgroundColor="#c49c5f"
+                                   Padding="8,2"
+                                   CornerRadius="10"
+                                   HasShadow="False"
+                                   BorderColor="Transparent"
+                                   HorizontalOptions="Start"
+                                   Margin="-5,-20,0,8">
                                 <Label Text="SAVE 50%"
                                        TextColor="White"
                                        FontFamily="fredoka"
                                        FontSize="12"
-                                       Padding="5,2"
-                                       BackgroundColor="#c49c5f"
-                                       HorizontalOptions="Start"
-                                       Margin="10,-16,0,0"/>
-                                
-                                <Grid Grid.Row="1" 
-                                      ColumnDefinitions="*,Auto" 
-                                      Margin="0,5,0,0">
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Frame>
+                            
+                            <Grid Grid.Row="1"
+                                  ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="2">
                                     <Label Text="12 months"
                                            TextColor="#4A3831"
                                            FontFamily="fredoka"
-                                           FontSize="26"/>
-                                    <Label Grid.Column="1"
-                                           Text="$3.49 / MO"
-                                           TextColor="#4A3831"
-                                           FontFamily="fredoka"
-                                           FontSize="16"/>
-                                </Grid>
-                                
-                                <StackLayout Grid.Row="2" 
-                                           Orientation="Horizontal" 
-                                           Spacing="5">
-                                    <Label Text="$83.88"
+                                           FontSize="24"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="$83.88  $41.94"
                                            TextColor="#8B7E77"
                                            FontFamily="fredoka"
-                                           FontSize="12"
-                                           TextDecorations="Strikethrough"/>
-                                    <Label Text="$41.94"
-                                           TextColor="#4A3831"
-                                           FontFamily="fredoka"
-                                           FontSize="12"/>
-                                </StackLayout>
+                                           FontSize="14">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="$84.00" TextDecorations="Strikethrough"/>
+                                                <Span Text="  "/>
+                                                <Span Text="$48.00" TextColor="#4A3831"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1"
+                                       Text="$3.99 / MO"
+                                       TextColor="#4A3831"
+                                       FontFamily="fredoka"
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                             </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-                </Border>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectYearlyCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Border>
+                </Frame>
 
                 <!-- Trial Button -->
-                <Button Text="3 DAY TRIAL"
-                        Command="{Binding StartTrialCommand}"
-                        IsEnabled="{Binding IsProcessingPayment, Converter={StaticResource InverseBoolConverter}}"
-                        BackgroundColor="White"
-                        TextColor="#4A3831"
-                        FontFamily="fredoka"
-                        FontSize="16"
-                        CornerRadius="15"
-                        HeightRequest="50"
-                        Margin="0,10,0,20"/>
+                <Frame BackgroundColor="Transparent"
+                       BorderColor="Transparent"
+                       CornerRadius="35"
+                       HasShadow="True"
+                       Padding="0"
+                       Margin="45,10">
+                    <Border StrokeThickness="0"
+                           StrokeShape="RoundRectangle 35"
+                           BackgroundColor="White">
+                        <Grid>
+                            <!-- Background Shape -->
+                            <Border BackgroundColor="#c49c5f"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 35"
+                                    Margin="0,5,0,0"/>
+                            
+                            <!-- Front Button -->
+                            <Border BackgroundColor="White"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 35"
+                                    Margin="0,0,0,5">
+                                <Button Text="3 DAY TRIAL"
+                                       Command="{Binding StartTrialCommand}"
+                                       IsEnabled="{Binding IsProcessingPayment, Converter={StaticResource InverseBoolConverter}}"
+                                       BackgroundColor="White"
+                                       TextColor="#4A3831"
+                                       FontFamily="fredoka"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       CornerRadius="35"
+                                       HeightRequest="70"
+                                       WidthRequest="280"
+                                       Margin="0,0,0,-5"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Frame>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

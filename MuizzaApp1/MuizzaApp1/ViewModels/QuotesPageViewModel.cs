@@ -10,6 +10,8 @@ using Microsoft.Maui.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel;
+using MuizzaApp1.Contracts.Services;
 
 namespace MuizzaApp1.ViewModels;
 
@@ -24,6 +26,9 @@ public partial class QuotesPageViewModel
     private const int MaxVisibleItems = 10; // Reduced from 15
     private int _currentIndex = 0;
     
+    [ObservableProperty]
+    private bool hasNoInternet;
+
     [ObservableProperty]
     private ObservableCollection<Affirmation> affirmations;
     
@@ -52,7 +57,13 @@ public partial class QuotesPageViewModel
     public Command NavigateToBrainPage { get; }
     public ICommand SubmitFeelingCommand { get; }
 
-    public QuotesPageViewModel(IAffirmationsService affirmationsService, IServiceProvider serviceProvider)
+    public ICommand NavigateToProfileCommand { get; }
+
+    public ICommand NavigateToSubscriptionCommand { get; }
+
+    public ICommand RetryConnectionCommand { get; }
+
+    public QuotesPageViewModel(IAffirmationsService affirmationsService, IServiceProvider serviceProvider, ISubscriptionService subscriptionService)
     {
         Debug.WriteLine("ViewModel constructor started");
         _affirmationsService = affirmationsService;
@@ -65,9 +76,15 @@ public partial class QuotesPageViewModel
         NavigateToNotesPage = new Command(async () => await OnNavigateToNotesPage());
         NavigateToBrainPage = new Command(async () => await OnNavigateToBrainPage());
         SubmitFeelingCommand = new Command(async () => await OnFeelingSubmitted());
+        NavigateToProfileCommand = new Command(async () => await Shell.Current.GoToAsync("ProfilePage"));
+        NavigateToSubscriptionCommand = new AsyncRelayCommand(async () =>
+        {
+            await Shell.Current.GoToAsync("PremiumStatusPage");
+        });
+        RetryConnectionCommand = new AsyncRelayCommand(CheckInternetAndLoadDataAsync);
         
-        // Remove any test data initialization
-        MainThread.BeginInvokeOnMainThread(async () => await LoadInitialAffirmationsAsync());
+        // Initial connectivity check and data load
+        MainThread.BeginInvokeOnMainThread(async () => await CheckInternetAndLoadDataAsync());
         Debug.WriteLine("ViewModel constructor completed");
     }
 
@@ -79,15 +96,42 @@ public partial class QuotesPageViewModel
             new Emotion { Name = "Anxious", ImageSource = "anxious_woman.png", Color = Color.FromArgb("#7d60cb") },
             new Emotion { Name = "Bored", ImageSource = "bored_woman.png", Color = Color.FromArgb("#7c82ff") },
             new Emotion { Name = "Depressed", ImageSource = "depressed_woman.png", Color = Color.FromArgb("#89888d") },
-            new Emotion { Name = "Inspired", ImageSource = "inspired.png", Color = Color.FromArgb("#ff6fb0") },
-            new Emotion { Name = "Grateful", ImageSource = "grateful.png", Color = Color.FromArgb("#82b28d") },
-            new Emotion { Name = "Restless", ImageSource = "restless.png", Color = Color.FromArgb("#cda2a2") },
-            new Emotion { Name = "Insecure", ImageSource = "insecure.png", Color = Color.FromArgb("#9378ff") },
-            new Emotion { Name = "Hopeful", ImageSource = "hopeful.png", Color = Color.FromArgb("#ff6fb0") },
-            new Emotion { Name = "Content", ImageSource = "content.png", Color = Color.FromArgb("#ebd69a") },
-            new Emotion { Name = "Confident", ImageSource = "confident.png", Color = Color.FromArgb("#ffcb8d") },
-            new Emotion { Name = "Motivated", ImageSource = "motivated.png", Color = Color.FromArgb("#8aeaff") },
+            //new Emotion { Name = "Inspired", ImageSource = "inspired.png", Color = Color.FromArgb("#ff6fb0") },
+            //new Emotion { Name = "Grateful", ImageSource = "grateful.png", Color = Color.FromArgb("#82b28d") },
+            //new Emotion { Name = "Restless", ImageSource = "restless.png", Color = Color.FromArgb("#cda2a2") },
+            //new Emotion { Name = "Insecure", ImageSource = "insecure.png", Color = Color.FromArgb("#9378ff") },
+            //new Emotion { Name = "Hopeful", ImageSource = "hopeful.png", Color = Color.FromArgb("#ff6fb0") },
+            //new Emotion { Name = "Content", ImageSource = "content.png", Color = Color.FromArgb("#ebd69a") },
+            //new Emotion { Name = "Confident", ImageSource = "confident.png", Color = Color.FromArgb("#ffcb8d") },
+            //new Emotion { Name = "Motivated", ImageSource = "motivated.png", Color = Color.FromArgb("#8aeaff") },
         };
+    }
+
+    private async Task CheckInternetAndLoadDataAsync()
+    {
+        try
+        {
+            var current = Connectivity.NetworkAccess;
+            HasNoInternet = current != NetworkAccess.Internet;
+
+            if (!HasNoInternet)
+            {
+                await LoadInitialAffirmationsAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Connectivity check error: {ex}");
+            HasNoInternet = true;
+        }
+    }
+
+    partial void OnHasNoInternetChanged(bool value)
+    {
+        if (!value) // If internet is now available
+        {
+            MainThread.BeginInvokeOnMainThread(async () => await CheckInternetAndLoadDataAsync());
+        }
     }
 
     public async Task LoadInitialAffirmationsAsync()

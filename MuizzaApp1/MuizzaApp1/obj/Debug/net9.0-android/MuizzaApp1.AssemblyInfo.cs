@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("057ac84b-4789-4493-ac49-00ccdd34d106")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f1521a8097a893ed37d9b25499276b1b60d77294")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+5e88cc21f01c1deb40d9b1931fe87ef3ec569eee")]
 [assembly: System.Reflection.AssemblyProductAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MuizzaApp1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

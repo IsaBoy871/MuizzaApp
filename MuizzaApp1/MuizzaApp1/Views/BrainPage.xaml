@@ -6,165 +6,241 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/> <!-- Status Bar Area -->
+            <RowDefinition Height="*"/> <!-- Main Content -->
+            <RowDefinition Height="Auto"/> <!-- Navigation Bar -->
         </Grid.RowDefinitions>
 
-        <!-- Back Button -->
-        <ImageButton 
-            Source="back_arrow.png"
-            HeightRequest="24"
-            WidthRequest="24"
-            Margin="20,40,0,20"
-            HorizontalOptions="Start"
-            Clicked="OnBackButtonClicked"/>
-
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="20" Padding="20">
-                <!-- Header -->
-                <Grid ColumnDefinitions="Auto,*" Margin="0,10">
-                    <Image Grid.Column="0"
-                           Source="ghost.png"
-                           HeightRequest="40"
-                           WidthRequest="40"/>
-                    <Label Grid.Column="1"
-                           Text="{Binding WelcomeMessage}"
-                           FontSize="24"
-                           FontAttributes="Bold"
-                           TextColor="#4f3422"
-                           FontFamily="fredoka"
-                           VerticalOptions="Center"/>
-                </Grid>
-
-                <!-- Affirmation Section -->
-                <Label Text="What is your affirmation for the day?"
-                       FontSize="18"
+        <!-- Main Content -->
+        <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="20" Margin="0,40,0,0">
+            <!-- Header -->
+            <Grid ColumnDefinitions="Auto,*">
+                <Image Grid.Column="0"
+                       Source="cat_brain.png"
+                       HeightRequest="110"
+                       WidthRequest="110"
+                       Margin="-47,-40,0,0"
+                       VerticalOptions="Center"/>
+                <Label Grid.Column="1"
+                       Text="{Binding WelcomeMessage}"
+                       FontSize="42"
                        TextColor="#4f3422"
-                       FontFamily="fredoka"/>
-                <Frame BackgroundColor="White"
-                       BorderColor="Transparent"
-                       CornerRadius="10"
-                       Padding="15">
-                    <Entry Placeholder="e.g. I'm freeing myself from all destructive doubt and fear"
-                           PlaceholderColor="#BEBEBE"
-                           TextColor="#4f3422"
-                           FontFamily="etna"/>
-                </Frame>
+                       FontFamily="fredoka"
+                       Margin="-10,-30,0,0"
+                       VerticalOptions="Center"/>
+            </Grid>
 
-                <!-- Intention Section -->
-                <Label Text="What is your intention of the day?"
-                       FontSize="18"
-                       TextColor="#4f3422"
-                       FontFamily="fredoka"/>
-                <Frame BackgroundColor="White"
-                       BorderColor="Transparent"
-                       CornerRadius="10"
-                       Padding="15">
-                    <Entry Placeholder="e.g. To cultivate gratitude and appreciation for the present moment"
-                           PlaceholderColor="#BEBEBE"
-                           TextColor="#4f3422"
-                           FontFamily="etna"/>
-                </Frame>
+            <!-- Spacing -->
+            <!--<BoxView HeightRequest="20" 
+                     Color="Transparent"/>-->
 
-                <!-- Gratitude Section -->
-                <Label Text="What are your grateful for, today?"
-                       FontSize="18"
-                       TextColor="#4f3422"
-                       FontFamily="fredoka"/>
-                <Frame BackgroundColor="White"
-                       BorderColor="Transparent"
-                       CornerRadius="10"
-                       Padding="15">
-                    <Entry Placeholder="e.g. I'm so grateful to be surrounded by people who fully love and support me"
-                           PlaceholderColor="#BEBEBE"
-                           TextColor="#4f3422"
-                           FontFamily="etna"/>
-                </Frame>
+            <!-- Affirmation Section -->
+            <Label Text="What is your affirmation for the day?"
+                   FontSize="18"
+                   TextColor="#4f3422"
+                   FontFamily="fredoka"
+                   HorizontalOptions="Center"/>
+            <Frame BackgroundColor="White"
+                   BorderColor="Transparent"
+                   CornerRadius="15"
+                   Padding="15"
+                   HeightRequest="90">
+                <Editor x:Name="AffirmationEditor"
+                        Text="{Binding Affirmation}"
+                        TextChanged="OnEditorTextChanged"
+                        Placeholder="e.g. I'm freeing myself from all destructive doubt and fear"
+                        PlaceholderColor="#8B8B8B"
+                        TextColor="#4f3422"
+                        FontSize="16"
+                        FontFamily="etna"
+                        AutoSize="TextChanges"
+                        MaxLength="100"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Fill"/>
+            </Frame>
 
-                <!-- Footer with Timer -->
-                <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
-                    <Frame BackgroundColor="#FFA07A"
-                           BorderColor="Transparent"
-                           CornerRadius="25"
+            <!-- Intention Section -->
+            <Label Text="What is your intention of the day?"
+                   FontSize="18"
+                   TextColor="#4f3422"
+                   FontFamily="fredoka"
+                   HorizontalOptions="Center"/>
+            <Frame BackgroundColor="White"
+                   BorderColor="Transparent"
+                   CornerRadius="15"
+                   Padding="15"
+                   HeightRequest="90">
+                <Editor x:Name="IntentionEditor"
+                        Text="{Binding Intention}"
+                        TextChanged="OnEditorTextChanged"
+                        Placeholder="e.g. To cultivate gratitude and appreciation for the present moment"
+                        PlaceholderColor="#8B8B8B"
+                        TextColor="#4f3422"
+                        FontSize="16"
+                        FontFamily="etna"
+                        AutoSize="TextChanges"
+                        MaxLength="100"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Fill"/>
+            </Frame>
+
+            <!-- Gratitude Section -->
+            <Label Text="What are you grateful for, today?"
+                   FontSize="18"
+                   TextColor="#4f3422"
+                   FontFamily="fredoka"
+                   HorizontalOptions="Center"/>
+            <Frame BackgroundColor="White"
+                   BorderColor="Transparent"
+                   CornerRadius="15"
+                   Padding="15"
+                   HeightRequest="90">
+                <Editor x:Name="GratitudeEditor"
+                        Text="{Binding Gratitude}"
+                        TextChanged="OnEditorTextChanged"
+                        Placeholder="e.g. I'm so grateful to be surrounded by people who fully love and support me"
+                        PlaceholderColor="#8B8B8B"
+                        TextColor="#4f3422"
+                        FontSize="16"
+                        FontFamily="etna"
+                        AutoSize="TextChanges"
+                        MaxLength="100"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Fill"/>
+            </Frame>
+
+            <!-- Notification Button -->
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Grid HeightRequest="65" WidthRequest="65">
+                    <Ellipse x:Name="NotificationCircle"
+                             Fill="#FFA07A"
+                             HeightRequest="65"
+                             WidthRequest="65"/>
+                    
+                    <!-- Notification Bell -->
+                    <Image x:Name="NotificationIcon"
+                           Source="notif_icon.png"
+                           HeightRequest="30"
+                           WidthRequest="30"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="{Binding IsCompleted, Converter={StaticResource InverseBoolConverter}}"/>
+                    
+                    <!-- Complete Icon -->
+                    <Image x:Name="CompleteIcon"
+                           Source="complete_icon.png"
                            HeightRequest="50"
                            WidthRequest="50"
-                           Padding="0">
-                        <Image Source="pawprint.png"
-                               HeightRequest="30"
-                               WidthRequest="30"/>
-                    </Frame>
-                    <Label Text="Resets at 00:00"
-                           FontSize="14"
-                           TextColor="#4f3422"
-                           FontFamily="fredoka"
-                           HorizontalOptions="Center"/>
-                </VerticalStackLayout>
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="{Binding IsCompleted}"/>
+                    
+                    <!-- Clickable button (transparent) -->
+                    <Button BackgroundColor="Transparent"
+                            Clicked="OnNotificationClicked"
+                            HeightRequest="65"
+                            WidthRequest="65"/>
+                </Grid>
+                <Label Text="Resets at 00:00"
+                       FontSize="14"
+                       TextColor="#4f3422"
+                       FontFamily="fredoka"
+                       HorizontalOptions="Center"/>
             </VerticalStackLayout>
-        </ScrollView>
+        </VerticalStackLayout>
 
         <!-- Navigation Bar -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2"
+              x:Name="NavigationBar">
             <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="iOS" Value="0,700,0,0"/>
-                    <On Platform="Android" Value="0,780,0,0"/>
+                    <On Platform="iOS" Value="0,-10,0,-30"/>
+                    <On Platform="Android" Value="0,60,0,-60"/>
                 </OnPlatform>
             </Grid.Margin>
 
             <!-- Main Navigation Frame -->
-            <Frame Grid.Row="3" 
-           CornerRadius="33" 
-           Margin="-10" 
-           BackgroundColor="White" 
-           HeightRequest="130">
+            <Frame CornerRadius="33" 
+                   Margin="-10" 
+                   BackgroundColor="White" 
+                   HeightRequest="130"
+                   VerticalOptions="End">
                 <Grid ColumnDefinitions="*,*,*">
                     <Grid.Shadow>
                         <Shadow Offset="10,10" 
-                        Radius="30" 
-                        Opacity="0.5"/>
+                                Radius="30" 
+                                Opacity="0.5"/>
                     </Grid.Shadow>
                     <ImageButton Grid.Column="0" 
-                        HeightRequest="50" 
-                        WidthRequest="50"
-                        Margin="0,-20,0,0"
-                        Source="quotes_icon"
-                        Command="{Binding NavigateToQuotesPage}"/>
+                                HeightRequest="50" 
+                                WidthRequest="50"
+                                Margin="0,-20,0,0"
+                                Source="quotes_icon"
+                                Command="{Binding NavigateToQuotesPageCommand}"/>
                     <ImageButton Grid.Column="2" 
-                        HeightRequest="50" 
-                        WidthRequest="40" 
-                        Margin="0,-20,0,0"
-                        Command="{Binding NavigateToBrainPage}" 
-                        Source="meditate_icon"/>
+                                HeightRequest="50" 
+                                WidthRequest="40" 
+                                Margin="0,-20,0,0"
+                                Source="meditate_icon"/>
                 </Grid>
             </Frame>
 
             <!-- Selected Tab Indicator -->
-            <Grid Grid.Row="3" 
-          HeightRequest="95" 
-          WidthRequest="100"
-          Margin="{OnPlatform iOS='15,-30,15,35', Android='15,-30,15,35'}">
-
+            <Grid HeightRequest="95" 
+                  WidthRequest="100"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  Margin="{OnPlatform iOS='0,0,0,35', Android='0,0,0,35'}">
                 <!-- Background Frame -->
                 <Frame BackgroundColor="#f6e5cb"
-               CornerRadius="33"
-               IsClippedToBounds="False"
-               InputTransparent="True"/>
+                       CornerRadius="33"
+                       IsClippedToBounds="False"
+                       InputTransparent="True"/>
 
-                <!-- Clickable Button -->
-                <Button Command="{Binding NavigateToNotesPage}"
-                BackgroundColor="Transparent"
-                HeightRequest="95"
-                WidthRequest="100"/>
-
+                <Button Command="{Binding NavigateToNotesPageCommand}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="95"
+                        WidthRequest="100"/>
+                
                 <!-- Icon -->
                 <Image Source="notes_icon"
-               HeightRequest="65" 
-               WidthRequest="65"
-               InputTransparent="True"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"/>
+                       HeightRequest="65" 
+                       WidthRequest="65"
+                       InputTransparent="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
             </Grid>
+        </Grid>
+
+        <!-- Popup Overlay -->
+        <Grid x:Name="PopupOverlay"
+              IsVisible="False"
+              BackgroundColor="#80000000"
+              InputTransparent="False">
+            
+            <Frame CornerRadius="20"
+                   BackgroundColor="#f6e5cb"
+                   Margin="20"
+                   WidthRequest="300"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Proud of you! I'll remind you throughout the day. Don't forget to set your affirmations, intentions, gratitude tomorrow."
+                           TextColor="#4f3422"
+                           FontFamily="etna"
+                           FontSize="16"
+                           HorizontalTextAlignment="Center"/>
+                    
+                    <Button Text="Start The Day!"
+                            Clicked="OnStartDayClicked"
+                            BackgroundColor="#FFA07A"
+                            TextColor="White"
+                            FontFamily="fredoka"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            Margin="20,0"/>
+                </VerticalStackLayout>
+            </Frame>
         </Grid>
     </Grid>
 </ContentPage> 

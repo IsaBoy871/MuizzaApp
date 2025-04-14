@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MuizzaApp1.Converters"
              x:Class="MuizzaApp1.EmotionalResponsePage"
              BackgroundColor="#f5e4ca">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
+            <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter"/>
+            <converters:IsZeroConverter x:Key="IsZeroConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -36,11 +46,40 @@
                                  HeightRequest="50"
                                  WidthRequest="50"/>
 
-                <!-- Error message -->
-                <Label Text="{Binding ErrorMessage}"
-                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotNullOrEmptyConverter}}"
-                       TextColor="Red"
+                <!-- Premium Subscription Prompt -->
+                <VerticalStackLayout 
+                    IsVisible="{Binding IsNotPremium}"
+                    Spacing="15"
+                    Margin="0,10,0,20">
+                    
+                    <Image Source="cat_wink.png"
+                           HeightRequest="80"
+                           WidthRequest="80"
+                           HorizontalOptions="Center"/>
+                    
+                    <Label Text="Pssst! Want more CatNips?"
+                           FontSize="20"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"
                        HorizontalTextAlignment="Center"/>
+                           
+                    <Label Text="Subscribe to Premium for 500 searches and 200 deep dives every month!"
+                           FontSize="16"
+                           FontFamily="fredoka"
+                           TextColor="#4f3422"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,-5,0,0"/>
+                           
+                    <Button Text="Get Premium"
+                            Command="{Binding SubscribeToPremiumCommand}"
+                            BackgroundColor="#4f3422"
+                            TextColor="White"
+                            FontFamily="fredoka"
+                            FontSize="16"
+                            CornerRadius="20"
+                            HeightRequest="45"
+                            Margin="40,10,40,0"/>
+                </VerticalStackLayout>
 
                 <!-- Content (only visible when not loading and no error) -->
                 <VerticalStackLayout IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
@@ -50,13 +89,15 @@
                            FontFamily="fredoka"
                            TextColor="#4f3422"
                            HorizontalTextAlignment="Center"
-                           LineBreakMode="WordWrap"/>
+                           LineBreakMode="WordWrap"
+                           IsVisible="{Binding HasResponse}"/>
                     
                     <!-- Separator Line -->
                     <BoxView Color="#4f3422"
                              HeightRequest="1"
                              Opacity="0.3"
-                             Margin="0,20,0,20"/>
+                             Margin="0,20,0,20"
+                             IsVisible="{Binding HasResponse}"/>
 
                     <Image Grid.Row="1"
                            Source="cat_response.png"
@@ -64,6 +105,7 @@
                            VerticalOptions="Start"
                            Margin="0,-60,0,0"
                            ZIndex="1"
+                           IsVisible="{Binding HasResponse}"
                            HorizontalOptions="Center" />
 
                     <!-- Your Brain Title -->
@@ -72,7 +114,8 @@
                            FontFamily="fredoka"
                            TextColor="#4f3422"
                            HorizontalTextAlignment="Center"
-                           Margin="0,0,0,10"/>
+                           Margin="0,0,0,10"
+                           IsVisible="{Binding HasResponse}"/>
                     
                     <Label Text="{Binding Explanation}"
                            FontSize="16"
@@ -81,19 +124,177 @@
                            LineHeight="1.5"
                            CharacterSpacing="0.5"
                            LineBreakMode="WordWrap"
+                           IsVisible="{Binding HasResponse}"
                            MaxLines="0">
                         <Label.Padding>
                             <Thickness Top="5" Bottom="5"/>
                         </Label.Padding>
                     </Label>
 
-                    <Label Text="{Binding RemainingSearches, StringFormat='Remaining searches today: {0}'}"
-                           IsVisible="{Binding RemainingSearches, Converter={StaticResource GreaterThanZeroConverter}}"
+                    <!-- Out of CatNips Message -->
+                    <VerticalStackLayout 
+                        IsVisible="{Binding SearchBalance, Converter={StaticResource IsZeroConverter}}"
+                        Spacing="20"
+                        Margin="0,20,0,0">
+                        <Image Source="cat_crying.png"
+                               HeightRequest="150"
+                               WidthRequest="150"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="Oh Nooo, you've eaten up all your CatNips"
+                               FontSize="20"
+                               FontFamily="fredoka"
+                               TextColor="#4f3422"
+                               HorizontalTextAlignment="Center"
+                               LineBreakMode="WordWrap"/>
+                        
+                        <!-- Pack Options -->
+                        <VerticalStackLayout Spacing="20" Margin="0,20,0,0">
+                            <!-- Starter Pack -->
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="20" 
+                                   Padding="15"
+                                   HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding InitiateApplePayCommand}"
+                                                        CommandParameter="starter"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*" 
+                                      RowDefinitions="Auto,Auto"
+                                      RowSpacing="5">
+                                    <Image Grid.RowSpan="2"
+                                           Source="catnip_coin.png"
+                                           HeightRequest="60"
+                                           WidthRequest="60"
+                                           Margin="0,0,15,0"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Text="Starter Pack"
+                                           FontFamily="fredoka"
+                                           FontSize="18"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="10 CatNips"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="2"
+                                           Text="£0.80"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"
+                                           FontAttributes="Bold"/>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Popular Pack -->
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="20" 
+                                   Padding="15"
+                                   HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding InitiateApplePayCommand}"
+                                                        CommandParameter="popular"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*" 
+                                      RowDefinitions="Auto,Auto"
+                                      RowSpacing="5">
+                                    <Image Grid.RowSpan="2"
+                                           Source="catnip_coin.png"
+                                           HeightRequest="60"
+                                           WidthRequest="60"
+                                           Margin="0,0,15,0"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Text="Popular Pack"
+                                           FontFamily="fredoka"
+                                           FontSize="18"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="50 CatNips"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="2"
+                                           Text="£4.99"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"
+                                           FontAttributes="Bold"/>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Premium Pack -->
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="20" 
+                                   Padding="15"
+                                   HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding InitiateApplePayCommand}"
+                                                        CommandParameter="premium"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*" 
+                                      RowDefinitions="Auto,Auto"
+                                      RowSpacing="5">
+                                    <Image Grid.RowSpan="2"
+                                           Source="catnip_coin.png"
+                                           HeightRequest="60"
+                                           WidthRequest="60"
+                                           Margin="0,0,15,0"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Text="Premium Pack"
+                                           FontFamily="fredoka"
+                                           FontSize="18"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="1000 CatNips"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"/>
+                                    
+                                    <Label Grid.Column="1"
+                                           Grid.Row="2"
+                                           Text="£40.00"
+                                           FontFamily="fredoka"
+                                           FontSize="16"
+                                           TextColor="#4f3422"
+                                           FontAttributes="Bold"/>
+                                </Grid>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout 
+                        IsVisible="{Binding SearchBalance, Converter={StaticResource GreaterThanZeroConverter}}"
+                        HorizontalOptions="Center"
+                        Spacing="5"
+                        Margin="0,20,0,0">
+                        <Label Text="Search CatNips:"
+                               FontSize="14"
+                               FontFamily="fredoka"
+                               TextColor="#4f3422"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding SearchBalance}"
                            FontSize="14"
                            FontFamily="fredoka"
                            TextColor="#4f3422"
-                           Margin="0,20,0,0"
-                           HorizontalTextAlignment="Center"/>
+                               VerticalOptions="Center"/>
+                        <Image Source="catnip_coin.png"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
 
                     <!-- Deep Dive Button -->
                     <Button Text="Deep Dive"

@@ -36,6 +36,12 @@
 				<string>com.isaadeel.muizzaapp</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>merchant.com.isaadeel.muizzaapp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.isa.muizzaapp</string>
@@ -47,5 +53,13 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>MauiSplash</string>
+	<key>com.apple.developer.in-app-payments</key>
+	<array>
+		<string>merchant.com.isaadeel.muizzaapp</string>
+	</array>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>We need to send you notifications for daily reminders.</string>
+	<key>NSUserNotificationCenterUsageDescription</key>
+	<string>We need to send you notifications for daily reminders.</string>
 </dict>
 </plist>

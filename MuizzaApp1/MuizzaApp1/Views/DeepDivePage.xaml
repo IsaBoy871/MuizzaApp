@@ -12,19 +12,36 @@
 
         <!-- Header Bar -->
         <Grid BackgroundColor="#4f3422" Padding="20,40,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
             <ImageButton 
+                Grid.Column="0"
                 Source="back_arrow.png"
                 HeightRequest="24"
                 WidthRequest="24"
                 HorizontalOptions="Start"
                 Clicked="OnBackButtonClicked"/>
+            
             <Label 
+                Grid.Column="1"
                 Text="Deep Dive"
                 TextColor="White"
                 FontFamily="fredoka"
                 FontSize="20"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
+
+            <ImageButton 
+                Grid.Column="2"
+                Source="quotes_icon"
+                HeightRequest="24"
+                WidthRequest="24"
+                HorizontalOptions="End"
+                Clicked="OnReturnToQuotesClicked"/>
         </Grid>
 
         <ScrollView Grid.Row="1">

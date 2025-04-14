@@ -3,9 +3,9 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net9.0-ios</ActiveDebugFramework>
-    <ActiveDebugProfile>Local Device</ActiveDebugProfile>
-    <SelectedPlatformGroup>LocalDevice</SelectedPlatformGroup>
-    <DefaultDevice>pixel_7_-_api_35</DefaultDevice>
+    <ActiveDebugProfile>iPhone 16 iOS 18.3</ActiveDebugProfile>
+    <SelectedPlatformGroup>Simulator</SelectedPlatformGroup>
+    <DefaultDevice>iPhone 16 iOS 18.3</DefaultDevice>
     <DeveloperId>8P2L29K69L</DeveloperId>
     <DevelopmentTeamId>8P2L29K69L</DevelopmentTeamId>
   </PropertyGroup>
@@ -13,7 +13,7 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetPlatformIdentifier)'=='iOS'">
-    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
     <PlatformTarget>arm64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>

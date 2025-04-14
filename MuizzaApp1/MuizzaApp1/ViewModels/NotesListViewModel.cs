@@ -16,9 +16,13 @@ public partial class NotesListViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Note> notes;
 
+    [ObservableProperty]
+    private Note noteToDelete;
+
     public ICommand NavigateToQuotesPage { get; }
     public ICommand NavigateToNotesPage { get; }
     public ICommand NavigateToBrainPage { get; }
+    public ICommand DeleteNoteCommand { get; }
 
     public NotesListViewModel(NotesService notesService, IServiceProvider serviceProvider)
     {
@@ -26,9 +30,10 @@ public partial class NotesListViewModel : ObservableObject
         _serviceProvider = serviceProvider;
         Notes = new ObservableCollection<Note>();
 
-        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(QuotesPage), false));
+        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync("///QuotesPage"));
         NavigateToNotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(NotesPage), false));
         NavigateToBrainPage = new Command(async () => await Shell.Current.GoToAsync(nameof(BrainPage), false));
+        DeleteNoteCommand = new Command<Note>(note => ShowDeleteConfirmation(note));
     }
 
     public async Task LoadNotesAsync()
@@ -46,6 +51,36 @@ public partial class NotesListViewModel : ObservableObject
         {
             Debug.WriteLine($"Error loading notes: {ex.Message}");
             // Handle error appropriately
+        }
+    }
+
+    public void ShowDeleteConfirmation(Note note)
+    {
+        NoteToDelete = note;
+        MessagingCenter.Send(this, "ShowDeleteConfirmation");
+    }
+
+    public async Task DeleteNoteAsync()
+    {
+        if (NoteToDelete == null) return;
+
+        try
+        {
+            var success = await _notesService.DeleteNoteAsync(NoteToDelete.Id);
+            if (success)
+            {
+                Notes.Remove(NoteToDelete);
+                NoteToDelete = null;
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Error", "Failed to delete note", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error deleting note: {ex.Message}");
+            await Shell.Current.DisplayAlert("Error", "Failed to delete note", "OK");
         }
     }
 } 

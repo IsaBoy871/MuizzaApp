@@ -47,13 +47,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="It Will Pass"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="This Will Pass"
+                               Text="It Will Pass"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -66,13 +71,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="One At A Time"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="One Day At A Time"
+                               Text="One At A Time"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -85,13 +95,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Feel Comfortably"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Feel Freely"
+                               Text="Feel Comfortably"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -104,13 +119,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="I Have Survived Before"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="I Can Bear This"
+                               Text="I Have Survived Before"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -123,6 +143,11 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="I Am Stronger"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
@@ -142,13 +167,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="My Worth"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Tommorow Will Be Better"
+                               Text="My Worth"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -161,6 +191,11 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Rest &amp; Heal"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
@@ -180,13 +215,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="I Am Always Loved"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="I Am Loved"
+                               Text="I Am Always Loved"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -199,13 +239,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="It Is Temporary"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Darkness Is Temporary"
+                               Text="It Is Temporary"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -218,6 +263,11 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="I Am Enough"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
@@ -237,13 +287,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Doing The Best"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="The Best I Can"
+                               Text="Doing The Best"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -256,13 +311,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Feelings Do Not Control"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Feelings Don't Control Me"
+                               Text="Feelings Do Not Control"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -275,13 +335,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Small Hope"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Always Have Hope"
+                               Text="Small Hope"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -294,13 +359,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Baby Steps"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Finding Growth"
+                               Text="Baby Steps"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -313,13 +383,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Love Care &amp; Kindness"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Worthy Of Love"
+                               Text="Love Care &amp; Kindness"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -332,6 +407,11 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Gentle With Myself"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
@@ -351,13 +431,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Steps To Success"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Every Small Step"
+                               Text="Steps To Success"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -370,13 +455,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Help Is There"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="I Am Not Alone"
+                               Text="Help Is There"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"
@@ -389,13 +479,18 @@
                        CornerRadius="15" 
                        Padding="15"
                        HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NavigateToListChoiceCommand}"
+                            CommandParameter="Story Unfolding"/>
+                    </Frame.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Source="paw_point.png"
                                HeightRequest="24"
                                WidthRequest="24"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="A Chapter"
+                               Text="Story Unfolding"
                                FontFamily="fredoka"
                                FontSize="18"
                                TextColor="#4A3831"

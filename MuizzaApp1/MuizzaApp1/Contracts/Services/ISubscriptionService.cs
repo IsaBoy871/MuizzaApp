@@ -6,4 +6,5 @@ public interface ISubscriptionService
     Task<bool> CanMakeSearch();
     Task IncrementSearchCount();
     Task<int> GetRemainingSearches();
+    Task ForceBalanceReset();
 } 

@@ -6,6 +6,7 @@ namespace MuizzaApp1.Views;
 public partial class NotesListPage : ContentPage
 {
     private readonly NotesListViewModel _viewModel;
+    private Note _noteToDelete;
 
     public NotesListPage(NotesListViewModel viewModel)
     {
@@ -13,6 +14,13 @@ public partial class NotesListPage : ContentPage
         _viewModel = viewModel;
         BindingContext = viewModel;
         this.Opacity = 0;
+
+        MessagingCenter.Subscribe<NotesListViewModel>(this, "ShowDeleteConfirmation", (sender) =>
+        {
+            DeletePopupOverlay.IsVisible = true;
+            DeletePopupOverlay.Opacity = 0;
+            DeletePopupOverlay.FadeTo(1, 250, Easing.CubicOut);
+        });
     }
 
     protected override async void OnAppearing()
@@ -68,6 +76,27 @@ public partial class NotesListPage : ContentPage
             {
                 _viewModel.Notes.Add(note);
             }
+        }
+    }
+
+    private async void OnCancelDeleteClicked(object sender, EventArgs e)
+    {
+        await DeletePopupOverlay.FadeTo(0, 250, Easing.CubicOut);
+        DeletePopupOverlay.IsVisible = false;
+    }
+
+    private async void OnConfirmDeleteClicked(object sender, EventArgs e)
+    {
+        await DeletePopupOverlay.FadeTo(0, 250, Easing.CubicOut);
+        DeletePopupOverlay.IsVisible = false;
+        await _viewModel.DeleteNoteAsync();
+    }
+
+    private void OnDeleteSwipe(object sender, EventArgs e)
+    {
+        if (sender is SwipeItem swipeItem && swipeItem.BindingContext is Note note)
+        {
+            _viewModel.ShowDeleteConfirmation(note);
         }
     }
 } 

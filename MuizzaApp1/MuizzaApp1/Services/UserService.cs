@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Maui.Storage;
 using System.Diagnostics;
+using MuizzaApp1.Contracts.Services;
 
 public interface IUserService
 {
@@ -16,6 +17,14 @@ public interface IUserService
     Task<User> UpdateUserNameAsync(string appleUserId, string name);
     Task UpdateSubscriptionTierAsync(string appleUserId, string subscriptionTier);
     Task<User> GetCurrentUserAsync();
+    Task UpdateTrialStatusAsync(string appleUserId, bool hasTrial);
+    Task<int> GetSearchBalanceAsync();
+    Task<int> GetDeepDiveBalanceAsync();
+    Task<int> DecrementSearchBalanceAsync();
+    Task<int> DecrementDeepDiveBalanceAsync();
+    Task<int> AddSearchBalanceAsync(int amount);
+    Task<int> AddDeepDiveBalanceAsync(int amount);
+    Task UpdateBalancesAsync(int searchBalance, int deepDiveBalance);
 }
 
 public class UserService : IUserService
@@ -166,6 +175,225 @@ public class UserService : IUserService
         {
             Debug.WriteLine($"Exception in UpdateSubscriptionTierAsync: {ex}");
             throw new Exception($"Error updating subscription tier: {ex.Message}", ex);
+        }
+    }
+
+    public async Task UpdateTrialStatusAsync(string appleUserId, bool hasTrial)
+    {
+        try
+        {
+            var user = await GetUserByAppleIdAsync(appleUserId);
+            if (user != null)
+            {
+                user.HasTrial = hasTrial;
+                // Save changes to your data store
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error
+            throw;
+        }
+    }
+
+    public async Task<int> GetSearchBalanceAsync()
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Getting search balance for user ID: {user.Id}");
+            var response = await _httpClient.GetAsync($"api/users/apple/{user.AppleUserId}/search-balance");
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to get search balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>();
+            Debug.WriteLine($"Retrieved search balance from API: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error getting search balance: {ex.Message}");
+            return 0; // Return 0 instead of throwing to prevent app crashes
+        }
+    }
+
+    public async Task<int> GetDeepDiveBalanceAsync()
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Getting deep dive balance for user ID: {user.Id}");
+            var response = await _httpClient.GetAsync($"api/users/apple/{user.AppleUserId}/deep-dive-balance");
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to get deep dive balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>();
+            Debug.WriteLine($"Retrieved deep dive balance from API: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error getting deep dive balance: {ex.Message}");
+            return 0; // Return 0 instead of throwing to prevent app crashes
+        }
+    }
+
+    public async Task<int> DecrementSearchBalanceAsync()
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Decrementing search balance for user ID: {user.Id}");
+            var response = await _httpClient.PostAsync($"api/users/apple/{user.AppleUserId}/search-balance/decrement", null);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to decrement search balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>();
+            Debug.WriteLine($"New search balance after decrement: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error decrementing search balance: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<int> DecrementDeepDiveBalanceAsync()
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Decrementing deep dive balance for user ID: {user.Id}");
+            var response = await _httpClient.PostAsync($"api/users/apple/{user.AppleUserId}/deep-dive-balance/decrement", null);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to decrement deep dive balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>();
+            Debug.WriteLine($"New deep dive balance after decrement: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error decrementing deep dive balance: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<int> AddSearchBalanceAsync(int amount)
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Adding {amount} to search balance for user ID: {user.Id}");
+            
+            // Create JSON content with the amount as a raw value
+            var content = new StringContent(amount.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"api/users/apple/{user.AppleUserId}/search-balance/add", content);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to add search balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>(_jsonOptions);
+            Debug.WriteLine($"New search balance after adding: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error adding to search balance: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<int> AddDeepDiveBalanceAsync(int amount)
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Adding {amount} to deep dive balance for user ID: {user.Id}");
+            
+            // Create JSON content with the amount as a raw value
+            var content = new StringContent(amount.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"api/users/apple/{user.AppleUserId}/deep-dive-balance/add", content);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to add deep dive balance. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            var balance = await response.Content.ReadFromJsonAsync<int>(_jsonOptions);
+            Debug.WriteLine($"New deep dive balance after adding: {balance}");
+            return balance;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error adding to deep dive balance: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task UpdateBalancesAsync(int searchBalance, int deepDiveBalance)
+    {
+        try
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null) throw new InvalidOperationException("No user found");
+
+            Debug.WriteLine($"Updating balances for user ID: {user.Id} - Search: {searchBalance}, Deep Dive: {deepDiveBalance}");
+            var content = JsonContent.Create(new { searchBalance, deepDiveBalance });
+            var response = await _httpClient.PutAsync($"api/users/apple/{user.AppleUserId}/balances", content);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Error response from API: {error}");
+                throw new HttpRequestException($"Failed to update balances. Status: {response.StatusCode}, Error: {error}");
+            }
+
+            Debug.WriteLine("Balances updated successfully");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error updating balances: {ex.Message}");
+            throw;
         }
     }
 }

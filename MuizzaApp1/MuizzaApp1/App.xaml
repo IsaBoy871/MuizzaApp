@@ -13,6 +13,7 @@
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
             <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter"/>
+            <converters:SubtractOneConverter x:Key="SubtractOneConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

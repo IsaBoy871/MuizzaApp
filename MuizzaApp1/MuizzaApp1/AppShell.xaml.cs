@@ -4,6 +4,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Extensions;
 using System.Diagnostics;
 using MuizzaApp1.Contracts.Services;
+using Microsoft.Maui.Controls;
 
 namespace MuizzaApp1;
 
@@ -46,10 +47,14 @@ public partial class AppShell : Shell
             Routing.RegisterRoute(nameof(Motivated), typeof(Motivated));
             Routing.RegisterRoute(nameof(ListChoice), typeof(ListChoice));
             Routing.RegisterRoute(nameof(PremiumOnboard), typeof(PremiumOnboard));
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             Routing.RegisterRoute("DeepDivePage", typeof(DeepDivePage));
             Routing.RegisterRoute("MainPage", typeof(MainPage));
             Routing.RegisterRoute("AdvisorSelectionPage", typeof(AdvisorSelectionPage));
+            Routing.RegisterRoute("PremiumStatusPage", typeof(PremiumStatusPage));
+            Routing.RegisterRoute("PaywallPage", typeof(PaywallPage));
             Console.WriteLine("[AppShell] MainPage route registered");
+
             // Disable default Shell transitions
             Shell.SetNavBarIsVisible(this, false);
             Shell.SetFlyoutBehavior(this, FlyoutBehavior.Disabled);
@@ -64,35 +69,43 @@ public partial class AppShell : Shell
                 try
                 {
                     var destination = e.Target.Location.OriginalString;
+                    Console.WriteLine($"[AppShell] Navigating to: {destination}");
                     
-                    // Pre-warm the destination page if it's QuotesPage
-                    if (destination == nameof(QuotesPage) && !pageCache.ContainsKey(destination))
+                    // Get current page safely
+                    var currentPage = this.CurrentPage;
+                    if (currentPage != null)
                     {
-                        await PreloadQuotesPage();
+                        await Task.WhenAll(
+                            currentPage.FadeTo(0, 200, Easing.CubicInOut),
+                            currentPage.ScaleTo(0.9, 200, Easing.CubicInOut)
+                        );
                     }
                     
-                    // Execute transition
-                    var currentPage = this.CurrentPage;
-                    await Task.WhenAll(
-                        currentPage.FadeTo(0, 200, Easing.CubicInOut),
-                        currentPage.ScaleTo(0.9, 200, Easing.CubicInOut)
-                    );
-                    
                     await Shell.Current.GoToAsync(destination, false);
-                    var newPage = this.CurrentPage;
-                    newPage.Opacity = 0;
-                    newPage.Scale = 0.9;
                     
-                    await Task.WhenAll(
-                        newPage.FadeTo(1, 200, Easing.CubicInOut),
-                        newPage.ScaleTo(1, 200, Easing.CubicInOut)
-                    );
+                    var newPage = this.CurrentPage;
+                    if (newPage != null)
+                    {
+                        newPage.Opacity = 0;
+                        newPage.Scale = 0.9;
+                        
+                        await Task.WhenAll(
+                            newPage.FadeTo(1, 200, Easing.CubicInOut),
+                            newPage.ScaleTo(1, 200, Easing.CubicInOut)
+                        );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[AppShell ERROR] Navigation failed: {ex.Message}");
+                    Console.WriteLine($"[AppShell ERROR] Stack trace: {ex.StackTrace}");
                 }
                 finally
                 {
                     isNavigating = false;
                 }
             };
+
         }
         catch (Exception ex)
         {
@@ -110,17 +123,25 @@ public partial class AppShell : Shell
         {
             _services = Handler.MauiContext.Services;
             
-            // Preload QuotesPage immediately when app starts
+            // Only preload if user is authenticated
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await PreloadQuotesPage();
-                
-                // Preload other pages after QuotesPage
-                PreloadPages(new[] { 
-                    nameof(NotesPage), 
-                    nameof(BrainPage), 
-                    nameof(NotesListPage) 
-                });
+                var appleUserId = Preferences.Get("AppleUserId", string.Empty);
+                if (!string.IsNullOrEmpty(appleUserId))
+                {
+                    await PreloadQuotesPage();
+                    
+                    // Preload other pages after QuotesPage
+                    PreloadPages(new[] { 
+                        nameof(NotesPage), 
+                        nameof(BrainPage), 
+                        nameof(NotesListPage) 
+                    });
+                }
+                else
+                {
+                    Debug.WriteLine("[AppShell] Skipping preload - user not authenticated");
+                }
             });
         }
     }
@@ -131,6 +152,7 @@ public partial class AppShell : Shell
 
         try
         {
+            Debug.WriteLine("[AppShell] Starting QuotesPage preload");
             var quotesPage = _services.GetService<QuotesPage>();
             if (quotesPage != null)
             {
@@ -145,11 +167,12 @@ public partial class AppShell : Shell
                 
                 // Cache the page
                 pageCache[nameof(QuotesPage)] = quotesPage;
+                Debug.WriteLine("[AppShell] QuotesPage preload completed");
             }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error preloading QuotesPage: {ex.Message}");
+            Debug.WriteLine($"[AppShell] Error preloading QuotesPage: {ex.Message}");
         }
     }
 

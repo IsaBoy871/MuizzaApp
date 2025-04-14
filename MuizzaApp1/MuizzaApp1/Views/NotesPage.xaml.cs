@@ -73,23 +73,49 @@ public partial class NotesPage : ContentPage
             
             if (success)
             {
-                await DisplayAlert("Success", "Note saved successfully!", "OK");
-                await Navigation.PopAsync();
+                if (SaveSuccessPopup != null)
+                {
+                    SaveSuccessPopup.IsVisible = true;
+                    SaveSuccessPopup.Opacity = 0;
+                    await SaveSuccessPopup.FadeTo(1, 250, Easing.CubicOut);
+                }
+                else
+                {
+                    await DisplayAlert("Success", "Your note has been saved!", "OK");
+                    await Navigation.PopAsync();
+                }
             }
             else
             {
-                await DisplayAlert("Error", "Failed to save note. Please try again.", "OK");
+                var subscriptionService = Handler.MauiContext.Services.GetService<ISubscriptionService>();
+                var subscriptionTier = await subscriptionService.GetSubscriptionTier();
+                var notes = await _notesService.GetNotesAsync();
+                
+                if (subscriptionTier != "Premium" && notes.Count >= 20)
+                {
+                    NoteLimitPopup.IsVisible = true;
+                    NoteLimitPopup.Opacity = 0;
+                    await NoteLimitPopup.FadeTo(1, 250, Easing.CubicOut);
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Oops!", "Something went wrong saving your note", "OK");
+                }
+                _isSaving = false;
             }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error saving note: {ex.Message}");
-            await DisplayAlert("Error", "An unexpected error occurred.", "OK");
-        }
-        finally
-        {
+            await Shell.Current.DisplayAlert("Oops!", "Something went wrong saving your note", "OK");
             _isSaving = false;
         }
+    }
+
+    private async void OnSavePopupDismissed(object sender, EventArgs e)
+    {
+        await SaveSuccessPopup.FadeTo(0, 250, Easing.CubicOut);
+        SaveSuccessPopup.IsVisible = false;
     }
 
     private async void OnQuotesClicked(object sender, EventArgs e)
@@ -116,5 +142,20 @@ public partial class NotesPage : ContentPage
                 button.Opacity = 1;
             });
         }
+    }
+
+    private async void OnUpgradeClicked(object sender, EventArgs e)
+    {
+        await NoteLimitPopup.FadeTo(0, 250, Easing.CubicOut);
+        NoteLimitPopup.IsVisible = false;
+        await Shell.Current.GoToAsync("PremiumOnboard");
+    }
+
+    private async void OnManageNotesClicked(object sender, EventArgs e)
+    {
+        await NoteLimitPopup.FadeTo(0, 250, Easing.CubicOut);
+        NoteLimitPopup.IsVisible = false;
+        var notesListPage = Handler.MauiContext.Services.GetService<NotesListPage>();
+        await Navigation.PushAsync(notesListPage);
     }
 } 

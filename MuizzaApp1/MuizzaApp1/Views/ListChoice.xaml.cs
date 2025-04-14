@@ -46,6 +46,7 @@ public partial class ListChoice : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        // Try to navigate back to the specific page
+        await Shell.Current.GoToAsync($"//QuotesPage/{Emotion}");
     }
 } 

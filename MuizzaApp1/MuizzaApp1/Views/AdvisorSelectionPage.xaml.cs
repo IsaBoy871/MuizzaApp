@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using MuizzaApp1.ViewModels;
+using MuizzaApp1.Services;
+using MuizzaApp1.Contracts.Services;
 
 namespace MuizzaApp1.Views
 {
@@ -23,10 +25,13 @@ namespace MuizzaApp1.Views
             }
         }
 
-        public AdvisorSelectionPage(ISubscriptionService subscriptionService)
+        public AdvisorSelectionPage(
+            ISubscriptionService subscriptionService,
+            AdvisorService advisorService,
+            IUserService userService)
         {
             InitializeComponent();
-            _viewModel = new AdvisorSelectionViewModel(subscriptionService);
+            _viewModel = new AdvisorSelectionViewModel(subscriptionService, advisorService, userService);
             BindingContext = _viewModel;
         }
 
@@ -44,14 +49,24 @@ namespace MuizzaApp1.Views
             {
                 try
                 {
-                    System.Diagnostics.Debug.WriteLine($"Selected Advisor: {selectedAdvisor.Name}");
-                    System.Diagnostics.Debug.WriteLine($"Current Feeling: {_feeling}");
-                    System.Diagnostics.Debug.WriteLine($"System Prompt: {selectedAdvisor.SystemPrompt}");
+                    // Check if user has enough deep dives
+                    if (_viewModel.DeepDiveBalance <= 0)
+                    {
+                        await Shell.Current.DisplayAlert(
+                            "No Deep Dives Left", 
+                            "You don't have any Deep Dives remaining. Please purchase more to continue.", 
+                            "OK");
+                        return;
+                    }
+
+                    // Decrement the balance
+                    await _viewModel.DecrementDeepDiveBalanceAsync();
 
                     // URI encode both parameters
-                    var encodedFeeling = Uri.EscapeDataString(_feeling);
+                    var encodedFeeling = Uri.EscapeDataString(_viewModel.Feeling);
                     var encodedPrompt = Uri.EscapeDataString(selectedAdvisor.SystemPrompt);
 
+                    // Navigate to deep dive page with proper parameters
                     var navigationString = $"DeepDivePage?feeling={encodedFeeling}&advisorSystemPrompt={encodedPrompt}";
                     System.Diagnostics.Debug.WriteLine($"Navigation String: {navigationString}");
 
@@ -63,6 +78,11 @@ namespace MuizzaApp1.Views
                     await Shell.Current.DisplayAlert("Error", "Navigation failed", "OK");
                 }
             }
+        }
+
+        private async void OnReturnToQuotesClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("///QuotesPage");
         }
     }
 } 

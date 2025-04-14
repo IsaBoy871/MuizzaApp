@@ -19,8 +19,8 @@ public partial class NotesPageViewModel
     public NotesPageViewModel(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-        
-        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(QuotesPage)));
+
+        NavigateToQuotesPage = new Command(async () => await Shell.Current.GoToAsync("///QuotesPage"));
         NavigateToNotesPage = new Command(async () => await Shell.Current.GoToAsync(nameof(NotesPage)));
         NavigateToBrainPage = new Command(async () => await Shell.Current.GoToAsync(nameof(BrainPage)));
     }

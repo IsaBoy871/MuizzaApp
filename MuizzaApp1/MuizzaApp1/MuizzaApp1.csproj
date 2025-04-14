@@ -42,6 +42,7 @@
 		<PublishTrimmed>true</PublishTrimmed>
 		<TrimMode>partial</TrimMode>
 		<EnableJSInterop>false</EnableJSInterop>
+		<UserSecretsId>057ac84b-4789-4493-ac49-00ccdd34d106</UserSecretsId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
@@ -74,16 +75,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.0" />
+		<PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.0" />
+		<PackageReference Include="NBitcoin" Version="8.0.4" />
+		<PackageReference Include="Plugin.LocalNotification" Version="11.1.4" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
-		<PackageReference Include="Stripe.net" Version="47.3.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="9.0.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -115,8 +120,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<TrimmerRootAssembly Include="Microsoft.Maui.Controls" RootMode="All" />
-		<TrimmerRootAssembly Include="Microsoft.Maui.Essentials" RootMode="All" />
+    <MauiAsset Include="Resources\raw\payment.html">
+        <LogicalName>payment.html</LogicalName>
+    </MauiAsset>
+</ItemGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+		<CodesignKey>Apple Development</CodesignKey>
+		<CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
+	</PropertyGroup>
+
+	<ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
+		<Using Include="PassKit" />
 	</ItemGroup>
 
 </Project>

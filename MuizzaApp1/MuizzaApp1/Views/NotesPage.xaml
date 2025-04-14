@@ -53,45 +53,48 @@
                HorizontalOptions="Center" />
 
         <!-- Content -->
-        <VerticalStackLayout Grid.Row="1" 
-                            Padding="20,10">
-            <Label Text="What's on your mind?"
-                   FontSize="25"
-                   TextColor="#4a3831"
-                   Margin="55,20,0,10"/>
-            <Editor x:Name="editor"
-                    BackgroundColor="Transparent"
-                    TextColor="#4a3831"
-                    AutoSize="TextChanges"
-                    FontSize="18"
-                    FontFamily="etna"
-                    Placeholder="Start writing here..."
-                    PlaceholderColor="Grey"
-                    Margin="15,0,0,0"
-                    TextChanged="OnEditorTextChanged"/>
-        </VerticalStackLayout>
+        <ScrollView Grid.Row="1" 
+                   Margin="0,0,0,20">
+            <VerticalStackLayout Padding="20,10">
+                <Label Text="What's on your mind?"
+                       FontSize="25"
+                       TextColor="#4a3831"
+                       Margin="55,20,0,10"/>
+                <Editor x:Name="editor"
+                        BackgroundColor="Transparent"
+                        TextColor="#4a3831"
+                        AutoSize="TextChanges"
+                        FontSize="18"
+                        FontFamily="etna"
+                        Placeholder="Start writing here..."
+                        PlaceholderColor="Grey"
+                        Margin="15,0,0,0"
+                        TextChanged="OnEditorTextChanged"/>
+            </VerticalStackLayout>
+        </ScrollView>
         
         
         <!-- Navigation Bar -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2"
+              x:Name="NavigationBar">
             <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="iOS" Value="0,710,0,0"/>
-                    <On Platform="Android" Value="0,780,0,0"/>
+                    <On Platform="iOS" Value="0,-10,0,-30"/>
+                    <On Platform="Android" Value="0,60,0,-60"/>
                 </OnPlatform>
             </Grid.Margin>
 
             <!-- Main Navigation Frame -->
-            <Frame Grid.Row="3" 
-                   CornerRadius="33" 
+            <Frame CornerRadius="33" 
                    Margin="-10" 
                    BackgroundColor="White" 
-                   HeightRequest="130">
+                   HeightRequest="130"
+                   VerticalOptions="End">
                 <Grid ColumnDefinitions="*,*,*">
                     <Grid.Shadow>
                         <Shadow Offset="10,10" 
-                Radius="30" 
-                Opacity="0.5"/>
+                                Radius="30" 
+                                Opacity="0.5"/>
                     </Grid.Shadow>
                     <ImageButton Grid.Column="0" 
                                 HeightRequest="50" 
@@ -109,23 +112,22 @@
             </Frame>
 
             <!-- Selected Tab Indicator -->
-            <Grid Grid.Row="3" 
-                  HeightRequest="95" 
+            <Grid HeightRequest="95" 
                   WidthRequest="100"
-                  Margin="{OnPlatform iOS='15,-30,15,35', Android='15,-30,15,35'}">
-
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  Margin="{OnPlatform iOS='0,0,0,35', Android='0,0,0,35'}">
                 <!-- Background Frame -->
                 <Frame BackgroundColor="#f6e5cb"
                        CornerRadius="33"
                        IsClippedToBounds="False"
                        InputTransparent="True"/>
 
-                <!-- Clickable Button -->
                 <Button Command="{Binding NavigateToNotesPage}"
                         BackgroundColor="Transparent"
                         HeightRequest="95"
                         WidthRequest="100"/>
-
+                
                 <!-- Icon -->
                 <Image Source="notes_icon"
                        HeightRequest="65" 
@@ -134,6 +136,112 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
             </Grid>
+        </Grid>
+
+        <!-- Save Success Popup -->
+        <Grid x:Name="SaveSuccessPopup"
+              Grid.RowSpan="3"
+              IsVisible="false"
+              BackgroundColor="#80000000">
+            <Frame CornerRadius="20"
+                   BackgroundColor="White"
+                   WidthRequest="300"
+                   HeightRequest="200"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <!-- Cat Image -->
+                    <Image Grid.Row="0"
+                           Source="cat_note.png"
+                           HeightRequest="70"
+                           HorizontalOptions="Center"
+                           Margin="0,-50,0,0"/>
+                           
+                    <VerticalStackLayout Grid.Row="1"
+                                         Spacing="10"
+                                         VerticalOptions="Center">
+                        <Label Text="Purrfect!"
+                               FontSize="28"
+                               TextColor="#4a3831"
+                               FontFamily="fredoka"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="Your thoughts have been saved!"
+                               FontSize="18"
+                               TextColor="#4a3831"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                    
+                    <Button Grid.Row="2"
+                            Text="Meow-velous!"
+                            BackgroundColor="#f6e5cb"
+                            TextColor="#4a3831"
+                            WidthRequest="150"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            HorizontalOptions="Center"
+                            Clicked="OnSavePopupDismissed"/>
+                </Grid>
+            </Frame>
+        </Grid>
+
+        <!-- Note Limit Popup -->
+        <Grid x:Name="NoteLimitPopup"
+              Grid.RowSpan="3"
+              IsVisible="false"
+              BackgroundColor="#80000000">
+            <Frame CornerRadius="20"
+                   BackgroundColor="White"
+                   WidthRequest="300"
+                   HeightRequest="250"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <!-- Cat Image -->
+                    <Image Grid.Row="0"
+                           Source="cat_note.png"
+                           HeightRequest="70"
+                           HorizontalOptions="Center"
+                           Margin="0,-50,0,0"/>
+                           
+                    <VerticalStackLayout Grid.Row="1"
+                                        Spacing="10"
+                                        VerticalOptions="Center">
+                        <Label Text="Note Limit Reached!"
+                               FontSize="24"
+                               TextColor="#4a3831"
+                               FontFamily="fredoka"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="You've reached the maximum of 20 notes. Would you like to upgrade to Premium for unlimited notes, or manage your existing notes?"
+                               FontSize="16"
+                               TextColor="#4a3831"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Grid.Row="2"
+                                        Spacing="10"
+                                        HorizontalOptions="Center">
+                        <Button Text="Upgrade to Premium"
+                                BackgroundColor="#f6e5cb"
+                                TextColor="#4a3831"
+                                WidthRequest="200"
+                                HeightRequest="40"
+                                CornerRadius="20"
+                                Clicked="OnUpgradeClicked"/>
+                        
+                        <Button Text="Manage Notes"
+                                BackgroundColor="#f6e5cb"
+                                TextColor="#4a3831"
+                                WidthRequest="200"
+                                HeightRequest="40"
+                                CornerRadius="20"
+                                Clicked="OnManageNotesClicked"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
         </Grid>
     </Grid>
 </ContentPage> 

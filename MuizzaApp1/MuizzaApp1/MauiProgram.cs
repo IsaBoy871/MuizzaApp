@@ -11,6 +11,10 @@ using System.Net.Security;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using Microsoft.Maui.Storage;
+#if WINDOWS
+using Microsoft.Maui.LifecycleEvents;
+#endif
+using Plugin.LocalNotification;
 
 namespace MuizzaApp1
 {
@@ -40,7 +44,8 @@ namespace MuizzaApp1
                         fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                         fonts.AddFont("fredoka.ttf", "fredoka");
                     })
-                    .UseMauiCommunityToolkit();
+                    .UseMauiCommunityToolkit()
+                    .UseLocalNotification();
 
                 // Load configuration
                 try
@@ -149,12 +154,19 @@ namespace MuizzaApp1
                 // Add this after your existing service registrations
                 builder.Services.AddTransient<AngryViewModel>();
                 builder.Services.AddTransient<Angry>();
+                builder.Services.AddTransient<AnxiousViewModel>();
+                builder.Services.AddTransient<Anxious>();
+                builder.Services.AddTransient<BoredViewModel>();
+                builder.Services.AddTransient<Bored>();
                 builder.Services.AddTransient<ListChoice>();
                 builder.Services.AddTransient<ListChoiceViewModel>();
                 builder.Services.AddTransient<PremiumOnboard>();
                 builder.Services.AddTransient<PremiumOnboardViewModel>();
                 builder.Services.AddTransient<DeepDivePage>();
                 builder.Services.AddTransient<DeepDiveViewModel>();
+                builder.Services.AddTransient<DepressedViewModel>();
+                builder.Services.AddTransient<Depressed>();
+                
 
                 builder.Services.AddSingleton<IUserService>(sp =>
                 {
@@ -168,12 +180,35 @@ namespace MuizzaApp1
                         .Build());
                 });
 
-                builder.Services.AddSingleton<IStripeService, StripeService>();
 
+                builder.Services.AddSingleton<AdvisorService>();
+                builder.Services.AddTransient<AdvisorSelectionPage>();
+                builder.Services.AddTransient<AdvisorSelectionViewModel>();
+
+                // Add payment services
+                builder.Services.AddSingleton<IPaymentService, PaymentService>();
+                builder.Services.AddSingleton<MuizzaApp1.Contracts.Services.IInAppPurchaseService, InAppPurchaseService>();
                 builder.Services.AddSingleton<ISubscriptionService, SubscriptionService>();
 
                 // Add IPreferences service
                 builder.Services.AddSingleton<IPreferences>(Preferences.Default);
+                builder.Services.AddSingleton<IPreferencesService, PreferencesService>();
+
+                // Add ProfilePage and its ViewModel
+                builder.Services.AddTransient<ProfilePage>();
+                builder.Services.AddTransient<ProfilePageViewModel>();
+
+                // Add PremiumStatusPage and its ViewModel
+                builder.Services.AddTransient<PremiumStatusPage>();
+                builder.Services.AddTransient<PremiumStatusViewModel>();
+                builder.Services.AddTransient<PaywallPage>();
+                builder.Services.AddTransient<PaywallViewModel>();
+
+                // Add this in your MauiProgram.cs to ensure the HTML file is copied
+                builder.Services.ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddHandler<WebView, WebViewHandler>();
+                });
 
                 Debug.WriteLine("[MauiProgram] Building MauiApp");
                 var app = builder.Build();

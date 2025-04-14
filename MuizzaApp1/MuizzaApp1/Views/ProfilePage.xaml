@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuizzaApp1.Views.ProfilePage"
+             BackgroundColor="#f6e5cb">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header with Back Button -->
+        <Grid Grid.Row="0" Padding="{OnPlatform iOS='20,60,20,20', Android='20,50,20,20'}">
+            <ImageButton Source="back_arrow"
+                         HeightRequest="24"
+                         WidthRequest="24"
+                         HorizontalOptions="Start"
+                         BackgroundColor="Transparent"
+                         Clicked="OnBackButtonClicked"/>
+            
+            <Label Text="Profile"
+                   FontSize="24"
+                   TextColor="#4a3831"
+                   HorizontalOptions="Center"
+                   FontFamily="fredoka"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <!-- Profile Picture Section -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="75"
+                       HeightRequest="150"
+                       WidthRequest="150"
+                       HorizontalOptions="Center"
+                       IsClippedToBounds="True"
+                       BorderColor="Transparent"
+                       Margin="0,20,0,20">
+                    <Image Source="default_profile"
+                           Aspect="AspectFill"/>
+                </Frame>
+
+                <!-- Name Section -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="15"
+                       BorderColor="Transparent">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Your Name"
+                               TextColor="#4a3831"
+                               FontSize="16"
+                               FontFamily="fredoka"/>
+                        <Grid>
+                            <Entry Text="{Binding UserName}"
+                                   FontSize="18"
+                                   TextColor="#4a3831"
+                                   PlaceholderColor="#4a383180"/>
+                            <Button Text="Save"
+                                    Command="{Binding SaveNameCommand}"
+                                    HorizontalOptions="End"
+                                    BackgroundColor="#4a3831"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="35"
+                                    WidthRequest="70"
+                                    FontFamily="fredoka"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Notification Settings -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="15"
+                       BorderColor="Transparent">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Notifications"
+                               TextColor="#4a3831"
+                               FontSize="16"
+                               FontFamily="fredoka"/>
+                        
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Daily Affirmations"
+                                   TextColor="#4a3831"
+                                   VerticalOptions="Center"/>
+                            <Switch Grid.Column="1"
+                                    IsToggled="{Binding DailyNotificationsEnabled}"
+                                    OnColor="#4a3831"/>
+                        </Grid>
+                        
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Weekly Check-ins"
+                                   TextColor="#4a3831"
+                                   VerticalOptions="Center"/>
+                            <Switch Grid.Column="1"
+                                    IsToggled="{Binding WeeklyNotificationsEnabled}"
+                                    OnColor="#4a3831"/>
+                        </Grid>
+
+                        <!-- Time Selection -->
+                        <VerticalStackLayout Spacing="10"
+                                           Margin="0,10,0,0">
+                            <Label Text="Reminder Time"
+                                   TextColor="#4a3831"
+                                   FontFamily="fredoka"/>
+                            
+                            <!-- Time Selection Meter -->
+                            <Grid ColumnDefinitions="Auto,*,Auto"
+                                  Margin="0,5,0,0">
+                                <Label Text="{Binding AvailableTimes[0]}"
+                                       TextColor="#4a3831"
+                                       FontSize="12"
+                                       VerticalOptions="Center"/>
+                                
+                                <Slider Grid.Column="1"
+                                        Minimum="0"
+                                        Maximum="{Binding AvailableTimes.Count, Converter={StaticResource SubtractOneConverter}}"
+                                        Value="{Binding SelectedTimeIndex, Mode=TwoWay}"
+                                        MinimumTrackColor="#4a3831"
+                                        MaximumTrackColor="#4a383180"
+                                        ThumbColor="#4a3831"
+                                        Margin="10,0"
+                                        ValueChanged="OnTimeSliderValueChanged"/>
+                                
+                                <Label Text="{Binding AvailableTimes[5]}"
+                                       TextColor="#4a3831"
+                                       FontSize="12"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                            
+                            <!-- Selected Time Display -->
+                            <Label Text="{Binding SelectedTime}"
+                                   TextColor="#4a3831"
+                                   FontSize="16"
+                                   FontFamily="fredoka"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Sign Out Button -->
+                <Button Text="Sign Out"
+                        Command="{Binding SignOutCommand}"
+                        BackgroundColor="#4a3831"
+                        TextColor="White"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Margin="0,20"
+                        FontFamily="fredoka"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage> 
