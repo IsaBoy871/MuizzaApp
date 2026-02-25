@@ -31,6 +31,19 @@ All commands run from `/workspace/MuizzaApp1`.
 - **Pre-existing warnings**: The build produces 2 warnings from `Microsoft.NET.ILLink.Tasks` about an explicit package reference; these are pre-existing and harmless. `dotnet format` reports many pre-existing whitespace issues.
 - **Running the app**: The app produces a signed APK at `bin/Debug/net9.0-android/com.companyname.muizzaapp1-Signed.apk`. It cannot be run directly on a headless Linux VM — it requires an Android emulator or physical device.
 
+### Swift rewrite (`/workspace/MuizzaApp/`)
+
+The entire app has been rewritten in Swift/SwiftUI targeting iOS 15+. The project lives in `/workspace/MuizzaApp/`.
+
+To open the project:
+1. Install [XcodeGen](https://github.com/yonaskolb/XcodeGen) on macOS: `brew install xcodegen`
+2. Run `xcodegen generate` in `/workspace/MuizzaApp/`
+3. Open `MuizzaApp.xcodeproj` in Xcode
+
+Alternatively, create a new Xcode project and add all `.swift` files from `MuizzaApp/MuizzaApp/`.
+
+The Swift project uses MVVM with `@Observable`/`ObservableObject` pattern, async/await for networking, and native SwiftUI views. No third-party dependencies are required.
+
 ### Environment dependencies
 
 - .NET 9 SDK (installed via `dotnet-install.sh` to `~/.dotnet`)
