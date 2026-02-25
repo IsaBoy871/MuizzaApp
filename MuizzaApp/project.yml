@@ -1,0 +1,29 @@
+name: MuizzaApp
+options:
+  bundleIdPrefix: com.isa.muizzaapp
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  MuizzaApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: MuizzaApp
+    settings:
+      base:
+        INFOPLIST_FILE: MuizzaApp/Info.plist
+        CODE_SIGN_ENTITLEMENTS: MuizzaApp/MuizzaApp.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.isa.muizzaapp
+        DEVELOPMENT_TEAM: 8P2L29K69L
+    entitlements:
+      path: MuizzaApp/MuizzaApp.entitlements
